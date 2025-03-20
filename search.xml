@@ -4,11 +4,11 @@
   
     
     <entry>
-      <title>记录在NSSCTF刷题的过程</title>
+      <title>记录在NSSCTF刷题的过程，康复训练了属于是。。。</title>
       <link href="/2025/03/20/NSSCTF/"/>
       <url>/2025/03/20/NSSCTF/</url>
       
-        <content type="html"><![CDATA[<h2 id="GKCTF-2020-cve版签到"><a href="#GKCTF-2020-cve版签到" class="headerlink" title="[GKCTF 2020]cve版签到"></a>[GKCTF 2020]cve版签到</h2><p>首先看到有一个链接，下面有一个提示</p><p>You just view *.ctfhub.com</p><p>意思就是你只能访问的链接后缀得是.ctfhub.com</p><p>我们点进链接</p><p><img src="/img/1.png"></p><p>第一眼没有发现很明显的提示信息，但是我们看到url处有传参名url。</p><p>查看源代码和请求体信息</p><p><img src="/img/2.png"></p><p>发现hint，提示我们访问本地，联想到刚刚发现的url参数，意思就是让我们访问<a href="http://127.0.0.1/%EF%BC%8C%E4%BD%86%E6%98%AF%E5%8F%88%E8%A6%81%E6%88%91%E4%BB%AC%E4%BB%A5.ctfhub.com%E7%BB%93%E5%B0%BE%EF%BC%8C%E8%BF%99%E9%87%8C%E5%8F%AF%E4%BB%A5%E6%83%B3%E5%88%B0%00%E6%88%AA%E6%96%AD%E3%80%82">http://127.0.0.1/，但是又要我们以.ctfhub.com结尾，这里可以想到%00截断。</a></p><p><strong>截断是操作系统层的漏洞，由于操作系统是C语言或汇编语言编写的，这两种语言在定义字符串时，都是以\0（即0x00）作为字符串的结尾。操作系统在识别字符串时，当读取到\0字符时，就认为读取到了一个字符串的结束符号。因此，我们可以通过修改数据包，插入\0字符的方式，达到字符串截断的目的。</strong></p><p>可以构造payload：&#x2F;?url&#x3D;<a href="http://127.0.0.1%00.ctfhub.com">http://127.0.0.1%00.ctfhub.com</a></p><p><img src="/img/3.png"></p><p>tips告诉我们要以123结尾，把1改为123即可</p><p><img src="/img/4.png"></p>]]></content>
+        <content type="html"><![CDATA[<h2 id="GKCTF-2020-cve版签到"><a href="#GKCTF-2020-cve版签到" class="headerlink" title="[GKCTF 2020]cve版签到"></a>[GKCTF 2020]cve版签到</h2><p>首先看到有一个链接，下面有一个提示</p><p>You just view *.ctfhub.com</p><p>意思就是你只能访问的链接后缀得是.ctfhub.com</p><p>我们点进链接</p><p><img src="/img/cve%E7%89%88%E7%AD%BE%E5%88%B0_1.png"></p><p>第一眼没有发现很明显的提示信息，但是我们看到url处有传参名url。</p><p>查看源代码和请求体信息</p><p><img src="/img/cve%E7%89%88%E7%AD%BE%E5%88%B0_2.png"></p><p>发现hint，提示我们访问本地，联想到刚刚发现的url参数，意思就是让我们访问<a href="http://127.0.0.1/%EF%BC%8C%E4%BD%86%E6%98%AF%E5%8F%88%E8%A6%81%E6%88%91%E4%BB%AC%E4%BB%A5.ctfhub.com%E7%BB%93%E5%B0%BE%EF%BC%8C%E8%BF%99%E9%87%8C%E5%8F%AF%E4%BB%A5%E6%83%B3%E5%88%B0%00%E6%88%AA%E6%96%AD%E3%80%82">http://127.0.0.1/，但是又要我们以.ctfhub.com结尾，这里可以想到%00截断。</a></p><p><strong>截断是操作系统层的漏洞，由于操作系统是C语言或汇编语言编写的，这两种语言在定义字符串时，都是以\0（即0x00）作为字符串的结尾。操作系统在识别字符串时，当读取到\0字符时，就认为读取到了一个字符串的结束符号。因此，我们可以通过修改数据包，插入\0字符的方式，达到字符串截断的目的。</strong></p><p>可以构造payload：&#x2F;?url&#x3D;<a href="http://127.0.0.1%00.ctfhub.com">http://127.0.0.1%00.ctfhub.com</a></p><p><img src="/img/cve%E7%89%88%E7%AD%BE%E5%88%B0_3.png"></p><p>tips告诉我们要以123结尾，把1改为123即可</p><p><img src="/img/cve%E7%89%88%E7%AD%BE%E5%88%B0_4.png"></p><h2 id="羊城杯-2020-easycon"><a href="#羊城杯-2020-easycon" class="headerlink" title="[羊城杯 2020]easycon"></a>[羊城杯 2020]easycon</h2><p>打开网页，啥有用的信息也没找到，一般来说就是看网页，看源代码，请求体响应体，cookie等等信息，都找不到就扫，这题扫出来两个状态码为200的url</p><p><img src="/img/easycon_1.png"></p><p><strong>这两个url走哪个后面做题流程都是一样的，我以第一个url做的，唯一的区别就是带login的图片显示不正常，不过不影响做题。</strong></p><p>加载网页后会有一个弹窗，显示eval post cmd</p><p><img src="/img/easycon_2.png"></p><p>大致推测出是有eval危险函数可以执行任意命令，post传参，参数名是cmd</p><p>试一下，成了。可以执行</p><p><img src="/img/easycon_3.png"></p><p>读取敏感文件</p><p><img src="/img/easycon_4.png"></p><p>丢进赛博厨子</p><p><img src="/img/easycon_5.png"></p><p>然后出flag</p><h2 id="NISACTF-2022-babyupload"><a href="#NISACTF-2022-babyupload" class="headerlink" title="[NISACTF 2022]babyupload"></a>[NISACTF 2022]babyupload</h2><p>打开网页，第一眼是文件上传，不过要长一个心眼，先从简单的情况入手，看源代码，请求体响应体，cookie等等信息。</p><p>这题在源代码发现了&#x2F;source路由，下载可以得到源码</p><p><img src="/img/babyupload_1.png"></p><p>再就是代码审计，初始页面的文件上传。不能上传文件名有.的文件，即文件名不能有后缀</p><p><img src="/img/babyupload_2.png"></p><p>如果有.就报错”Bad filename!”。如果正确，则保存到数据库，存的时候是uploads&#x2F;文件名，读取的时候是file&#x2F;uid。</p><p>利用&#x2F;file&#x2F;uid可以读取我们上传的文件，在这里用到了一个函数os.path.join，这个函数存在绝对路径拼接漏洞。</p><p><img src="/img/babyupload_3.png"></p><p><strong>os.path.join函数用于将多个文件路径连接成一个组合的路径。第一个函数通常包含了基础路径，而之后的每个参数被当作组件拼接到基础路径之后。这个函数有一个特性，如果拼接的某个路径以 &#x2F; 开头，那么包括基础路径在内的所有前缀路径都将被删除，该路径将视为绝对路径</strong></p><p>在本题中，如果你后面传的文件名为&#x2F;flag，那拼接的时候会将前面的各级路径全部删掉，读取的就是根目录的flag文件。</p><p>所以我们可以做到以下操作：</p><p>打开burp，随便传一个文件，抓包拦截住，将文件名改成&#x2F;flag，然后发送。</p><p><img src="/img/babyupload_4.png"></p><p>得到flag</p><p><img src="/img/babyupload_5.png"></p>]]></content>
       
       
       
@@ -17,11 +17,11 @@
     
     
     <entry>
-      <title>好好学习</title>
+      <title>好好学习，学好了再说别的，好好理财</title>
       <link href="/2025/03/19/hello-world/"/>
       <url>/2025/03/19/hello-world/</url>
       
-        <content type="html"><![CDATA[<p>记录学习生活</p>]]></content>
+        <content type="html"><![CDATA[<p>记录学习生活</p><p>希望以后也可以成为大佬</p><p><img src="/img/power.jpg"></p>]]></content>
       
       
       
