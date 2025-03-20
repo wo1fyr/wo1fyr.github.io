@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>记录在NSSCTF刷题的过程</title>
+      <link href="/2025/03/20/NSSCTF/"/>
+      <url>/2025/03/20/NSSCTF/</url>
+      
+        <content type="html"><![CDATA[<h2 id="GKCTF-2020-cve版签到"><a href="#GKCTF-2020-cve版签到" class="headerlink" title="[GKCTF 2020]cve版签到"></a>[GKCTF 2020]cve版签到</h2><p>首先看到有一个链接，下面有一个提示</p><p>You just view *.ctfhub.com</p><p>意思就是你只能访问的链接后缀得是.ctfhub.com</p><p>我们点进链接</p><p><img src="/img/1.png"></p><p>第一眼没有发现很明显的提示信息，但是我们看到url处有传参名url。</p><p>查看源代码和请求体信息</p><p><img src="/img/2.png"></p><p>发现hint，提示我们访问本地，联想到刚刚发现的url参数，意思就是让我们访问<a href="http://127.0.0.1/%EF%BC%8C%E4%BD%86%E6%98%AF%E5%8F%88%E8%A6%81%E6%88%91%E4%BB%AC%E4%BB%A5.ctfhub.com%E7%BB%93%E5%B0%BE%EF%BC%8C%E8%BF%99%E9%87%8C%E5%8F%AF%E4%BB%A5%E6%83%B3%E5%88%B0%00%E6%88%AA%E6%96%AD%E3%80%82">http://127.0.0.1/，但是又要我们以.ctfhub.com结尾，这里可以想到%00截断。</a></p><p><strong>截断是操作系统层的漏洞，由于操作系统是C语言或汇编语言编写的，这两种语言在定义字符串时，都是以\0（即0x00）作为字符串的结尾。操作系统在识别字符串时，当读取到\0字符时，就认为读取到了一个字符串的结束符号。因此，我们可以通过修改数据包，插入\0字符的方式，达到字符串截断的目的。</strong></p><p>可以构造payload：&#x2F;?url&#x3D;<a href="http://127.0.0.1%00.ctfhub.com">http://127.0.0.1%00.ctfhub.com</a></p><p><img src="/img/3.png"></p><p>tips告诉我们要以123结尾，把1改为123即可</p><p><img src="/img/4.png"></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>好好学习</title>
+      <link href="/2025/03/19/hello-world/"/>
+      <url>/2025/03/19/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>记录学习生活</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
