@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>SSTI原理解析</title>
+      <link href="/2025/11/24/ssti%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/"/>
+      <url>/2025/11/24/ssti%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/</url>
+      
+        <content type="html"><![CDATA[<p>SSTI(Server-Side Template Injection)，服务端模板注入。</p><h2 id="一、预备知识"><a href="#一、预备知识" class="headerlink" title="一、预备知识"></a>一、预备知识</h2><h3 id="1-模板引擎"><a href="#1-模板引擎" class="headerlink" title="1.模板引擎"></a>1.模板引擎</h3>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>收集一个rc4加密的脚本</title>
       <link href="/2025/11/24/rc4%E5%8A%A0%E5%AF%86%E8%84%9A%E6%9C%AC/"/>
       <url>/2025/11/24/rc4%E5%8A%A0%E5%AF%86%E8%84%9A%E6%9C%AC/</url>
