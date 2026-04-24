@@ -558,6 +558,82 @@
 	<article class="post card bg-white shadow-sm border-0 ">
 	<header class="post-header text-center">
 		
+		<a class="post-title" href="/2026/04/24/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%AC%94%E8%AE%B0/">PHP代码审计笔记(持续更新)</a>
+		<div class="post-meta">
+			
+						
+						<div class="post-meta-detail post-meta-detail-time">
+							<i class="fa fa-clock-o" aria-hidden="true"></i>
+							<time title="发布于 2026-4-24 12:09:00 | 编辑于 2026-4-24 12:11:28">2026-4-24 12:09
+							</time>
+						</div>
+					
+						
+							<div class="post-meta-devide">|</div>
+						
+						<div class="post-meta-detail post-meta-detail-categories">
+							<i class="fa fa-bookmark-o" aria-hidden="true"></i>
+							<a class="post-meta-detail-catagory-link" href="/categories/Web%E5%AE%89%E5%85%A8/">Web安全</a>
+						</div>
+					
+						
+							<div class="post-meta-devide">|</div>
+						
+						<div class="post-meta-detail post-meta-detail-words">
+							<i class="fa fa-book" aria-hidden="true"></i>
+							<span id="busuanzi_container_page_pv">
+								阅读<span id="busuanzi_value_page_pv"></span>次
+							</span>
+						</div>
+					
+						
+							<div class="post-meta-devide">|</div>
+						
+						<div class="post-meta-detail post-meta-detail-words">
+							<i class="fa fa-file-word-o" aria-hidden="true"></i>
+							5.3k 字
+						</div>
+					
+						
+							<div class="post-meta-devide">|</div>
+						
+						<div class="post-meta-detail post-meta-detail-readingtime">
+							<i class="fa fa-hourglass-end" aria-hidden="true"></i>
+							25 分钟
+						</div>
+					
+		</div>
+		
+	</header>
+
+	<div class="post-content">
+		
+			
+				信呼oa-v2.3.3源码分析下载得到源码，用的是phpstudy搭建的
+
+可以看到是2.3.3版本的
+连接一下数据库，可以看到默认用户的账户和密码hash
+
+前面的几个密码都是123456的MD5值，最后一个是a111111的MD5值
+登录diaochan的账户，进去后要求改默认密码，改成root1，可以在数据库里面看到数据已经变化
+
+审计一下源...
+			
+		
+	</div>
+
+	
+		<div class="post-tags">
+			<i class="fa fa-tags" aria-hidden="true"></i>
+			<a class="tag badge badge-secondary post-meta-detail-tag -none-link" href="/tags/PHP/" rel="tag">PHP</a><a class="tag badge badge-secondary post-meta-detail-tag -none-link" href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" rel="tag">代码审计</a>
+		</div>
+	
+</article>
+
+
+	<article class="post card bg-white shadow-sm border-0 ">
+	<header class="post-header text-center">
+		
 		<a class="post-title" href="/2026/04/23/%E8%87%AA%E5%A2%9E%E5%8E%9F%E7%90%86/">PHP中的自增</a>
 		<div class="post-meta">
 			
@@ -842,74 +918,6 @@ You just view *.ctfhub.com
 		<div class="post-tags">
 			<i class="fa fa-tags" aria-hidden="true"></i>
 			<a class="tag badge badge-secondary post-meta-detail-tag -none-link" href="/tags/CTF/" rel="tag">CTF</a><a class="tag badge badge-secondary post-meta-detail-tag -none-link" href="/tags/PHP/" rel="tag">PHP</a><a class="tag badge badge-secondary post-meta-detail-tag -none-link" href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" rel="tag">代码审计</a>
-		</div>
-	
-</article>
-
-
-	<article class="post card bg-white shadow-sm border-0 ">
-	<header class="post-header text-center">
-		
-		<a class="post-title" href="/2026/04/22/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%AC%94%E8%AE%B0/">PHP代码审计笔记(持续更新)</a>
-		<div class="post-meta">
-			
-						
-						<div class="post-meta-detail post-meta-detail-time">
-							<i class="fa fa-clock-o" aria-hidden="true"></i>
-							<time title="发布于 2026-4-22 11:21:36 | 编辑于 2026-4-23 16:21:01">2026-4-22 11:21
-							</time>
-						</div>
-					
-						
-							<div class="post-meta-devide">|</div>
-						
-						<div class="post-meta-detail post-meta-detail-categories">
-							<i class="fa fa-bookmark-o" aria-hidden="true"></i>
-							<a class="post-meta-detail-catagory-link" href="/categories/Web%E5%AE%89%E5%85%A8/">Web安全</a>
-						</div>
-					
-						
-							<div class="post-meta-devide">|</div>
-						
-						<div class="post-meta-detail post-meta-detail-words">
-							<i class="fa fa-book" aria-hidden="true"></i>
-							<span id="busuanzi_container_page_pv">
-								阅读<span id="busuanzi_value_page_pv"></span>次
-							</span>
-						</div>
-					
-						
-							<div class="post-meta-devide">|</div>
-						
-						<div class="post-meta-detail post-meta-detail-words">
-							<i class="fa fa-file-word-o" aria-hidden="true"></i>
-							3.8k 字
-						</div>
-					
-						
-							<div class="post-meta-devide">|</div>
-						
-						<div class="post-meta-detail post-meta-detail-readingtime">
-							<i class="fa fa-hourglass-end" aria-hidden="true"></i>
-							19 分钟
-						</div>
-					
-		</div>
-		
-	</header>
-
-	<div class="post-content">
-		
-			
-				反序列化AreUSerialz1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162&lt;?php    include(&quot;flag.php&quot;);   ...
-			
-		
-	</div>
-
-	
-		<div class="post-tags">
-			<i class="fa fa-tags" aria-hidden="true"></i>
-			<a class="tag badge badge-secondary post-meta-detail-tag -none-link" href="/tags/PHP/" rel="tag">PHP</a><a class="tag badge badge-secondary post-meta-detail-tag -none-link" href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" rel="tag">代码审计</a>
 		</div>
 	
 </article>

