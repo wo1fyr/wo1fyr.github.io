@@ -8,12 +8,12 @@
 	
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	
-	<meta name="description" content="CTF复习-PHP代码简单审计12345678910111213function is_trying_to_hak_me($str)&#123;       $blacklist &#x3D; [&quot;&#x27; &quot;, &quot; &#x27;&quot;, &#x27;&quot;&#x27;, &quot;&#96;&quot;, &quot; &#96;&quot;, &quot;&#96; &quot;">
+	<meta name="description" content="CTF复习-PHP代码简单审计function is_trying_to_hak_me($str) &#123;        $blacklist &#x3D; [&quot;&#x27; &quot;, &quot; &#x27;&quot;, &#x27;&quot;&#x27;, &quot;&#96;&quot;, &quot; &#96;&quot;, &quot;&#96; &quot;, &quot;&gt;&amp;qu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP简单代码审计（1）">
 <meta property="og:url" content="http://wo1fyr.github.io/2026/04/23/CTF-PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%881%EF%BC%89/index.html">
 <meta property="og:site_name" content="wo1fyr的随笔">
-<meta property="og:description" content="CTF复习-PHP代码简单审计12345678910111213function is_trying_to_hak_me($str)&#123;       $blacklist &#x3D; [&quot;&#x27; &quot;, &quot; &#x27;&quot;, &#x27;&quot;&#x27;, &quot;&#96;&quot;, &quot; &#96;&quot;, &quot;&#96; &quot;">
+<meta property="og:description" content="CTF复习-PHP代码简单审计function is_trying_to_hak_me($str) &#123;        $blacklist &#x3D; [&quot;&#x27; &quot;, &quot; &#x27;&quot;, &#x27;&quot;&#x27;, &quot;&#96;&quot;, &quot; &#96;&quot;, &quot;&#96; &quot;, &quot;&gt;&amp;qu">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-23T03:29:12.971Z">
 <meta property="article:modified_time" content="2026-04-23T08:19:42.401Z">
@@ -603,7 +603,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-words">
 							<i class="fa fa-file-word-o" aria-hidden="true"></i>
-							623 字
+							621 字
 						</div>
 					
 						
@@ -619,11 +619,23 @@
 	</header>
 
 	<div class="post-content" id="post_content">
-		<h2 id="CTF复习-PHP代码简单审计"><a href="#CTF复习-PHP代码简单审计" class="headerlink" title="CTF复习-PHP代码简单审计"></a>CTF复习-PHP代码简单审计</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function is_trying_to_hak_me($str)</span><br><span class="line">&#123;   </span><br><span class="line">    $blacklist = [&quot;&#x27; &quot;, &quot; &#x27;&quot;, &#x27;&quot;&#x27;, &quot;`&quot;, &quot; `&quot;, &quot;` &quot;, &quot;&gt;&quot;, &quot;&lt;&quot;];</span><br><span class="line">    if (strpos($str, &quot;&#x27;&quot;) !== false) &#123;</span><br><span class="line">        if (!preg_match(&quot;/[0-9a-zA-Z]&#x27;[0-9a-zA-Z]/&quot;, $str)) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    foreach ($blacklist as $token) &#123;</span><br><span class="line">        if (strpos($str, $token) !== false) return true;</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+		<h2 id="CTF复习-PHP代码简单审计"><a href="#CTF复习-PHP代码简单审计" class="headerlink" title="CTF复习-PHP代码简单审计"></a>CTF复习-PHP代码简单审计</h2><pre><code class="hljs plaintext">function is_trying_to_hak_me($str)
+&#123;   
+    $blacklist = [&quot;&#x27; &quot;, &quot; &#x27;&quot;, &#x27;&quot;&#x27;, &quot;`&quot;, &quot; `&quot;, &quot;` &quot;, &quot;&gt;&quot;, &quot;&lt;&quot;];
+    if (strpos($str, &quot;&#x27;&quot;) !== false) &#123;
+        if (!preg_match(&quot;/[0-9a-zA-Z]&#x27;[0-9a-zA-Z]/&quot;, $str)) &#123;
+            return true;
+        &#125;
+    &#125;
+    foreach ($blacklist as $token) &#123;
+        if (strpos($str, $token) !== false) return true;
+    &#125;
+    return false;
+&#125;</code></pre>
 
 <p>整个函数顾名思义，进行输入检测，判断是否是黑客行为，要<strong>使函数返回false</strong>即可绕过这个输入检测。</p>
 <p>定义了一个黑名单：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$blacklist = [&quot;&#x27; &quot;, &quot; &#x27;&quot;, &#x27;&quot;&#x27;, &quot;`&quot;, &quot; `&quot;, &quot;` &quot;, &quot;&gt;&quot;, &quot;&lt;&quot;]</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">$blacklist = [&quot;&#x27; &quot;, &quot; &#x27;&quot;, &#x27;&quot;&#x27;, &quot;`&quot;, &quot; `&quot;, &quot;` &quot;, &quot;&gt;&quot;, &quot;&lt;&quot;]</code></pre>
 
 <p>黑名单：单引号＋空格、空格+单引号、双引号、反引号、反引号+空格、空格+反引号、&lt;、&gt;</p>
 <ol>
@@ -632,12 +644,27 @@
 <li>反引号一般用于包裹MySql表名或字段名，也可用于命令执行</li>
 <li>两个尖括号通常用于php代码或者xss的payload</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if (strpos($str, &quot;&#x27;&quot;) !== false) &#123;</span><br><span class="line">        if (!preg_match(&quot;/[0-9a-zA-Z]&#x27;[0-9a-zA-Z]/&quot;, $str)) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">if (strpos($str, &quot;&#x27;&quot;) !== false) &#123;
+        if (!preg_match(&quot;/[0-9a-zA-Z]&#x27;[0-9a-zA-Z]/&quot;, $str)) &#123;
+            return true;
+        &#125;
+    &#125;</code></pre>
 
 <p>前面的过滤并非是把单引号直接打死，而是禁止单引号与空格的组合，在这串代码里面，就对单引号作了更严格的过滤</p>
 <p><strong>preg_match</strong>函数会拿着前面的正则表达式在**$str**变量里面匹配，也就是说可以用单引号，但是单引号前后必须有数字或者字母</p>
 <p>继续审计</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$db = new SQLite3(&quot;/var/db.sqlite&quot;);</span><br><span class="line">$result = $db-&gt;query(&quot;SELECT * FROM users WHERE username=&#x27;$user&#x27;&quot;);</span><br><span class="line">if ($result === false) die(&quot;pls dont break me&quot;);</span><br><span class="line">else $result = $result-&gt;fetchArray();</span><br><span class="line">if ($result) &#123;</span><br><span class="line">    $split = explode(&#x27;$&#x27;, $result[&quot;password&quot;]);</span><br><span class="line">    $password_hash = $split[0];</span><br><span class="line">    $salt = $split[1];</span><br><span class="line">    if ($password_hash === hash(&quot;sha256&quot;, $pass.$salt)) $logged_in = true;</span><br><span class="line">    else $err = &quot;Wrong password&quot;;</span><br><span class="line">&#125;</span><br><span class="line">else $err = &quot;No such user&quot;;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">$db = new SQLite3(&quot;/var/db.sqlite&quot;);
+$result = $db-&gt;query(&quot;SELECT * FROM users WHERE username=&#x27;$user&#x27;&quot;);
+if ($result === false) die(&quot;pls dont break me&quot;);
+else $result = $result-&gt;fetchArray();
+if ($result) &#123;
+    $split = explode(&#x27;$&#x27;, $result[&quot;password&quot;]);
+    $password_hash = $split[0];
+    $salt = $split[1];
+    if ($password_hash === hash(&quot;sha256&quot;, $pass.$salt)) $logged_in = true;
+    else $err = &quot;Wrong password&quot;;
+&#125;
+else $err = &quot;No such user&quot;;</code></pre>
 
 <p>实例化一个 SQLite3 对象，连接到服务器路径 <code>/var/db.sqlite</code> 的数据库文件</p>
 <p>需要让输入的$user插入sql语句中能够正确返回</p>
@@ -718,7 +745,8 @@
 <script type="text/javascript">
 	socialShare("#share", {
 	    title : 'PHP简单代码审计（1）',
-	    description : `CTF复习-PHP代码简单审计12345678910111213function is_trying...`,
+	    description : `CTF复习-PHP代码简单审计function is_trying_to_hak_me($str)
+...`,
 	    wechatQrcodeTitle : "分享到微信",
 	    wechatQrcodeHelper : '微信扫描二维码',
 	    source : 'http://wo1fyr.github.io/2026/04/23/CTF-PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%881%EF%BC%89/'
@@ -802,7 +830,7 @@
 				var argonEnableCodeHighlight = true;
 			</script>
 			
-<link rel="stylesheet" href="/assets/vendor/highlight/styles/vs2015.css">
+<link rel="stylesheet" href="/assets/vendor/highlight/styles/github.css">
 
 		
 

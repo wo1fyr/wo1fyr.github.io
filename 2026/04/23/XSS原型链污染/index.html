@@ -8,12 +8,12 @@
 	
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	
-	<meta name="description" content="JavaScript语言的继承不通过class，而是通过原型对象（prototype）实现。 一、构造函数JavaScript通过构造函数来生成新对象，构造函数相当于模板的作用。实例对象的属性和方法定义在构造函数中。 12345678910111213function student(name, ID)&#123;  this.name &#x3D; name;  this.ID &#x3D; ID;&#125;va">
+	<meta name="description" content="JavaScript语言的继承不通过class，而是通过原型对象（prototype）实现。 一、构造函数JavaScript通过构造函数来生成新对象，构造函数相当于模板的作用。实例对象的属性和方法定义在构造函数中。 function student(name, ID) &#123;   this.name &#x3D; name;   this.ID &#x3D; ID; &#125;  var student1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="原型链污染-概念解析">
 <meta property="og:url" content="http://wo1fyr.github.io/2026/04/23/XSS%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/index.html">
 <meta property="og:site_name" content="wo1fyr的随笔">
-<meta property="og:description" content="JavaScript语言的继承不通过class，而是通过原型对象（prototype）实现。 一、构造函数JavaScript通过构造函数来生成新对象，构造函数相当于模板的作用。实例对象的属性和方法定义在构造函数中。 12345678910111213function student(name, ID)&#123;  this.name &#x3D; name;  this.ID &#x3D; ID;&#125;va">
+<meta property="og:description" content="JavaScript语言的继承不通过class，而是通过原型对象（prototype）实现。 一、构造函数JavaScript通过构造函数来生成新对象，构造函数相当于模板的作用。实例对象的属性和方法定义在构造函数中。 function student(name, ID) &#123;   this.name &#x3D; name;   this.ID &#x3D; ID; &#125;  var student1">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://wo1fyr.github.io/img/XSS%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/2025_11_22_1.png">
 <meta property="og:image" content="http://wo1fyr.github.io/img/XSS%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/2025_11_22_2.png">
@@ -631,13 +631,37 @@
 	<div class="post-content" id="post_content">
 		<p>JavaScript语言的继承不通过class，而是通过<strong>原型对象</strong>（prototype）实现。</p>
 <h2 id="一、构造函数"><a href="#一、构造函数" class="headerlink" title="一、构造函数"></a>一、构造函数</h2><p>JavaScript通过构造函数来生成新对象，构造函数相当于模板的作用。实例对象的属性和方法定义在构造函数中。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">student</span>(<span class="params">name, ID</span>)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">ID</span> = <span class="variable constant_">ID</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> student1 = <span class="keyword">new</span> <span class="title function_">student</span>(<span class="string">&quot;cyt&quot;</span>, <span class="string">&quot;20231&quot;</span>)</span><br><span class="line"><span class="keyword">var</span> student2 = <span class="keyword">new</span> <span class="title function_">student</span>(<span class="string">&quot;zpc&quot;</span>, <span class="string">&quot;20232&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(student1.<span class="property">name</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(student1.<span class="property">ID</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(student2.<span class="property">name</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(student2.<span class="property">ID</span>)</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">student</span>(<span class="hljs-params">name, ID</span>)
+&#123;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">ID</span> = <span class="hljs-variable constant_">ID</span>;
+&#125;
+
+<span class="hljs-keyword">var</span> student1 = <span class="hljs-keyword">new</span> <span class="hljs-title function_">student</span>(<span class="hljs-string">&quot;cyt&quot;</span>, <span class="hljs-string">&quot;20231&quot;</span>)
+<span class="hljs-keyword">var</span> student2 = <span class="hljs-keyword">new</span> <span class="hljs-title function_">student</span>(<span class="hljs-string">&quot;zpc&quot;</span>, <span class="hljs-string">&quot;20232&quot;</span>)
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(student1.<span class="hljs-property">name</span>)
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(student1.<span class="hljs-property">ID</span>)
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(student2.<span class="hljs-property">name</span>)
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(student2.<span class="hljs-property">ID</span>)</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/XSS%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/2025_11_22_1.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
 <p>这样通过构造函数给实例对象定义属性和方法是比较方便的。</p>
 <p>但是这样会使得同一个构造函数的多个实例对象无法共享属性，那么在每一次生成新的实例对象时，这些对象之间本可以共享的属性都会重新进行一次内存分配并存储，造成资源的浪费。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function student(name, ID)</span><br><span class="line">&#123;</span><br><span class="line">  this.name = name;</span><br><span class="line">  this.ID = ID;</span><br><span class="line">  this.saysex = function()&#123;</span><br><span class="line">    console.log(&quot;I&#x27;m Gay.&quot;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var student1 = new student(&quot;cyt&quot;, &quot;20231&quot;)</span><br><span class="line">var student2 = new student(&quot;zpc&quot;, &quot;20232&quot;)</span><br><span class="line"></span><br><span class="line">console.log(student1.saysex === student2.saysex)</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">function student(name, ID)
+&#123;
+  this.name = name;
+  this.ID = ID;
+  this.saysex = function()&#123;
+    console.log(&quot;I&#x27;m Gay.&quot;)
+  &#125;
+&#125;
+
+var student1 = new student(&quot;cyt&quot;, &quot;20231&quot;)
+var student2 = new student(&quot;zpc&quot;, &quot;20232&quot;)
+
+console.log(student1.saysex === student2.saysex)</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/XSS%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/2025_11_22_2.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
@@ -649,7 +673,35 @@
 <li>原型对象的属性不是实例对象的属性，修改原型对象的属性，所有的实例对象也会变动。</li>
 <li>如果实例对象有某个属性或者方法，则不会再去原型对象寻找。</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">function student(name, ID)</span><br><span class="line">&#123;</span><br><span class="line">  this.name = name;</span><br><span class="line">  this.ID = ID;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">student.prototype.weight = &quot;Big fat&quot;</span><br><span class="line"></span><br><span class="line">student.prototype.saysex = function()&#123;</span><br><span class="line">  console.log(this.name + &quot; is Gay.&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var student1 = new student(&quot;cyt&quot;, &quot;20231&quot;)</span><br><span class="line">var student2 = new student(&quot;zpc&quot;, &quot;20232&quot;)</span><br><span class="line"></span><br><span class="line">console.log(student1.weight)</span><br><span class="line">console.log(student2.weight)</span><br><span class="line">student1.saysex()</span><br><span class="line">student2.saysex()</span><br><span class="line"></span><br><span class="line">student1.weight = &quot;thin and thin&quot;</span><br><span class="line"></span><br><span class="line">console.log(student1.weight)</span><br><span class="line">console.log(student2.weight)</span><br><span class="line"></span><br><span class="line">student.prototype.weight = &quot;not fat&quot;</span><br><span class="line"></span><br><span class="line">console.log(student1.weight)</span><br><span class="line">console.log(student2.weight)</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">function student(name, ID)
+&#123;
+  this.name = name;
+  this.ID = ID;
+&#125;
+
+student.prototype.weight = &quot;Big fat&quot;
+
+student.prototype.saysex = function()&#123;
+  console.log(this.name + &quot; is Gay.&quot;)
+&#125;
+
+var student1 = new student(&quot;cyt&quot;, &quot;20231&quot;)
+var student2 = new student(&quot;zpc&quot;, &quot;20232&quot;)
+
+console.log(student1.weight)
+console.log(student2.weight)
+student1.saysex()
+student2.saysex()
+
+student1.weight = &quot;thin and thin&quot;
+
+console.log(student1.weight)
+console.log(student2.weight)
+
+student.prototype.weight = &quot;not fat&quot;
+
+console.log(student1.weight)
+console.log(student2.weight)</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/XSS%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/2025_11_22_3.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
@@ -659,7 +711,19 @@
 <li>一层一层的往上查找，找到最后会找到<strong>Object.prototype</strong>，也就是Object的prototype属性，这也是为什么所有的对象都有<strong>valueOf</strong>方法和<strong>toString</strong>方法的原因。</li>
 <li>Object.prototype的原型对象是<strong>null</strong>，null没有属性和方法，没有自己的原型对象，也是原型链的末尾。</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function student(name, ID)</span><br><span class="line">&#123;</span><br><span class="line">  this.name = name;</span><br><span class="line">  this.ID = ID;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">student.prototype = new Array();</span><br><span class="line"></span><br><span class="line">var studentgroup = new student();</span><br><span class="line">studentgroup.push(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;)</span><br><span class="line">console.log(studentgroup.length)</span><br><span class="line">console.log(studentgroup instanceof Array)</span><br><span class="line">console.log(Object.getPrototypeOf(Object.prototype))</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">function student(name, ID)
+&#123;
+  this.name = name;
+  this.ID = ID;
+&#125;
+
+student.prototype = new Array();
+
+var studentgroup = new student();
+studentgroup.push(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;)
+console.log(studentgroup.length)
+console.log(studentgroup instanceof Array)
+console.log(Object.getPrototypeOf(Object.prototype))</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/XSS%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/2025_11_22_4.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
@@ -668,7 +732,30 @@
 <li>这个属性可以知道某个实例对象是由哪个构造函数生成的，从而能够通过实例对象新建另一个实例。</li>
 <li>constructor属性表示的是原型对象和构造函数的关系，如果修改原型函数的指向时，需要一起修改constructor属性，防止引用出错。所以一般不直接修改原型函数指向，采用添加方法的形式操作。</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">function student(name, ID)</span><br><span class="line">&#123;</span><br><span class="line">  this.name = name;</span><br><span class="line">  this.ID = ID;</span><br><span class="line">&#125;</span><br><span class="line">console.log(student.prototype.constructor)</span><br><span class="line"></span><br><span class="line">var cyt = new student();</span><br><span class="line">console.log(cyt.constructor);</span><br><span class="line">console.log(cyt.hasOwnProperty(&quot;constructor&quot;));//实例对象没有这个属性，是继承于原型链</span><br><span class="line"></span><br><span class="line">var zpc = new cyt.constructor();</span><br><span class="line">console.log(zpc.constructor)</span><br><span class="line"></span><br><span class="line">student.prototype = new Array();</span><br><span class="line">console.log(student.prototype.constructor)</span><br><span class="line">student.prototype = &#123;</span><br><span class="line">  method: function()&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">console.log(student.prototype.constructor)</span><br><span class="line">student.prototype.constructor = student;</span><br><span class="line">console.log(student.prototype.constructor)</span><br><span class="line"></span><br><span class="line">console.log(cyt.constructor.name)//输出构造函数名</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">function student(name, ID)
+&#123;
+  this.name = name;
+  this.ID = ID;
+&#125;
+console.log(student.prototype.constructor)
+
+var cyt = new student();
+console.log(cyt.constructor);
+console.log(cyt.hasOwnProperty(&quot;constructor&quot;));//实例对象没有这个属性，是继承于原型链
+
+var zpc = new cyt.constructor();
+console.log(zpc.constructor)
+
+student.prototype = new Array();
+console.log(student.prototype.constructor)
+student.prototype = &#123;
+  method: function()&#123;&#125;
+&#125;
+console.log(student.prototype.constructor)
+student.prototype.constructor = student;
+console.log(student.prototype.constructor)
+
+console.log(cyt.constructor.name)//输出构造函数名</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/XSS%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/2025_11_22_5.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
@@ -697,20 +784,51 @@
 <td>产品身上贴的标签：<strong>“产自该模具”</strong></td>
 </tr>
 </tbody></table>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function student(name, ID)</span><br><span class="line">&#123;</span><br><span class="line">  this.name = name;</span><br><span class="line">  this.ID = ID;</span><br><span class="line">&#125;</span><br><span class="line">console.log(typeof student.prototype)</span><br><span class="line">var cyt = new student();</span><br><span class="line">console.log(typeof cyt.prototype)</span><br><span class="line">console.log(typeof cyt.__proto__)</span><br><span class="line">console.log(typeof cyt.__proto__.__proto__.__proto__.__proto__)</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">function student(name, ID)
+&#123;
+  this.name = name;
+  this.ID = ID;
+&#125;
+console.log(typeof student.prototype)
+var cyt = new student();
+console.log(typeof cyt.prototype)
+console.log(typeof cyt.__proto__)
+console.log(typeof cyt.__proto__.__proto__.__proto__.__proto__)</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/XSS%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/2025_11_22_6.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
 <p>其实cyt.__proto__.__proto__.__proto__的值为null，因为历史原因（类型标签的定义），类型为Object，此时访问cyt.__proto__.__proto__.__proto__.__proto__也就是null.__proto__就会报错。</p>
 <h2 id="四、原型链污染"><a href="#四、原型链污染" class="headerlink" title="四、原型链污染"></a>四、原型链污染</h2><p>原型链污染故名思及就是通过实例进行对其构造函数的原型对象的属性进行修改，从而污染后续构造函数新建的每一个实例。前提是这个实例没有自定义这个属性，即可实现覆盖。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let father = &#123;name: &quot;father&quot;, age: 45&#125;;</span><br><span class="line">console.log(father.name)</span><br><span class="line">father.__proto__.name = &quot;son&quot;;</span><br><span class="line">let son = &#123;&#125;</span><br><span class="line">console.log(son.name)</span><br><span class="line">console.log(father.name)</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">let father = &#123;name: &quot;father&quot;, age: 45&#125;;
+console.log(father.name)
+father.__proto__.name = &quot;son&quot;;
+let son = &#123;&#125;
+console.log(son.name)
+console.log(father.name)</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/XSS%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/2025_11_22_7.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
 <p>可以看到已经实现了污染，新建的对象son的name值为son，而father对象因为自定义了这个属性所以没有被污染。</p>
 <p>哪些情况会出现原型链污染呢？要找能控制对象的<strong>键名</strong>的操作，像merge()、clone()等危险函数</p>
 <p>要注意：JavaScript 引擎对于对象字面量 和JSON.parse处理 __proto__ 键的方式完全不同</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function merge(target, source) &#123;</span><br><span class="line">    for (let key in source) &#123;</span><br><span class="line">        if (key in source &amp;&amp; key in target) &#123;</span><br><span class="line">            merge(target[key], source[key])</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            target[key] = source[key]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">let o1 = &#123;&#125;</span><br><span class="line">let o2 = &#123;a: 1, &quot;__proto__&quot;: &#123;b: 2&#125;&#125;//对象字面量</span><br><span class="line">merge(o1, o2)</span><br><span class="line">console.log(o1.a, o1.b)</span><br><span class="line">o3 = &#123;&#125;</span><br><span class="line">console.log(o3.b)</span><br><span class="line">console.log(o1.__proto__)</span><br><span class="line">console.log(o2.__proto__)</span><br><span class="line">console.log(o3.__proto__)</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">function merge(target, source) &#123;
+    for (let key in source) &#123;
+        if (key in source &amp;&amp; key in target) &#123;
+            merge(target[key], source[key])
+        &#125; else &#123;
+            target[key] = source[key]
+        &#125;
+    &#125;
+&#125;
+let o1 = &#123;&#125;
+let o2 = &#123;a: 1, &quot;__proto__&quot;: &#123;b: 2&#125;&#125;//对象字面量
+merge(o1, o2)
+console.log(o1.a, o1.b)
+o3 = &#123;&#125;
+console.log(o3.b)
+console.log(o1.__proto__)
+console.log(o2.__proto__)
+console.log(o3.__proto__)</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/XSS%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/2025_11_22_8.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
@@ -737,7 +855,24 @@
 <li>因此，全局的 <code>Object.prototype</code> 保持干净，没有被添加 <code>b</code> 属性。</li>
 </ol>
 <p>那应该怎么操作呢？重点就是需要让__proto__被认为是一个键名，需要用到JSON解析</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function merge(target, source) &#123;</span><br><span class="line">    for (let key in source) &#123;</span><br><span class="line">        if (key in source &amp;&amp; key in target) &#123;</span><br><span class="line">            merge(target[key], source[key])</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            target[key] = source[key]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">let o1 = &#123;&#125;</span><br><span class="line">let o2 = JSON.parse(&#x27;&#123;&quot;a&quot;: 1, &quot;__proto__&quot;: &#123;&quot;b&quot;: 2&#125;&#125;&#x27;)//JSON解析</span><br><span class="line">merge(o1, o2)</span><br><span class="line">console.log(o1.a, o1.b)</span><br><span class="line">o3 = &#123;&#125;</span><br><span class="line">console.log(o3.b)</span><br><span class="line">console.log(o1.__proto__)</span><br><span class="line">console.log(o2.__proto__)</span><br><span class="line">console.log(o3.__proto__)</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">function merge(target, source) &#123;
+    for (let key in source) &#123;
+        if (key in source &amp;&amp; key in target) &#123;
+            merge(target[key], source[key])
+        &#125; else &#123;
+            target[key] = source[key]
+        &#125;
+    &#125;
+&#125;
+let o1 = &#123;&#125;
+let o2 = JSON.parse(&#x27;&#123;&quot;a&quot;: 1, &quot;__proto__&quot;: &#123;&quot;b&quot;: 2&#125;&#125;&#x27;)//JSON解析
+merge(o1, o2)
+console.log(o1.a, o1.b)
+o3 = &#123;&#125;
+console.log(o3.b)
+console.log(o1.__proto__)
+console.log(o2.__proto__)
+console.log(o3.__proto__)</code></pre>
 
 <p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/XSS%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/2025_11_22_9.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
@@ -752,7 +887,7 @@
 <li><p>遍历循环检测到了 <code>o2</code> 有一个名为 <code>&quot;__proto__&quot;</code> 的属性。</p>
 </li>
 <li><p><code>merge</code> 函数试图执行类似这样的操作：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">o1[&quot;__proto__&quot;][&quot;b&quot;] = o2[&quot;__proto__&quot;][&quot;b&quot;];</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">o1[&quot;__proto__&quot;][&quot;b&quot;] = o2[&quot;__proto__&quot;][&quot;b&quot;];</code></pre>
 </li>
 <li><p>在 JavaScript 中，访问 <code>o1[&quot;__proto__&quot;]</code> 实际上访问的是所有对象共享的 <code>Object.prototype</code>。</p>
 </li>
@@ -917,7 +1052,7 @@
 				var argonEnableCodeHighlight = true;
 			</script>
 			
-<link rel="stylesheet" href="/assets/vendor/highlight/styles/vs2015.css">
+<link rel="stylesheet" href="/assets/vendor/highlight/styles/github.css">
 
 		
 

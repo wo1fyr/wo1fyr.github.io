@@ -609,7 +609,12 @@
 	<div class="post-content">
 		
 			
-				RC4加密脚本12345678910111213141516171819202122232425262728293031323334import base64from urllib import parsedef rc4_main(key = &quot;init_key&quot;, message = &quot;init_message&qu...
+				RC4加密脚本import base64
+from urllib import parse
+
+def rc4_main(key = &quot;init_key&quot;, message = &quot;init_message&quot;):
+    s_box = rc4_init_sbox(key)
+    crypt = str(rc4...
 			
 		
 	</div>
@@ -652,7 +657,7 @@
 				var argonEnableCodeHighlight = true;
 			</script>
 			
-<link rel="stylesheet" href="/assets/vendor/highlight/styles/vs2015.css">
+<link rel="stylesheet" href="/assets/vendor/highlight/styles/github.css">
 
 		
 
