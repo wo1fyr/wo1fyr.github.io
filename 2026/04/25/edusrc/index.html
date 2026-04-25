@@ -3,33 +3,27 @@
 <html class="article-header-style-default">
 <head>
 	
-	<title>NSSRound#28 Team - wo1fyr的随笔</title>
+	<title>记录EDUsrc的学习经历 - wo1fyr的随笔</title>
 	<meta charset="utf-8">
 	
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	
-	<meta name="description" content="ez_php进来就是几个绕过执行文件包含到level2.php  传入POST变量a，b，GET变量password，检测password是不是数字，又检测它是不是123456，因为是弱类型，直接传password&#x3D;123456a即可。最后的file用伪协议即可 对于下面的有两种方法：  数组绕过 a[]&#x3D;1&amp;b[]&#x3D;2   MD5碰撞  这里我是直接用yak">
+	<meta name="description" content="2026-04-25社工信息收集我去翻某个学校的公众号看了下，有一些公示的信息，比如：  奖学金名单公示。这种一般有姓名和学号，或者班级学院信息 学生或者教师任职公示。这种一般也有学号工号信息，有的还有电话 有些没有很严格的安全措施的站点，可能安全限制很薄弱，明文传入登陆账号密码等  ​	再就是进行海底捞了，抖音、小红书、贴吧、频道这种公众社交平台，很大概率碰见那些放出来自己录取信息的（最好还是不">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NSSRound#28 Team">
-<meta property="og:url" content="http://wo1fyr.github.io/2026/04/23/NSSCTF_28/index.html">
+<meta property="og:title" content="记录EDUsrc的学习经历">
+<meta property="og:url" content="http://wo1fyr.github.io/2026/04/25/edusrc/index.html">
 <meta property="og:site_name" content="wo1fyr的随笔">
-<meta property="og:description" content="ez_php进来就是几个绕过执行文件包含到level2.php  传入POST变量a，b，GET变量password，检测password是不是数字，又检测它是不是123456，因为是弱类型，直接传password&#x3D;123456a即可。最后的file用伪协议即可 对于下面的有两种方法：  数组绕过 a[]&#x3D;1&amp;b[]&#x3D;2   MD5碰撞  这里我是直接用yak">
+<meta property="og:description" content="2026-04-25社工信息收集我去翻某个学校的公众号看了下，有一些公示的信息，比如：  奖学金名单公示。这种一般有姓名和学号，或者班级学院信息 学生或者教师任职公示。这种一般也有学号工号信息，有的还有电话 有些没有很严格的安全措施的站点，可能安全限制很薄弱，明文传入登陆账号密码等  ​	再就是进行海底捞了，抖音、小红书、贴吧、频道这种公众社交平台，很大概率碰见那些放出来自己录取信息的（最好还是不">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://wo1fyr.github.io/img/NSSCTF_28/ez_php1.png">
-<meta property="og:image" content="http://wo1fyr.github.io/img/NSSCTF_28/ez_php2.png">
-<meta property="og:image" content="http://wo1fyr.github.io/img/NSSCTF_28/ez_php3.png">
-<meta property="og:image" content="http://wo1fyr.github.io/img/NSSCTF_28/ez_php4.png">
-<meta property="og:image" content="http://wo1fyr.github.io/img/NSSCTF_28/ez_php5.png">
-<meta property="og:image" content="http://wo1fyr.github.io/img/NSSCTF_28/ez_php6.png">
-<meta property="og:image" content="http://wo1fyr.github.io/img/NSSCTF_28/ez_php7.png">
-<meta property="article:published_time" content="2026-04-23T03:29:12.985Z">
-<meta property="article:modified_time" content="2026-04-23T08:20:09.354Z">
+<meta property="og:image" content="http://wo1fyr.github.io/img/edusrc/2026-04-25/1.png">
+<meta property="article:published_time" content="2026-04-25T10:24:10.141Z">
+<meta property="article:modified_time" content="2026-04-25T13:10:48.338Z">
 <meta property="article:author" content="wo1fyr">
-<meta property="article:tag" content="CTF">
-<meta property="article:tag" content="PHP">
-<meta property="article:tag" content="代码审计">
+<meta property="article:tag" content="edusrc">
+<meta property="article:tag" content="信息收集">
+<meta property="article:tag" content="渗透">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://wo1fyr.github.io/img/NSSCTF_28/ez_php1.png">
+<meta name="twitter:image" content="http://wo1fyr.github.io/img/edusrc/2026-04-25/1.png">
 
 	<meta name="theme-color" content="#5e72e4">
 	<meta name="theme-color-rgb" content="94,114,228">
@@ -578,13 +572,13 @@
 	<article class="post post-full card bg-white shadow-sm border-0 ">
 	<header class="post-header text-center">
 		
-		<a class="post-title" href="/2026/04/23/NSSCTF_28/">NSSRound#28 Team</a>
+		<a class="post-title" href="/2026/04/25/edusrc/">记录EDUsrc的学习经历</a>
 		<div class="post-meta">
 			
 						
 						<div class="post-meta-detail post-meta-detail-time">
 							<i class="fa fa-clock-o" aria-hidden="true"></i>
-							<time title="发布于 2026-4-23 11:29:12 | 编辑于 2026-4-23 16:20:09">2026-4-23 11:29
+							<time title="发布于 2026-4-25 18:24:10 | 编辑于 2026-4-25 21:10:48">2026-4-25 18:24
 							</time>
 						</div>
 					
@@ -593,7 +587,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-categories">
 							<i class="fa fa-bookmark-o" aria-hidden="true"></i>
-							<a class="post-meta-detail-catagory-link" href="/categories/CTF/">CTF</a>
+							<a class="post-meta-detail-catagory-link" href="/categories/Web%E5%AE%89%E5%85%A8/">Web安全</a>
 						</div>
 					
 						
@@ -611,7 +605,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-words">
 							<i class="fa fa-file-word-o" aria-hidden="true"></i>
-							246 字
+							2.5k 字
 						</div>
 					
 						
@@ -619,7 +613,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-readingtime">
 							<i class="fa fa-hourglass-end" aria-hidden="true"></i>
-							1 分钟
+							9 分钟
 						</div>
 					
 		</div>
@@ -627,37 +621,141 @@
 	</header>
 
 	<div class="post-content" id="post_content">
-		<h1 id="ez-php"><a href="#ez-php" class="headerlink" title="ez_php"></a>ez_php</h1><p>进来就是几个绕过执行文件包含到level2.php</p>
-<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/NSSCTF_28/ez_php1.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
+		<h1 id="2026-04-25"><a href="#2026-04-25" class="headerlink" title="2026-04-25"></a>2026-04-25</h1><h2 id="社工信息收集"><a href="#社工信息收集" class="headerlink" title="社工信息收集"></a>社工信息收集</h2><p>我去翻某个学校的公众号看了下，有一些公示的信息，比如：</p>
+<ol>
+<li>奖学金名单公示。这种一般有姓名和学号，或者班级学院信息</li>
+<li>学生或者教师任职公示。这种一般也有学号工号信息，有的还有电话</li>
+<li>有些没有很严格的安全措施的站点，可能安全限制很薄弱，明文传入登陆账号密码等</li>
+</ol>
+<p>​	再就是进行海底捞了，抖音、小红书、贴吧、频道这种公众社交平台，很大概率碰见那些放出来自己录取信息的（最好还是不要在网上透露太多信息）</p>
+<p>​	今天就是在抖音找到的，这个小妹妹呢放出来了自己的录取信息，但是身份证号都只遮住了后四位，这种打码等于没打码</p>
+<p>姓名也露出了最后一位，然后看了下发布信息，四月多的录取信息，再去看了看这学校的公众号，好家伙，居然是单招考试，而且还发了录取名单，这还说啥，直接找，最后通过她名字最后一个字和专业找到她名字和考生号</p>
+<p>​	还有个小弟弟的信息也被我收集了，他露出了身份证号前六位，还有最后一位，他的名字和录取专业，他也是今年单招的，所以我也拿到他考生号了</p>
+<h2 id="爆破登录系统"><a href="#爆破登录系统" class="headerlink" title="爆破登录系统"></a>爆破登录系统</h2><p>​	现在知道了她的考生号、身份证号除了后四位，那么需要找个法子去得到全部的身份证号。</p>
+<p>正好他们这个学校单招有个平台，通过考生号&#x2F;身份证号后六位作为账户密码登录，我在想，其实很多这种小平台可能就在某些时候用用，它的检验不会很严格，而且可能不会对发包次数做限制。</p>
+<p>​	我随便输入了点东西，果然是明文传输，这样就好办了，后四位直接爆破，最后会根据返回包长度进行筛选，因为只要是不正确的返回包长度都是一样的，都显示用户名或者密码错误，正确的就会302跳转。</p>
+<p>登陆进去可以看到这小妹妹照片、考生号、身份证号、电话号码、家庭住址</p>
+<p>很可惜这个系统应该是只拿来查单招成绩了，没有别的服务，一时半伙也没发现什么漏洞点，不过我没拿工具扫，都是眼睛找的，可能到时候看那工具能不能找到点啥头绪</p>
+<p>​	这个小弟弟的信息爆破就有点麻烦了，但是也被我爆出来了。</p>
+<p>​	爆破的点在哪呢，在查询单招信息的位置有一个忘记密码，我们点忘记密码，这里会让输入考生号和身份证号，考生号我们知道了，那怎么知道身份证号呢，这里就是爆破的位置了，因为如果两个号对应正确就会返回密码，那开始构造请求。首先我们要定位一下他哪一年出生的，根据这个同龄人推断，他也就是07或者08的，看了下抖音主页的信息，标的18岁，而且他是4.03就过了科目一，那么他很大概率是07下半年或者08前三个月的范围内了，我先爆破08上半年的时间，爆破到一半就爆破出来了，这样这个小弟弟的信息我们也拿到了。</p>
+<p>​	这里爆破小弟弟的密码应该直接从登陆界面爆破的，因为知道最后一位了，就爆破31*1000次就出来了，不过当时搞到后面就搞忘了</p>
+<h2 id="分析学号结构"><a href="#分析学号结构" class="headerlink" title="分析学号结构"></a>分析学号结构</h2><p>​	我做完这些后发现，虽然拿到了这些信息，但是好像没有学号，有好多统一认证都需要学号，所以我又找到一个系统，也是在公众号发现的，一个学习平台，登陆是学号&#x2F;身份证后六位，还要求不要改密码，这里我们如果拿到学号登陆进入没准能接触到一些漏洞入口</p>
+<p>但是现在不知道学号，只能去分析一下学号结构，然后尝试一下爆破这个系统然后登陆，如果登陆成功说明学号正确而且这个系统能登陆成功，如果登陆失败就可能是字典范围小了，或者这个系统可能就是为了安全，某些不允许的时间段内你登陆直接返回登录失败</p>
+<p>既然验证思路有了，那我们就得先办法分析学号结构然后构造字典</p>
+<p>​	我先去他的学校官网、公众号找公示的一下信息，看看能不能找到正确的学号。找到了两个表，奖学金获得者，有学号和学院班级信息，根据这些信息来判断：</p>
+<ol>
+<li>前两位是级数，也就是2023级开头两位就是23</li>
+<li>第三位应该是学院编号，当时我还纳闷要是真的是只有一位数那这学校学院数量不就最多10个，后来看了下官网，还真只有9个</li>
+<li>第四五位是专业的号码，在查前面两位单招同学的信息的时候看到了专业前面就是专业号码</li>
+<li>第六七位是班级号码，比如在8班就是08，这个的范围应该不会很大，总不可能有个专业有大几十班吧</li>
+<li>第八九位应该就是班级内的号码，可能开学根据成绩排名啥的来决定，其实这里我还没考虑性别，但是查不到什么性别信息，所以直接从00爆到99</li>
+</ol>
+<p>现在我们可以开始构造字典了，我这里直接默认单招的学生和正常高考入学的学号是同样的结构，虽然有可能就是一样的，不过我还是假设一下</p>
+<ol>
+<li>确定是26届入学，开头是26</li>
+<li>从单招信息来看可以知道录取的专业，从而去官网找是哪个学院，我确定了其中六个学院的号码，所以这一位确定很快</li>
+<li>这两位也可以确定，专业号码</li>
+<li>这两位我不知道，所以直接从01爆到15，可能会有很多班，但是我这里先试试到15</li>
+<li>最后两位直接01到50,我感觉一个班最多也就50来个人，就先试到50</li>
+</ol>
+<p>这里是用的脚本：</p>
+<pre><code class="hljs python"><span class="hljs-comment"># generate_dict.py</span>
+<span class="hljs-keyword">import</span> sys
+sys.stdout.reconfigure(encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>)
 
-<p>传入POST变量a，b，GET变量password，检测password是不是数字，又检测它是不是123456，因为是弱类型，直接传password&#x3D;123456a即可。最后的file用伪协议即可</p>
-<p>对于下面的有两种方法：</p>
-<ul>
-<li><p>数组绕过</p>
-<p>a[]&#x3D;1&amp;b[]&#x3D;2</p>
-<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/NSSCTF_28/ez_php2.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
+result = []
 
-</li>
-<li><p>MD5碰撞</p>
-<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/NSSCTF_28/ez_php3.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
-<p>这里我是直接用yakit读我的文件，也可以用fastcoll生成后自己将文件里面的拿出来，方法在我的博客里面。</p>
-</li>
-</ul>
-<p>这里进到第二层。其实这里有一个非预期，可以直接从这里读到根目录的flag</p>
-<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/NSSCTF_28/ez_php4.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
+<span class="hljs-keyword">for</span> sixth_seventh <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">16</span>):   <span class="hljs-comment"># 01 到 15</span>
+    <span class="hljs-keyword">for</span> eighth_ninth <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">51</span>):  <span class="hljs-comment"># 01 到 50</span>
+        number = <span class="hljs-string">f&quot;26222<span class="hljs-subst">&#123;sixth_seventh:02d&#125;</span><span class="hljs-subst">&#123;eighth_ninth:02d&#125;</span>&quot;</span>
+        result.append(number)
 
-<p>base64解码后得到flag。</p>
-<p>预期解应该是进到level2.php里面，然后绕过waf执行rce。</p>
-<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/NSSCTF_28/ez_php5.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;dict.txt&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>, encoding=<span class="hljs-string">&quot;utf-8&quot;</span>) <span class="hljs-keyword">as</span> f:
+    f.write(<span class="hljs-string">&quot;\n&quot;</span>.join(result))
 
-<p>这里过滤了大小写字母、^、<del>等符号，一般来说无字母数字RCE有三种方法，异或(^)，取反(</del>)，自增($)，这里用到自增</p>
-<p>payload：</p>
-<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/NSSCTF_28/ez_php6.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;生成完成，共 <span class="hljs-subst">&#123;<span class="hljs-built_in">len</span>(result)&#125;</span> 条&quot;</span>)</code></pre>
 
-<p>长度118，小于120，传入post变量的时候记得url编码</p>
-<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/NSSCTF_28/ez_php7.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
 
+
+<p>这里构造字典后还没完，因为这里不是明文传输的，这里贴一下前端的一点加密代码和请求体：</p>
+<pre><code class="hljs js"><span class="hljs-comment">// 1. 随机生成 16 位的 key</span>
+<span class="hljs-keyword">var</span> keys = _this.<span class="hljs-title function_">generatekey</span>(<span class="hljs-number">16</span>) 
+
+<span class="hljs-comment">// 2. 将秘钥转换成 Utf8 字节数组</span>
+<span class="hljs-keyword">let</span> key = <span class="hljs-title class_">CryptoJS</span>.<span class="hljs-property">enc</span>.<span class="hljs-property">Utf8</span>.<span class="hljs-title function_">parse</span>(keys);
+
+<span class="hljs-comment">// 3. 使用 AES 加密 (模式为 ECB，填充方式为 Pkcs7)</span>
+<span class="hljs-keyword">var</span> user = <span class="hljs-title class_">CryptoJS</span>.<span class="hljs-property">AES</span>.<span class="hljs-title function_">encrypt</span>(_this.<span class="hljs-property">loginInfo</span>.<span class="hljs-property">userName</span>, key, &#123; 
+    <span class="hljs-attr">mode</span>: <span class="hljs-title class_">CryptoJS</span>.<span class="hljs-property">mode</span>.<span class="hljs-property">ECB</span>, 
+    <span class="hljs-attr">padding</span>: <span class="hljs-title class_">CryptoJS</span>.<span class="hljs-property">pad</span>.<span class="hljs-property">Pkcs7</span> 
+&#125;);
+<span class="hljs-keyword">var</span> psw = <span class="hljs-title class_">CryptoJS</span>.<span class="hljs-property">AES</span>.<span class="hljs-title function_">encrypt</span>(_this.<span class="hljs-property">loginInfo</span>.<span class="hljs-property">password</span>, key, &#123; 
+    <span class="hljs-attr">mode</span>: <span class="hljs-title class_">CryptoJS</span>.<span class="hljs-property">mode</span>.<span class="hljs-property">ECB</span>, 
+    <span class="hljs-attr">padding</span>: <span class="hljs-title class_">CryptoJS</span>.<span class="hljs-property">pad</span>.<span class="hljs-property">Pkcs7</span>  
+&#125;);</code></pre>
+
+<pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;token&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;4YLkaH6IhIYlgSaK&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;code&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;13007&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">3</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;username&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;OkKXdpV+Hy4s50G7nG6CbQ==&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;password&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;tOSVe6wXErdvDE/Px0Tijg==&quot;</span><span class="hljs-punctuation">&#125;</span></code></pre>
+
+<p>我们铭文输入的用户名和密码，会被进行AES加密后再base64一次，AES加密的key是前端随机生成的16位key，这个key也会在POST请求体里面，那么后端接受到之后base64解码后用这个传入的key进行AES解密，如果没有正确解密，比如key传错了，就会返回用户名或密码不能为空，正确传入但是用户名或密码不对就会返回用户名或者密码错误，加解密逻辑如图：<br><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/edusrc/2026-04-25/1.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
+
+<p>生成的字典内容再加密一次，得到直接贴入burp的字典，以下是脚本：</p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> base64
+<span class="hljs-keyword">from</span> Crypto.Cipher <span class="hljs-keyword">import</span> AES
+<span class="hljs-keyword">from</span> Crypto.Util.Padding <span class="hljs-keyword">import</span> pad
+<span class="hljs-keyword">import</span> sys
+sys.stdout.reconfigure(encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>)
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">aes_ecb_base64_encrypt</span>(<span class="hljs-params">text, key_str</span>):
+    <span class="hljs-comment"># 1. 准备 Key</span>
+    key = key_str.encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)
+    
+    <span class="hljs-comment"># 2. 初始化 AES ECB 模式</span>
+    <span class="hljs-comment"># ECB 模式不需要 IV (初始化向量)</span>
+    cipher = AES.new(key, AES.MODE_ECB)
+    
+    <span class="hljs-comment"># 3. 对明文进行填充 (AES 要求输入必须是 16 字节的倍数，使用 PKCS7)</span>
+    padded_data = pad(text.encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>), AES.block_size)
+    
+    <span class="hljs-comment"># 4. 执行 AES 加密</span>
+    encrypted_data = cipher.encrypt(padded_data)
+    
+    <span class="hljs-comment"># 5. 执行 Base64 编码</span>
+    base64_encoded = base64.b64encode(encrypted_data).decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)
+    
+    <span class="hljs-keyword">return</span> base64_encoded
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">process_dictionary</span>(<span class="hljs-params">input_file, output_file, key</span>):
+    <span class="hljs-keyword">try</span>:
+        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(input_file, <span class="hljs-string">&#x27;r&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f_in, \
+             <span class="hljs-built_in">open</span>(output_file, <span class="hljs-string">&#x27;w&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f_out:
+            
+            <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> f_in:
+                <span class="hljs-comment"># 移除行尾换行符</span>
+                word = line.strip()
+                <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> word:
+                    <span class="hljs-keyword">continue</span>
+                
+                <span class="hljs-comment"># 加密</span>
+                encrypted_word = aes_ecb_base64_encrypt(word, key)
+                
+                <span class="hljs-comment"># 写入新字典，一行一个</span>
+                f_out.write(encrypted_word + <span class="hljs-string">&#x27;\n&#x27;</span>)
+                
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;加密完成！结果已保存至: <span class="hljs-subst">&#123;output_file&#125;</span>&quot;</span>)
+    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;处理出错: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)
+
+<span class="hljs-comment"># --- 参数配置 ---</span>
+<span class="hljs-comment"># 请将下方的 Key 替换</span>
+MY_KEY = <span class="hljs-string">&quot;4YLkaH6IhIYlgSaK&quot;</span> 
+INPUT_DIC = <span class="hljs-string">&quot;dict.txt&quot;</span>   <span class="hljs-comment"># 原始字典文件</span>
+OUTPUT_DIC = <span class="hljs-string">&quot;output.txt&quot;</span> <span class="hljs-comment"># 加密后的输出文件</span>
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    process_dictionary(INPUT_DIC, OUTPUT_DIC, MY_KEY)</code></pre>
+
+<p>虽然最后没爆出来，可能是字典范围给小了，也可能是单招录取通知发了但是学好还没分配，也可能这系统还没开放啥的，等后面再搞吧，今天就这样，也学习了点社工思路，全程都是纯手打，没有用到任何社工库</p>
 
 	</div>
 
@@ -668,7 +766,7 @@
 	
 		<div class="post-tags">
 			<i class="fa fa-tags" aria-hidden="true"></i>
-			<a class="tag badge badge-secondary post-meta-detail-tag -none-link" href="/tags/CTF/" rel="tag">CTF</a><a class="tag badge badge-secondary post-meta-detail-tag -none-link" href="/tags/PHP/" rel="tag">PHP</a><a class="tag badge badge-secondary post-meta-detail-tag -none-link" href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" rel="tag">代码审计</a>
+			<a class="tag badge badge-secondary post-meta-detail-tag -none-link" href="/tags/edusrc/" rel="tag">edusrc</a><a class="tag badge badge-secondary post-meta-detail-tag -none-link" href="/tags/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" rel="tag">信息收集</a><a class="tag badge badge-secondary post-meta-detail-tag -none-link" href="/tags/%E6%B8%97%E9%80%8F/" rel="tag">渗透</a>
 		</div>
 	
 </article>
@@ -710,7 +808,7 @@
 				<span class="btn-inner--icon"><i class="fa fa-twitter"></i></span>
 			</button>
 		</a>
-		<a target="_blank" class="no-pjax icon-telegram" href="https://telegram.me/share/url?url=http://wo1fyr.github.io/2026/04/23/NSSCTF_28/&text=NSSRound#28 Team" tooltip="分享到 Telegram">
+		<a target="_blank" class="no-pjax icon-telegram" href="https://telegram.me/share/url?url=http://wo1fyr.github.io/2026/04/25/edusrc/&text=记录EDUsrc的学习经历" tooltip="分享到 Telegram">
 			<button class="btn btn-icon btn-primary" style="background: #42a5f5;border: none;">
 				<span class="btn-inner--icon"><i class="fa fa-telegram"></i></span>
 			</button>
@@ -727,13 +825,13 @@
 </div>
 <script type="text/javascript">
 	socialShare("#share", {
-	    title : 'NSSRound#28 Team',
-	    description : `ez_php进来就是几个绕过执行文件包含到level2.php
+	    title : '记录EDUsrc的学习经历',
+	    description : `2026-04-25社工信息收集我去翻某个学校的公众号看了下，有一些公示的信息，比如：
 
-传入POST变量a，b，GET变量...`,
+奖学金名单...`,
 	    wechatQrcodeTitle : "分享到微信",
 	    wechatQrcodeHelper : '微信扫描二维码',
-	    source : 'http://wo1fyr.github.io/2026/04/23/NSSCTF_28/'
+	    source : 'http://wo1fyr.github.io/2026/04/25/edusrc/'
 	});
 	$("#share_show")[0].onclick = function(){
 		$("#share_container").addClass("opened");
@@ -782,7 +880,7 @@
 
 
 
-<div class="post-navigation card shadow-sm"><div class="post-navigation-item post-navigation-pre"><span class="page-navigation-extra-text"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>上一篇</span><a href="/2026/04/23/rc4%E5%8A%A0%E5%AF%86%E8%84%9A%E6%9C%AC/" rel="prev"> 收集的一些脚本</a></div><div class="post-navigation-item post-navigation-next"><span class="page-navigation-extra-text">下一篇 <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></span><a href="/2026/04/23/NSSCTF/" rel="next"> 记录在NSSCTF刷题的过程，康复训练了属于是。。。</a></div></div>
+<div class="post-navigation card shadow-sm"><div class="post-navigation-item post-navigation-pre"></div><div class="post-navigation-item post-navigation-next"><span class="page-navigation-extra-text">下一篇 <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></span><a href="/2026/04/24/%E6%B8%97%E9%80%8F%E7%BB%8F%E5%8E%86/" rel="next"> 记录一点渗透学习经历(持续更新)</a></div></div>
 
 
 
